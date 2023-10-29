@@ -1,0 +1,48 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.2.0
+  TargetRailsVersion: 7.0
+  UseCache: true
+Rails:
+  Enabled: true
+Style/Documentation:
+  Enabled: false
+Metrics/ClassLength:
+  CountComments: false
+  Max: 500
+  CountAsOne: [array, heredoc]
+Metrics/MethodLength:
+  CountComments: false
+  CountAsOne: [array, heredoc]
+  Max: 50
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - Rakefile
+    - '**/*.rake'
+    - config/environments/*.rb
+    - config/initializers/*.rb
+    - config/routes.rb
+Layout/LineLength:
+  Exclude:
+    - config/environments/*.rb
+    - config/initializers/*.rb
+Metrics/CyclomaticComplexity:
+  Max: 36
+Metrics/PerceivedComplexity:
+  Max: 16
+Naming/VariableNumber:
+  Enabled: false
+Rails/FilePath:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/MixinGrouping:
+  Enabled: false
+Rails/InverseOf:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Prompt < ApplicationRecord
   include AccountScoped
 

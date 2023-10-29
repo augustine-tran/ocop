@@ -1,0 +1,46 @@
+{
+  "[erb]": {
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+  },
+  "[postcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ruby]": {
+    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.semanticHighlighting.enabled": true
+  },
+  "files.associations": {
+    "*.css": "postcss",
+    "*.erb": "erb"
+  },
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "tailwindCSS.includeLanguages": {
+    "erb": "html"
+  },
+  "emeraldwalk.runonsave": {
+    "commands": [
+      {
+        "match": "\\.erb$",
+        "cmd": "bundle exec erblint -a ${file}"
+      }
+    ]
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "emmet.includeLanguages": {
+    "erb": "html",
+    "ruby": "html"
+  },
+  "vscode-erb-beautify.customEnvVar": {
+    "LC_ALL": "en_US.UTF-8"
+  },
+  "rubyLsp.rubyVersionManager": "rbenv",
+  "rubyLsp.formatter": "rubocop"
+}

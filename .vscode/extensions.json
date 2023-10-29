@@ -1,0 +1,23 @@
+{
+  "recommendations": [
+    "aki77.rails-db-schema",
+    "jemmyw.rails-fast-nav",
+    "aki77.rails-partial",
+    "aki77.rails-routes",
+    "shopify.ruby-lsp",
+    "emeraldwalk.runonsave",
+    "bradlc.vscode-tailwindcss",
+    "wayou.vscode-todo-highlight",
+    "shardulm94.trailing-spaces",
+    "bung87.vscode-gemfile",
+    "esbenp.prettier-vscode",
+    "christian-kohler.path-intellisense",
+    "vincaslt.highlight-matching-tag",
+    "aliariff.vscode-erb-beautify",
+    "kaiwood.endwise",
+    "aaron-bond.better-comments",
+    "manuelpuyol.erb-linter",
+    "cjay.ruby-and-rails-snippets",
+    "shopify.ruby-extensions-pack"
+  ]
+}
