@@ -1,0 +1,4 @@
+en:
+  password_reset_instruction: Check your email for reset instructions
+  verify_email_to_reset_password: You can't reset your password until you verify your email
+  your_password_changed: Your password has been changed

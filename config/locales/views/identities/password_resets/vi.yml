@@ -1,0 +1,5 @@
+en:
+  password_reset_instruction: Kiểm tra email để nhận hướng nhận thay đổi mật khẩu
+  verify_email_to_reset_password: Bạn phải xác thực email trước khi thay đổi mật khẩu
+  your_password_changed: Mật khẩu đã được thay đổi
+  invalid_link_reset_password: Link thay đổi mật khẩu không hợp lệ hoặc đã quá hạn sử dụng

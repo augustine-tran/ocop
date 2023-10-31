@@ -6,5 +6,9 @@ class Prompt < ApplicationRecord
   belongs_to :account
   has_rich_text :description
 
+  has_one_attached :prompt_image do |attachable|
+    attachable.variant :thumb, resize_to_limit: [100, 100]
+  end
+
   validates :title, :prompt_image, presence: true
 end

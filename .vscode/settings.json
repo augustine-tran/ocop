@@ -42,5 +42,6 @@
     "LC_ALL": "en_US.UTF-8"
   },
   "rubyLsp.rubyVersionManager": "rbenv",
-  "rubyLsp.formatter": "rubocop"
+  "rubyLsp.formatter": "rubocop",
+  "railsI18n.localeFilePattern": "config/locales/**/*.yml"
 }
