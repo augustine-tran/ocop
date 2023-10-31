@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class Tombstone < ApplicationRecord
   include Personable
   include AccountsSharingIdentity
 end

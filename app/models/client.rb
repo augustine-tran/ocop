@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class Client < ApplicationRecord
   include Personable
   include AccountsSharingIdentity
 end

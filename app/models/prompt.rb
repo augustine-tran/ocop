@@ -3,7 +3,6 @@
 class Prompt < ApplicationRecord
   include AccountScoped
 
-  belongs_to :account
   has_rich_text :description
 
   has_one_attached :prompt_image do |attachable|
