@@ -24,6 +24,6 @@ class Identity::EmailVerificationsController < ApplicationController
   end
 
   def send_email_verification
-    UserMailer.with(user: Current.user).email_verification.deliver_later
+    UserMailer.with(user: Current.identity).email_verification.deliver_later
   end
 end

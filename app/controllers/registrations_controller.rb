@@ -4,14 +4,14 @@ class RegistrationsController < ApplicationController
   skip_before_action :authenticate
 
   def new
-    @user = User.new
+    @identity = Identity.new
   end
 
   def create
-    @user = User.new(user_params)
+    @identity = Identity.new(identity_params)
 
-    if @user.save
-      session_record = @user.sessions.create!
+    if @identity.save
+      session_record = @identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
 
       send_email_verification
@@ -23,8 +23,8 @@ class RegistrationsController < ApplicationController
 
   private
 
-  def user_params
-    params.permit(:email, :password, :password_confirmation)
+  def identity_params
+    params.permit(:name, :email, :password, :password_confirmation)
   end
 
   def send_email_verification

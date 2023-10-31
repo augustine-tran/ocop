@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Person < ApplicationRecord
-  include AccountScoped
+  belongs_to :account
 
   delegated_type :personable, types: Personable::TYPES
 

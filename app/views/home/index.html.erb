@@ -1,5 +1,5 @@
 <p style="color: green"><%= notice %></p>
-<p>Signed as <%= Current.user.email %></p>
+<p>Signed as <%= Current.identity.email %></p>
 <h2>Login and verification</h2>
 <div>
   <%= link_to t('change_password'), edit_password_path %>

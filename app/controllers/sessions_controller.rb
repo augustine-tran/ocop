@@ -6,14 +6,14 @@ class SessionsController < ApplicationController
   before_action :set_session, only: :destroy
 
   def index
-    @sessions = Current.user.sessions.order(created_at: :desc)
+    @sessions = Current.identity.sessions.order(created_at: :desc)
   end
 
   def new; end
 
   def create
-    if (user = User.authenticate_by(email: params[:email], password: params[:password]))
-      @session = user.sessions.create!
+    if (identity = Identity.authenticate_by(email: params[:email], password: params[:password]))
+      @session = identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 
       redirect_to root_path, notice: 'Signed in successfully'
@@ -30,6 +30,6 @@ class SessionsController < ApplicationController
   private
 
   def set_session
-    @session = Current.user.sessions.find(params[:id])
+    @session = Current.identity.sessions.find(params[:id])
   end
 end

@@ -76,10 +76,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.boolean "verified", default: false, null: false
-    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_identities_on_account_id"
     t.index ["email"], name: "index_identities_on_email", unique: true
   end
 
@@ -112,12 +110,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.integer "person_id", null: false
+    t.integer "identity_id", null: false
     t.string "user_agent"
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_sessions_on_person_id"
+    t.index ["identity_id"], name: "index_sessions_on_identity_id"
   end
 
   create_table "tombstones", force: :cascade do |t|
@@ -142,12 +140,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
-  add_foreign_key "identities", "accounts"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
   add_foreign_key "prompts", "accounts"
-  add_foreign_key "sessions", "people"
+  add_foreign_key "sessions", "identities"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"

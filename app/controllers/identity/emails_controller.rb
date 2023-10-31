@@ -16,7 +16,7 @@ class Identity::EmailsController < ApplicationController
   private
 
   def set_user
-    @user = Current.user
+    @user = Current.identity
   end
 
   def user_params

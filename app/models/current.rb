@@ -6,10 +6,5 @@ class Current < ActiveSupport::CurrentAttributes
 
   attribute :account
 
-  delegate :person, to: :session, allow_nil: true
-
-  def session=(session)
-    super
-    self.account = session.person.account
-  end
+  delegate :identity, to: :session, allow_nil: true
 end

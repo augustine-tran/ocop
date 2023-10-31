@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class PasswordsController < ApplicationController
-  before_action :set_user
+  before_action :set_identity
 
   def edit; end
 
   def update
-    if @user.update(user_params)
+    if @identity.update(user_params)
       redirect_to root_path, notice: t('your_password_changed')
     else
       render :edit, status: :unprocessable_entity
@@ -15,8 +15,8 @@ class PasswordsController < ApplicationController
 
   private
 
-  def set_user
-    @user = Current.user
+  def set_identity
+    @identity = Current.identity
   end
 
   def user_params

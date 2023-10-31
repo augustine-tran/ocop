@@ -14,8 +14,6 @@ class CreateAccountsAndPeople < ActiveRecord::Migration[7.1]
 
       t.boolean :verified, null: false, default: false
 
-      t.references :account, null: false, foreign_key: true
-
       t.timestamps
     end
 
