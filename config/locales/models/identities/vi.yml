@@ -1,0 +1,20 @@
+vi:
+  activerecord:
+    models:
+      identity:
+    attributes:
+      identity:
+        password_confirmation: Mật khẩu xác nhận
+    errors:
+      models:
+        identity:
+          attributes:
+            email:
+              blank: "không được để trống"
+              taken: "đã được sử dụng"
+              invalid: "không hợp lệ"
+            password:
+              blank: "không được để trống"
+              confirmation: "xác nhận mật khẩu không khớp"
+            password_confirmation:
+              blank: "không được để trống"

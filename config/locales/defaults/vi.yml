@@ -1,0 +1,230 @@
+---
+vi:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'Có các lỗi sau:'
+        restrict_dependent_destroy:
+          has_one: Không thể xóa do tồn tại đối tượng phụ thuộc %{record}
+          has_many: Không thể xóa do tồn tại một số đối tượng phụ thuộc %{record}
+  date:
+    abbr_day_names:
+      - CN
+      - Thứ 2
+      - Thứ 3
+      - Thứ 4
+      - Thứ 5
+      - Thứ 6
+      - Thứ 7
+    abbr_month_names:
+      -
+      - Thg 1
+      - Thg 2
+      - Thg 3
+      - Thg 4
+      - Thg 5
+      - Thg 6
+      - Thg 7
+      - Thg 8
+      - Thg 9
+      - Thg 10
+      - Thg 11
+      - Thg 12
+    day_names:
+      - Chủ nhật
+      - Thứ hai
+      - Thứ ba
+      - Thứ tư
+      - Thứ năm
+      - Thứ sáu
+      - Thứ bảy
+    formats:
+      default: '%d/%m/%Y'
+      long: '%d %B, %Y'
+      long_with_day: '%a, %d %b, %Y'
+      short: '%d %b'
+      day_date_month: '%a ngày %d/%m'
+      date_month: '%d/%m'
+    month_names:
+      -
+      - Tháng một
+      - Tháng hai
+      - Tháng ba
+      - Tháng tư
+      - Tháng năm
+      - Tháng sáu
+      - Tháng bảy
+      - Tháng tám
+      - Tháng chín
+      - Tháng mười
+      - Tháng mười một
+      - Tháng mười hai
+    order:
+      - :day
+      - :month
+      - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: khoảng 1 giờ
+        other: khoảng %{count} giờ
+      about_x_months:
+        one: khoảng 1 tháng
+        other: khoảng %{count} tháng
+      about_x_years:
+        one: khoảng 1 năm
+        other: khoảng %{count} năm
+      almost_x_years:
+        one: gần 1 năm
+        other: gần %{count} năm
+      half_a_minute: 30 giây
+      less_than_x_seconds:
+        one: chưa tới 1 giây
+        other: chưa tới %{count} giây
+      less_than_x_minutes:
+        one: chưa tới 1 phút
+        other: chưa tới %{count} phút
+      over_x_years:
+        one: hơn 1 năm
+        other: hơn %{count} năm
+      x_seconds:
+        one: 1 giây
+        other: '%{count} giây'
+      x_minutes:
+        one: 1 phút
+        other: '%{count} phút'
+      x_days:
+        one: 1 ngày
+        other: '%{count} ngày'
+      x_months:
+        one: 1 tháng
+        other: '%{count} tháng'
+    prompts:
+      second: Giây
+      minute: Phút
+      hour: Giờ
+      day: Ngày
+      month: Tháng
+      year: Năm
+  errors:
+    format: '%{attribute} %{message}'
+    messages:
+      accepted: phải được đồng ý
+      blank: 'Vui lòng điền %{attribute}'
+      confirmation: không khớp với xác nhận
+      empty: không thể rỗng
+      equal_to: phải bằng %{count}
+      even: phải là số chẵn
+      exclusion: đã được giành trước
+      greater_than: phải lớn hơn %{count}
+      greater_than_or_equal_to: phải lớn hơn hoặc bằng %{count}
+      inclusion: không có trong danh sách
+      invalid: '%{attribute} không hợp lệ'
+      less_than: phải nhỏ hơn %{count}
+      less_than_or_equal_to: phải nhỏ hơn hoặc bằng %{count}
+      not_a_number: không phải là số
+      not_an_integer: phải là một số nguyên
+      odd: phải là số lẻ
+      other_than: cần phải khác %{count}
+      present: cần phải để trắng
+      taken: '%{attribute} không hợp lệ'
+      too_long: quá dài (tối đa %{count} ký tự)
+      too_short: quá ngắn (tối thiểu %{count} ký tự)
+      wrong_length: độ dài không đúng (phải là %{count} ký tự)
+      required: 'phải có'
+    template:
+      body: 'Có lỗi với các mục sau:'
+      header:
+        one: 1 lỗi ngăn không cho lưu %{model} này
+        other: '%{count} lỗi ngăn không cho lưu %{model} này'
+  helpers:
+    select:
+      prompt: Vui lòng chọn
+    submit:
+      create: Tạo %{model}
+      submit: Lưu %{model}
+      update: Cập nhật %{model}
+  number:
+    currency:
+      format:
+        delimiter: '.'
+        format: '%n %u'
+        precision: 0
+        separator: ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: VNĐ
+    format:
+      delimiter: '.'
+      precision: 3
+      separator: ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          billion: Tỷ
+          million: Triệu
+          quadrillion: Triệu tỷ
+          thousand: Nghìn
+          trillion: Nghìn tỷ
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Byte
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: '%n%'
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ', và '
+      two_words_connector: ' và '
+      words_connector: ', '
+  time:
+    am: sáng
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%d %B, %Y %H:%M'
+      comprehensive_long: '%a, %d %B, %Y vào lúc %H:%M'
+      short: '%d %b %H:%M'
+      time_and_date: '%H:%M ngày %d/%m'
+      time_only: '%H:%M'
+    pm: chiều
+  active_storage_validator:
+    content_type_invalid: 'has an invalid content type'
+    file_size_out_of_range: 'size %{file_size} is not between required range'
+    limit_out_of_range: 'total number is out of range'
+    image_metadata_missing: 'is not a valid image'
+    dimension_min_inclusion: 'must be greater than or equal to %{width} x %{height} pixel.'
+    dimension_max_inclusion: 'must be less than or equal to %{width} x %{height} pixel.'
+    dimension_width_inclusion: 'width is not included between %{min} and %{max} pixel.'
+    dimension_height_inclusion: 'height is not included between %{min} and %{max} pixel.'
+    dimension_width_greater_than_or_equal_to: 'width must be greater than or equal to %{length} pixel.'
+    dimension_height_greater_than_or_equal_to: 'height must be greater than or equal to %{length} pixel.'
+    dimension_width_less_than_or_equal_to: 'width must be less than or equal to %{length} pixel.'
+    dimension_height_less_than_or_equal_to: 'height must be less than or equal to %{length} pixel.'
+    dimension_width_equal_to: 'width must be equal to %{length} pixel.'
+    dimension_height_equal_to: 'height must be equal to %{length} pixel.'
+    aspect_ratio_not_square: 'must be a square image'
+    aspect_ratio_not_portrait: 'must be a portrait image'
+    aspect_ratio_not_landscape: 'must be a landscape image'
+    aspect_ratio_is_not: 'must have an aspect ratio of %{aspect_ratio}'
+    aspect_ratio_unknown: 'has an unknown aspect ratio'
+    image_not_processable: 'is not a valid image'

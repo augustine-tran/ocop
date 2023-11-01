@@ -1,0 +1,8 @@
+vi:
+  registrations:
+    new:
+      prohibited_this_user_from_being_saved: 'đã ngăn không cho lưu người dùng này'
+      sign_up: 'Đăng ký tài khoản mới'
+      email_address: 'Địa chỉ email'
+      password: 'Mật khẩu'
+      password_confirmation: 'Xác nhận mật khẩu'
