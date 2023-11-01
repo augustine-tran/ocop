@@ -16,15 +16,15 @@ class SessionsController < ApplicationController
       @session = identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 
-      redirect_to root_path, notice: 'Signed in successfully'
+      redirect_to root_path, notice: t('.signed_in_successfully')
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: 'That email or password is incorrect'
+      redirect_to sign_in_path(email_hint: params[:email]), alert: t('.that_email_or_password_is_incorrect')
     end
   end
 
   def destroy
     @session.destroy
-    redirect_to(sessions_path, notice: 'That session has been logged out')
+    redirect_to(sessions_path, notice: t('.that_session_has_been_logged_out'))
   end
 
   private
