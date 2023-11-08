@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_07_074929) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -55,6 +55,30 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "phone"
+    t.string "email"
+    t.string "address"
+    t.integer "ward_id"
+    t.integer "district_id"
+    t.integer "province_id"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["district_id"], name: "index_addresses_on_district_id"
+    t.index ["province_id"], name: "index_addresses_on_province_id"
+    t.index ["ward_id"], name: "index_addresses_on_ward_id"
+  end
+
+  create_table "administrative_units", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.string "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "administratorships", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "person_id", null: false
@@ -69,6 +93,42 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_clients_on_identity_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "registration_no"
+    t.date "registration_date"
+    t.string "legal_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_details", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.boolean "title_changed", default: false, null: false
+    t.boolean "description_changed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_details_on_event_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "recording_id", null: false
+    t.string "recordable_type", null: false
+    t.integer "recordable_id", null: false
+    t.string "recordable_previous_type"
+    t.integer "recordable_previous_id"
+    t.integer "creator_id", null: false
+    t.string "action", null: false
+    t.string "status_was"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_events_on_creator_id"
+    t.index ["recordable_previous_type", "recordable_previous_id"], name: "index_events_on_recordable_previous"
+    t.index ["recordable_type", "recordable_id"], name: "index_events_on_recordable"
+    t.index ["recording_id"], name: "index_events_on_recording_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -109,6 +169,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
     t.index ["account_id"], name: "index_prompts_on_account_id"
   end
 
+  create_table "recordings", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "creator_id", null: false
+    t.integer "parent_id"
+    t.string "recordable_type", null: false
+    t.integer "recordable_id", null: false
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_recordings_on_account_id"
+    t.index ["creator_id"], name: "index_recordings_on_creator_id"
+    t.index ["parent_id"], name: "index_recordings_on_parent_id"
+    t.index ["recordable_type", "recordable_id"], name: "index_recordings_on_recordable"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "identity_id", null: false
     t.string "user_agent"
@@ -137,13 +212,22 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_031755) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "districts"
+  add_foreign_key "addresses", "provinces"
+  add_foreign_key "addresses", "wards"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
+  add_foreign_key "event_details", "events"
+  add_foreign_key "events", "people", column: "creator_id"
+  add_foreign_key "events", "recordings"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
   add_foreign_key "prompts", "accounts"
+  add_foreign_key "recordings", "accounts"
+  add_foreign_key "recordings", "people", column: "creator_id"
+  add_foreign_key "recordings", "recordings", column: "parent_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"

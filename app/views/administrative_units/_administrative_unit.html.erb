@@ -1,0 +1,22 @@
+<div id="<%= dom_id administrative_unit %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= administrative_unit.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Code:</strong>
+    <%= administrative_unit.code %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Level:</strong>
+    <%= administrative_unit.level %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this administrative unit", administrative_unit, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this administrative unit", edit_administrative_unit_path(administrative_unit), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>

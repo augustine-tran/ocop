@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :administrative_units
+  resources :companies
   resources :prompts
   get  'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'

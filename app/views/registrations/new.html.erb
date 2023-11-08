@@ -24,6 +24,12 @@
               </div>
             <% end %>
             <div>
+              <%= form.label :name, t('.name'), class: "sr-only" %>
+              <%= form.text_field :name, value: @identity.name, required: true, autofocus: true, autocomplete: "name",
+                                         class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
+                                         placeholder: t('.name') %>
+            </div>
+            <div>
               <%= form.label :email, t('.email_address'), class: "sr-only" %>
               <%= form.email_field :email, value: @identity.email, required: true, autofocus: true, autocomplete: "email",
                                            class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
