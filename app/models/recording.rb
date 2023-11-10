@@ -2,7 +2,7 @@
 
 class Recording < ApplicationRecord
   include Tree, Status
-  include Commentable, Addressable, Recordables
+  include Employment, Commentable, Addressable, Recordables
   include Eventable
 
   belongs_to :account

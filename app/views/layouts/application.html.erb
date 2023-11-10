@@ -314,6 +314,34 @@
         </div>
         <main class="py-10">
           <div class="px-4 sm:px-6 lg:px-8">
+            <%= tag.div data: {
+                  controller: 'hello'
+                } do %>
+            <% end %>
+            <%= tag.div data: {
+                  controller: 'tippy',
+                  tippy_config_value: {
+                    arrow: false,
+                    placement: 'bottom',
+                    interactive: true,
+                    theme: 'light',
+                    trigger: 'mouseenter focus click',
+                    maxWidth: nil
+                  }
+                } do %>
+              <%= button_tag type: 'button', class: 'rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium',
+                             data: { tippy_target: 'trigger', navbar_target: 'manage' } do %>
+                Tippy JS
+              <% end %>
+              <div class="hidden" data-tippy-target="content">
+                <div class="w-52 p-2 space-y-1">
+                  <p>menu 1</p>
+                  <p>menu 2</p>
+                  <p>menu 3</p>
+                  <p>menu 4</p>
+                </div>
+              </div>
+            <% end %>
             <!-- Your content -->
             <%= yield %>
           </div>

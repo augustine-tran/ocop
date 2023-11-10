@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_07_074929) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -103,6 +103,17 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_074929) do
     t.string "legal_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "position"
+    t.string "job_title"
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manager_id"], name: "index_employees_on_manager_id"
   end
 
   create_table "event_details", force: :cascade do |t|
@@ -218,6 +229,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_07_074929) do
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
+  add_foreign_key "employees", "recordings", column: "manager_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"

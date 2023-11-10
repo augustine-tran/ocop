@@ -3,7 +3,7 @@
 module Recordable
   extend ActiveSupport::Concern
 
-  TYPES = %w[Company Address].freeze
+  TYPES = %w[Company Address Employee].freeze
 
   included do
     has_one :recording, as: :recordable, touch: true, dependent: :destroy

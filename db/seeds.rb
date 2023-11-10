@@ -52,5 +52,8 @@ companies_params = [
 ]
 
 companies_params.each do |company_param|
-  Current.account.record Company.new(company_param), status: Recording.statuses[:active]
+  company = Current.account.record Company.new(company_param), status: Recording.statuses[:active]
+  ceo = Current.account.record Employee.new(title: 'Big Boss'), parent: company, status: Recording.statuses[:active]
+  Current.account.record Employee.new(title: 'Employee 01', manager: ceo), parent: company,
+                                                                           status: Recording.statuses[:active]
 end
