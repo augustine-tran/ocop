@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :criteria
+  resources :submissions
+  resources :products
   resources :administrative_units
   resources :companies
   resources :prompts

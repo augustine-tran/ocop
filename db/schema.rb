@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -105,6 +105,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "criteria", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.integer "parent_id"
+    t.integer "year", default: 2024, null: false
+    t.integer "level"
+    t.integer "score"
+    t.boolean "leaf", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_criteria_on_parent_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "title"
     t.string "description"
@@ -171,6 +184,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
     t.index ["personable_type", "personable_id"], name: "index_people_on_personable"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prompts", force: :cascade do |t|
     t.string "title"
     t.binary "prompt_image"
@@ -204,6 +223,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
     t.index ["identity_id"], name: "index_sessions_on_identity_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.string "title"
+    t.string "submission_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tombstones", force: :cascade do |t|
     t.integer "user_id"
     t.integer "client_id"
@@ -229,6 +255,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_09_052214) do
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
+  add_foreign_key "criteria", "criteria", column: "parent_id"
   add_foreign_key "employees", "recordings", column: "manager_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"

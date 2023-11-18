@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+require 'csv'
 
 account = Account.create! name: 'Huyện Châu Đức'
 
@@ -56,4 +57,26 @@ companies_params.each do |company_param|
   ceo = Current.account.record Employee.new(title: 'Big Boss'), parent: company, status: Recording.statuses[:active]
   Current.account.record Employee.new(title: 'Employee 01', manager: ceo), parent: company,
                                                                            status: Recording.statuses[:active]
+end
+
+csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
+csv = CSV.parse(csv_text, headers: true, col_sep: ';')
+
+last_levels = {
+  -1 => nil,
+  0 => nil,
+  1 => nil,
+  2 => nil
+}
+
+csv.each do |row|
+  params = row.to_hash
+
+  puts params
+
+  item = Criterium.new(params)
+  item.parent = last_levels[item.level - 1]
+  item.save
+
+  last_levels[item.level] = item
 end
