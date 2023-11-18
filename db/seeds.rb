@@ -72,7 +72,7 @@ last_levels = {
 csv.each do |row|
   params = row.to_hash
 
-  puts params
+  Rails.logger.debug params
 
   item = Criterium.new(params)
   item.parent = last_levels[item.level - 1]

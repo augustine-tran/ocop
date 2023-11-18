@@ -249,9 +249,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "addresses", "districts"
-  add_foreign_key "addresses", "provinces"
-  add_foreign_key "addresses", "wards"
+  add_foreign_key "addresses", "administrative_units", column: "district_id"
+  add_foreign_key "addresses", "administrative_units", column: "province_id"
+  add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"

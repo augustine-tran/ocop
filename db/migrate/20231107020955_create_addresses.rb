@@ -7,9 +7,9 @@ class CreateAddresses < ActiveRecord::Migration[7.1]
       t.string :phone
       t.string :email
       t.string :address
-      t.references :ward, foreign_key: true
-      t.references :district, foreign_key: true
-      t.references :province, foreign_key: true
+      t.references :ward, foreign_key: { to_table: :administrative_units }
+      t.references :district, foreign_key: { to_table: :administrative_units }
+      t.references :province, foreign_key: { to_table: :administrative_units }
       t.string :note
 
       t.timestamps
