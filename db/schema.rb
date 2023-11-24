@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_22_115549) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -56,16 +56,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "name", null: false
     t.string "phone"
     t.string "email"
     t.string "address"
+    t.string "addressable_type", null: false
+    t.integer "addressable_id", null: false
     t.integer "ward_id"
     t.integer "district_id"
     t.integer "province_id"
     t.string "note"
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_addresses_on_account_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable"
     t.index ["district_id"], name: "index_addresses_on_district_id"
     t.index ["province_id"], name: "index_addresses_on_province_id"
     t.index ["ward_id"], name: "index_addresses_on_ward_id"
@@ -96,36 +101,48 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
     t.string "description"
     t.string "registration_no"
     t.date "registration_date"
     t.string "legal_type"
+    t.string "status", default: "active", null: false
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_companies_on_account_id"
   end
 
   create_table "criteria", force: :cascade do |t|
     t.string "title"
     t.string "description"
+    t.string "product_group", default: "group1", null: false
     t.integer "parent_id"
     t.integer "year", default: 2024, null: false
     t.integer "level"
     t.integer "score"
     t.boolean "leaf", default: false, null: false
+    t.integer "account_id", null: false
+    t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_criteria_on_account_id"
     t.index ["parent_id"], name: "index_criteria_on_parent_id"
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
     t.string "description"
     t.string "position"
     t.string "job_title"
     t.integer "manager_id"
+    t.string "status", default: "active", null: false
+    t.integer "company_id", null: false
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_employees_on_account_id"
+    t.index ["company_id"], name: "index_employees_on_company_id"
     t.index ["manager_id"], name: "index_employees_on_manager_id"
   end
 
@@ -185,9 +202,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "title"
+    t.string "name"
+    t.string "status", default: "active", null: false
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_products_on_account_id"
   end
 
   create_table "prompts", force: :cascade do |t|
@@ -214,6 +234,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
     t.index ["recordable_type", "recordable_id"], name: "index_recordings_on_recordable"
   end
 
+  create_table "scores", force: :cascade do |t|
+    t.string "scorable_type", null: false
+    t.integer "scorable_id", null: false
+    t.integer "criterium_id", null: false
+    t.integer "score"
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_scores_on_account_id"
+    t.index ["criterium_id"], name: "index_scores_on_criterium_id"
+    t.index ["scorable_type", "scorable_id"], name: "index_scores_on_scorable"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "identity_id", null: false
     t.string "user_agent"
@@ -226,8 +259,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   create_table "submissions", force: :cascade do |t|
     t.string "title"
     t.string "submission_type"
+    t.string "product_group", default: "group1", null: false
+    t.integer "product_id"
+    t.integer "account_id", null: false
+    t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_submissions_on_account_id"
+    t.index ["product_id"], name: "index_submissions_on_product_id"
   end
 
   create_table "tombstones", force: :cascade do |t|
@@ -249,13 +288,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "accounts"
   add_foreign_key "addresses", "administrative_units", column: "district_id"
   add_foreign_key "addresses", "administrative_units", column: "province_id"
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
+  add_foreign_key "companies", "accounts"
+  add_foreign_key "criteria", "accounts"
   add_foreign_key "criteria", "criteria", column: "parent_id"
+  add_foreign_key "employees", "accounts"
+  add_foreign_key "employees", "companies"
   add_foreign_key "employees", "recordings", column: "manager_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
@@ -263,11 +307,16 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_11_094028) do
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
+  add_foreign_key "products", "accounts"
   add_foreign_key "prompts", "accounts"
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"
   add_foreign_key "recordings", "recordings", column: "parent_id"
+  add_foreign_key "scores", "accounts"
+  add_foreign_key "scores", "criteria"
   add_foreign_key "sessions", "identities"
+  add_foreign_key "submissions", "accounts"
+  add_foreign_key "submissions", "products"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"

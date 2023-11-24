@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  include Recordable
+  include Addressable, AccountScoped, Status
 
   enum legal_type: {
     pc: 'pc',
@@ -9,4 +9,8 @@ class Company < ApplicationRecord
     js: 'joined-stock',
     htx: 'htx'
   }
+
+  has_one :director, -> { where(manager: nil) }, class_name: 'Employee', dependent: :destroy
+  has_many :employees, dependent: :destroy
+  has_many :products, dependent: :destroy
 end

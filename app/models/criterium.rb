@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Criterium < ApplicationRecord
+  include AccountScoped, Status
+
   belongs_to :parent, class_name: 'Criterium', touch: true, optional: true, inverse_of: :children
   has_many :children, class_name: 'Criterium', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
@@ -13,5 +15,12 @@ class Criterium < ApplicationRecord
     year_2026: 2026
   }
 
+  enum product_group: {
+    group1: 'group1',
+    group2: 'group2',
+    group3: 'group3'
+  }
+
   scope :of_year, ->(year) { where year: }
+  scope :of_group, ->(group) { where group: }
 end

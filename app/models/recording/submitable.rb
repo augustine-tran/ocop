@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Recording::Addressable
+module Recording::Submitable
   extend ActiveSupport::Concern
 
-  delegate :addresses, to: :children
+  delegate :submissions, to: :children
 end

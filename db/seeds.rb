@@ -39,28 +39,34 @@ AdministrativeUnit.create! [
 
 companies_params = [
   {
-    title: 'TNHN Thiên Đức',
-    legal_type: 'pc'
+    name: 'TNHN Thiên Đức',
+    legal_type: 'pc',
+    status: Recording.statuses[:active],
+    account: Current.account
   },
   {
-    title: 'TNHN Đức Minh',
-    legal_type: 'pc'
+    name: 'TNHN Đức Minh',
+    legal_type: 'pc',
+    status: Recording.statuses[:active],
+    account: Current.account
   },
   {
-    title: 'TNHN Nông Sản Hải An',
-    legal_type: 'pc'
+    name: 'TNHN Nông Sản Hải An',
+    legal_type: 'pc',
+    status: Recording.statuses[:active],
+    account: Current.account
   }
 ]
 
 companies_params.each do |company_param|
-  company = Current.account.record Company.new(company_param), status: Recording.statuses[:active]
-  ceo = Current.account.record Employee.new(title: 'Big Boss'), parent: company, status: Recording.statuses[:active]
-  Current.account.record Employee.new(title: 'Employee 01', manager: ceo), parent: company,
-                                                                           status: Recording.statuses[:active]
+  company = Company.create! company_param
+  ceo = Employee.create! name: 'Big Boss', company:, account: Current.account, status: Recording.statuses[:active]
+  # Employee.create! name: 'Employee 01', manager: ceo, company:, status: Recording.statuses[:active],
+  #                  account: Current.account
 end
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
-csv = CSV.parse(csv_text, headers: true, col_sep: ';')
+csv = CSV.parse csv_text, headers: true, col_sep: ';'
 
 last_levels = {
   -1 => nil,
@@ -72,11 +78,13 @@ last_levels = {
 csv.each do |row|
   params = row.to_hash
 
-  Rails.logger.debug params
+  puts params
 
   item = Criterium.new(params)
+  item.account = Current.account
   item.parent = last_levels[item.level - 1]
-  item.save
+  item.status = Recording.statuses[:active]
+  item.save!
 
   last_levels[item.level] = item
 end

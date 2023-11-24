@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Recording::Status
+module Status
   extend ActiveSupport::Concern
 
   included do
