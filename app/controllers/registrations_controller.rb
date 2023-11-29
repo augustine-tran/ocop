@@ -11,6 +11,8 @@ class RegistrationsController < ApplicationController
     @identity = Identity.new(identity_params)
 
     if @identity.save
+      user_record = @identity.users.create!
+      user_record.create_person!(account: Account.first!)
       session_record = @identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
 

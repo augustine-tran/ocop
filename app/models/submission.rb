@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class Submission < ApplicationRecord
-  include Scorable, Status
+  include Scorable, Status, AccountScoped
 
-  belongs_to :product, touch: true, optional: false
+  enum product_group: {
+    group1: 'group1',
+    group2: 'group2'
+  }
+
+  belongs_to :product, optional: false, touch: true
 end

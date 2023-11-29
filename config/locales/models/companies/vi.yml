@@ -1,0 +1,9 @@
+vi:
+  activerecord:
+    attributes:
+      company:
+        legal_types:
+          pc: "Công ty Cổ phần"
+          llc: "Công ty Trách nhiệm hữu hạn"
+          js: "Cổ phần liên doanh"
+          htx: "Hợp tác xã"

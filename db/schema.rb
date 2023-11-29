@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_22_115549) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -203,11 +203,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_22_115549) do
 
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.string "status", default: "active", null: false
+    t.string "status"
+    t.integer "company_id", null: false
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_products_on_account_id"
+    t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["status"], name: "index_products_on_status"
   end
 
   create_table "prompts", force: :cascade do |t|
@@ -265,6 +268,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_22_115549) do
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "scores_sum"
     t.index ["account_id"], name: "index_submissions_on_account_id"
     t.index ["product_id"], name: "index_submissions_on_product_id"
   end
@@ -308,6 +312,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_22_115549) do
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
   add_foreign_key "products", "accounts"
+  add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"

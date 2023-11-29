@@ -3,7 +3,7 @@
 class Criterium < ApplicationRecord
   include AccountScoped, Status
 
-  belongs_to :parent, class_name: 'Criterium', touch: true, optional: true, inverse_of: :children
+  belongs_to :parent, class_name: 'Criterium', optional: true, inverse_of: :children
   has_many :children, class_name: 'Criterium', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
   enum year: {

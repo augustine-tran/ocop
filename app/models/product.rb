@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-  include Status
+  include AccountScoped, Status
 
-  belongs_to :company, touch: true, optional: false
-  has_many :submissions, dependent: :destroy, touch: true
+  belongs_to :company, touch: true, dependent: :destroy
+  has_many :submissions, dependent: :destroy
 end

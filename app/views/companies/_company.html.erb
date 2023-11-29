@@ -1,29 +1,24 @@
 <div id="<%= dom_id company %>">
   <p class="my-5">
     <strong class="block font-medium mb-1">Title:</strong>
-    <%= company.title %>
+    <%= company.name %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Description:</strong>
     <%= company.description %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Registration no:</strong>
     <%= company.registration_no %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Registration date:</strong>
     <%= company.registration_date %>
   </p>
-
   <p class="my-5">
     <strong class="block font-medium mb-1">Legal type:</strong>
     <%= company.legal_type %>
   </p>
-
   <% if action_name != "show" %>
     <%= link_to "Show this company", company, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this company", edit_company_path(company), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>

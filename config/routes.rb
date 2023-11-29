@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :submissions
   resources :products
   resources :administrative_units
-  resources :companies
+  resources :companies do
+    resources :products, controller: 'companies/products'
+  end
   resources :prompts
   get  'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'

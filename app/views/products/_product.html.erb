@@ -1,7 +1,22 @@
 <div id="<%= dom_id product %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= product.title %>
+    <strong class="block font-medium mb-1">Name:</strong>
+    <%= product.name %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= product.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Company:</strong>
+    <%= product.company_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Account:</strong>
+    <%= product.account_id %>
   </p>
 
   <% if action_name != "show" %>
