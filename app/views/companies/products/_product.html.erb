@@ -7,6 +7,18 @@
     <strong class="block font-medium mb-1">Status:</strong>
     <%= product.status %>
   </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= product.description %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Photos:</strong>
+    <% @product.photos.each do |photo| %>
+      <div class="w-32 h-32 overflow-hidden">
+        <%= image_tag photo.variant(:thumb), class: "w-full h-full object-cover" %>
+      </div>
+    <% end %>
+  </p>
   <% if action_name != "show" %>
     <%= link_to "Show this product", [@company, product], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Edit this product", edit_company_product_path(@company, product), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
