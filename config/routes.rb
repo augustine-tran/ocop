@@ -3,7 +3,9 @@
 Rails.application.routes.draw do
   resources :criteria
   resources :submissions
-  resources :products
+  resources :products do
+    resources :submissions, controller: 'products/submissions'
+  end
   resources :administrative_units
   resources :companies do
     resources :products, controller: 'companies/products'
