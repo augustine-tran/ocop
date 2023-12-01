@@ -81,6 +81,7 @@ csv.each do |row|
   puts params
 
   item = Criterium.new(params)
+  item.year = 2023
   item.account = Current.account
   item.parent = last_levels[item.level - 1]
   item.status = Recording.statuses[:active]

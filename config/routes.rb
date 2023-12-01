@@ -2,7 +2,9 @@
 
 Rails.application.routes.draw do
   resources :criteria
-  resources :submissions
+  resources :submissions do
+    resources :scores, controller: 'submissions/scores'
+  end
   resources :products do
     resources :submissions, controller: 'products/submissions'
   end

@@ -1,0 +1,13 @@
+vi:
+  activerecord:
+    attributes:
+      submission:
+        title: "Tiêu đề"
+        product_group: "Nhóm sản phẩm"
+        status: "Trạng thái"
+        description: "Mô tả"
+        price: "Giá"
+        photos: "Hình minh hoạ"
+        product_groups:
+           group1: "Nhóm 1"
+           group2: "Nhóm 2"  

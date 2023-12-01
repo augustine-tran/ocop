@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -245,7 +245,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "criterion_id"
     t.index ["account_id"], name: "index_scores_on_account_id"
+    t.index ["criterion_id"], name: "index_scores_on_criterion_id"
     t.index ["criterium_id"], name: "index_scores_on_criterium_id"
     t.index ["scorable_type", "scorable_id"], name: "index_scores_on_scorable"
   end
@@ -319,6 +321,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   add_foreign_key "recordings", "recordings", column: "parent_id"
   add_foreign_key "scores", "accounts"
   add_foreign_key "scores", "criteria"
+  add_foreign_key "scores", "criteria", column: "criterion_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
   add_foreign_key "submissions", "products"

@@ -50,6 +50,6 @@ class Products::SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:title, :status, :description, photos: [])
+    params.require(:submission).permit(:title, :status, :description, :product_group, photos: [])
   end
 end

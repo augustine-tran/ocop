@@ -14,6 +14,10 @@
     <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
   <div class="my-5">
+    <%= form.label :product_group %>
+    <%= form.select :status, Submission.product_groups.keys.map { |group| [t("activerecord.attributes.submission.product_groups.#{group}"), group] }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+  <div class="my-5">
     <%= form.label :status %>
     <%= form.select :status, Submission.statuses.keys.map { |status| [t("activerecord.attributes.submission.statuses.#{status}"), status] }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>

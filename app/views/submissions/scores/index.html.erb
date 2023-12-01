@@ -1,0 +1,68 @@
+<div class="mx-auto w-full">
+  <h1 class="font-bold text-4xl ">Submissions::Scores#index</h1>
+  <p>Find me in app/views/submissions/scores/index.html.erb</p>
+  <%# table of scores and edit button  %>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">Criterion</th>
+        <th class="px-4 py-2">Score</th>
+        <th class="px-4 py-2">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @criteria.each do |root| %>
+        <tr>
+          <td class="border px-4 py-2 font-bold"><%= root.title %></td>
+          <td class="border px-4 py-2"></td>
+          <td class="border px-4 py-2"></td>
+        </tr>
+        <% root.children.each do |group| %>
+          <tr>
+            <td class="border px-8 py-2 font-semibold"><%= group.title %></td>
+            <td class="border px-4 py-2"></td>
+            <td class="border px-4 py-2"></td>
+          </tr>
+          <% group.children.each do |sub| %>
+            <tr class='bg-green-50'>
+              <td class="border px-16 py-2">
+                <p><%= sub.title %></p>
+                <p class='italic text-gray-500 text-sm <%= 'hidden' if sub.description.blank? %>'>
+                  <%= sub.description %>
+                </p>
+              </td>
+              <td class="border px-4 py-2"><%= @scores_hash[sub.id]&.score %></td>
+              <td class="border px-4 py-2"><%= link_to "Edit", edit_submission_score_path(@submission, @scores_hash[sub.id]), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:underline hover:bg-blue-300 " %></td>
+            </tr>
+            <% sub.children.each do |criterion| %>
+              <tr>
+                <td class="border px-24 py-2 <%= 'text-green-500 font-semibold' if @scores_hash[sub.id]&.criterion_id == criterion.id %>"><%= criterion.title %></td>
+                <td class="border px-4 py-2"><%= 'Y' if @scores_hash[sub.id]&.criterion_id == criterion.id %></td>
+                <td class="border px-4 py-2"></td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <hr>
+  <table class="table-auto">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">Criterion</th>
+        <th class="px-4 py-2">Score</th>
+        <th class="px-4 py-2">Edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @scores.each do |score| %>
+        <tr>
+          <td class="border px-4 py-2"><%= score.criterium.title %></td>
+          <td class="border px-4 py-2"><%= score.score %></td>
+          <td class="border px-4 py-2"><%= link_to "Edit", edit_submission_score_path(@submission, score), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:underline hover:bg-blue-300 " %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

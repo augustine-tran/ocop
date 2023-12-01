@@ -1,18 +1,22 @@
 <div id="<%= dom_id submission %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:title) %>:</strong>
     <%= submission.title %>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= submission.status %>
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:product_group) %>:</strong>
+    <%= t("activerecord.attributes.submission.product_groups.#{submission.product_group}") %>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:status) %>:</strong>
+    <%= t("activerecord.attributes.submission.statuses.#{submission.status}") %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:description) %>:</strong>
     <%= submission.description %>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Photos:</strong>
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:photos) %>:</strong>
     <% submission.photos.each do |photo| %>
       <div class="w-32 h-32 overflow-hidden">
         <%= image_tag photo.variant(:thumb), class: "w-full h-full object-cover" %>

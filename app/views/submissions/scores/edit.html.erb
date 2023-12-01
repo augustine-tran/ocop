@@ -1,0 +1,18 @@
+<div class="mx-auto w-1/2">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+  <h1 class="font-bold text-4xl"><%= @score.criterium.title %></h1>
+  <%= form_with(model: [@submission, @score], local: true) do |form| %>
+    <% @score.criterium.children.each do |criterion| %>
+      <div class="flex justify-between items-center">
+        <p><%= criterion.title %></p>
+        <%= form.radio_button :criterion_id, criterion.id, checked: @score.criterion_id == criterion.id %>
+      </div>
+    <% end %>
+    <div class="flex justify-between items-center">
+      <%= link_to "Back to submissions", submissions_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= form.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    </div>
+  </div>
+<% end %>

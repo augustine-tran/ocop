@@ -15,6 +15,13 @@ class Criterium < ApplicationRecord
     year_2026: 2026
   }
 
+  enum level: {
+    node_root: 0,
+    node_group: 1,
+    node_sub: 2,
+    node_leaf: 3
+  }
+
   enum product_group: {
     group1: 'group1',
     group2: 'group2',
@@ -22,5 +29,8 @@ class Criterium < ApplicationRecord
   }
 
   scope :of_year, ->(year) { where year: }
-  scope :of_group, ->(group) { where group: }
+  scope :of_group, ->(group) { where product_group: group }
+  scope :for_submission, lambda { |submission|
+                           where(product_group: submission.product_group).where(year: submission.year)
+                         }
 end
