@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :administrative_units
   resources :companies do
     resources :products, controller: 'companies/products'
+    resources :submissions, controller: 'companies/submissions'
   end
   resources :prompts
   get  'sign_in', to: 'sessions#new'

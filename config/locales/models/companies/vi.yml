@@ -2,6 +2,18 @@ vi:
   activerecord:
     attributes:
       company:
+        name: Tên công ty
+        legal_type: Loại hình công ty
+        tax_code: Mã số thuế
+        address: Địa chỉ
+        phone: Số điện thoại
+        registration_date: Ngày đăng ký
+        registration_no: Số đăng ký
+        fax: Số fax
+        email: Email
+        website: Website
+        description: Mô tả
+        logo: Logo
         legal_types:
           pc: "Công ty Cổ phần"
           llc: "Công ty Trách nhiệm hữu hạn"

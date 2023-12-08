@@ -1,9 +1,8 @@
 vi:
-  registrations:
-    new:
-      prohibited_this_user_from_being_saved: 'đã ngăn không cho lưu người dùng này'
-      sign_up: 'Đăng ký tài khoản mới'
-      email_address: 'Địa chỉ email'
-      name: 'Họ và tên'
-      password: 'Mật khẩu'
-      password_confirmation: 'Xác nhận mật khẩu'
+  list_companies: "Danh sách doanh nghiệp"
+  create_company: "Thêm doanh nghiệp"
+  show_list_of_submissions: "Danh sách hồ sơ"
+  show_this_company: "Xem chi tiết"
+  edit_this_company: "Chỉnh sửa doanh nghiệp"
+  destroy_this_company: "Xóa doanh nghiệp"
+  back_to_companies: "Quay lại danh sách doanh nghiệp"

@@ -1,0 +1,17 @@
+{
+  "version": "0.2",
+  "ignorePaths": [
+    "node_modules",
+    "dist",
+    "out",
+    "build",
+    "release",
+    "vscode",
+    "config/locales/**/vi.yml"
+  ],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [],
+  "ignoreWords": [],
+  "import": []
+}

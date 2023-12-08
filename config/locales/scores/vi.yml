@@ -1,0 +1,7 @@
+vi:
+  activerecord:
+    attributes:
+      score:
+        criterion: Tiêu chí
+        score: Điểm
+        edit: Sửa

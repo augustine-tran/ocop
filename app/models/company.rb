@@ -12,6 +12,5 @@ class Company < ApplicationRecord
 
   has_one :director, -> { where(manager: nil) }, class_name: 'Employee', dependent: :destroy
   has_many :employees, dependent: :destroy
-  has_many :products, dependent: :destroy
-  has_many :submissions, through: :products, dependent: :destroy
+  has_many :submissions, dependent: :destroy
 end

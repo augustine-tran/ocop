@@ -262,17 +262,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
   end
 
   create_table "submissions", force: :cascade do |t|
-    t.string "title"
+    t.string "name", null: false
+    t.string "description"
     t.string "submission_type"
     t.string "product_group", default: "group1", null: false
-    t.integer "product_id"
-    t.integer "account_id", null: false
     t.string "status", default: "active", null: false
+    t.string "round", default: "self", null: false
+    t.integer "parent_id"
+    t.integer "company_id"
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "scores_sum"
     t.index ["account_id"], name: "index_submissions_on_account_id"
-    t.index ["product_id"], name: "index_submissions_on_product_id"
+    t.index ["company_id"], name: "index_submissions_on_company_id"
+    t.index ["parent_id"], name: "index_submissions_on_parent_id"
   end
 
   create_table "tombstones", force: :cascade do |t|
@@ -324,7 +328,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
   add_foreign_key "scores", "criteria", column: "criterion_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
-  add_foreign_key "submissions", "products"
+  add_foreign_key "submissions", "companies"
+  add_foreign_key "submissions", "submissions", column: "parent_id"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"

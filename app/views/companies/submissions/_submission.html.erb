@@ -1,7 +1,7 @@
 <div id="<%= dom_id submission %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:title) %>:</strong>
-    <%= submission.title %>
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:name) %>:</strong>
+    <%= submission.name %>
   </p>
   <p class="my-5">
     <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:product_group) %>:</strong>
@@ -24,8 +24,8 @@
     <% end %>
   </p>
   <% if action_name != "show" %>
-    <%= link_to "Show this submission", [@product, submission], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this submission", edit_product_submission_path(@product, submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:show_this_submission), [@company, submission], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:edit_this_submission), edit_company_submission_path(@company, submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
 </div>
