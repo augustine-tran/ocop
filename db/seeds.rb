@@ -75,17 +75,26 @@ last_levels = {
   2 => nil
 }
 
+level_mapping = {
+  '1' => 'node_group',
+  '2' => 'node_sub',
+  '3' => 'node_leaf'
+}
+
 csv.each do |row|
   params = row.to_hash
 
-  puts params
+  # convert level from number to enum of Criterium using hash mapping
+  params['level'] = level_mapping[params['level']] || 'node_root'
 
-  item = Criterium.new(params)
-  item.year = 2023
-  item.account = Current.account
-  item.parent = last_levels[item.level - 1]
-  item.status = Recording.statuses[:active]
-  item.save!
+  item = Criterium.find_or_create_by!(params) do |criterium|
+    criterium.year = 2023
+    criterium.account = Current.account
+    criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
+    criterium.status = Recording.statuses[:active]
+  end
 
-  last_levels[item.level] = item
+  last_levels[Criterium.levels[item.level]] = item
+rescue ActiveRecord::RecordInvalid => e
+  puts "Failed to create record: #{e.message}"
 end
