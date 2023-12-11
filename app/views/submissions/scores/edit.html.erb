@@ -6,13 +6,13 @@
   <%= form_with(model: [@submission, @score], local: true) do |form| %>
     <% @score.criterium.children.each do |criterion| %>
       <div class="flex justify-between items-center">
-        <p><%= criterion.title %></p>
-        <%= form.radio_button :criterion_id, criterion.id, checked: @score.criterion_id == criterion.id %>
+        <p> (<%= criterion.score %> điểm) <%= criterion.title %></p>
+        <%= form.radio_button :criterion_id, criterion.id, checked: @score.criterion_id == criterion.id, class: 'cursor-pointer' %>
       </div>
     <% end %>
     <div class="flex justify-between items-center">
       <%= link_to "Back to submissions", submissions_path, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= form.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+      <%= form.submit "Submit", class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium cursor-pointer" %>
     </div>
   </div>
 <% end %>

@@ -76,16 +76,16 @@ last_levels = {
 }
 
 level_mapping = {
-  '1' => 'node_group',
-  '2' => 'node_sub',
-  '3' => 'node_leaf'
+  '1' => 'node_groups',
+  '2' => 'node_subs',
+  '3' => 'node_leaves'
 }
 
 csv.each do |row|
   params = row.to_hash
 
   # convert level from number to enum of Criterium using hash mapping
-  params['level'] = level_mapping[params['level']] || 'node_root'
+  params['level'] = level_mapping[params['level']] || 'node_roots'
 
   item = Criterium.find_or_create_by!(params) do |criterium|
     criterium.year = 2023

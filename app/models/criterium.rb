@@ -16,10 +16,10 @@ class Criterium < ApplicationRecord
   }
 
   enum level: {
-    node_root: 0,
-    node_group: 1,
-    node_sub: 2,
-    node_leaf: 3
+    node_roots: 0,
+    node_groups: 1,
+    node_subs: 2,
+    node_leaves: 3
   }
 
   enum product_group: {

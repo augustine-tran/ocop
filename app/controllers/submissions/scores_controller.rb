@@ -6,9 +6,6 @@ class Submissions::ScoresController < ApplicationController
 
   def index
     @scores = @submission.scores
-    @criteria = Criterium.for_submission(@submission).node_root
-
-    @scores_hash = @scores.index_by(&:criterium_id)
   end
 
   def show; end

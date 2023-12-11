@@ -18,7 +18,7 @@ class Submission < ApplicationRecord
   end
   has_rich_text :description
 
-  after_create :create_scores
+  after_create :create_scores_according_to_criteria
 
   private
 
@@ -26,9 +26,19 @@ class Submission < ApplicationRecord
     self.year ||= created_at&.year || Time.zone.today.year
   end
 
-  def create_scores
-    Criterium.for_submission(self).node_sub.each do |criterium|
-      scores.create! criterium:, score: 0
+  def create_scores_according_to_criteria
+    Criterium.for_submission(self).node_roots.each do |root_criterium|
+      create_scores(root_criterium, nil)
+    end
+  end
+
+  def create_scores(criterium, parent_score)
+    # Skip if criterium is leaf (level 3)
+    return if criterium.children.blank?
+
+    new_score = scores.create(criterium:, parent: parent_score, level: criterium.level)
+    criterium.children.each do |child_criterium|
+      create_scores(child_criterium, new_score)
     end
   end
 end

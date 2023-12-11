@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -240,15 +240,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
   create_table "scores", force: :cascade do |t|
     t.string "scorable_type", null: false
     t.integer "scorable_id", null: false
+    t.string "level", default: "node_roots", null: false
+    t.integer "parent_id"
     t.integer "criterium_id", null: false
-    t.integer "score"
+    t.integer "criterion_id"
+    t.integer "score", default: 0, null: false
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "criterion_id"
     t.index ["account_id"], name: "index_scores_on_account_id"
     t.index ["criterion_id"], name: "index_scores_on_criterion_id"
     t.index ["criterium_id"], name: "index_scores_on_criterium_id"
+    t.index ["parent_id"], name: "index_scores_on_parent_id"
     t.index ["scorable_type", "scorable_id"], name: "index_scores_on_scorable"
   end
 
@@ -326,6 +329,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_084412) do
   add_foreign_key "scores", "accounts"
   add_foreign_key "scores", "criteria"
   add_foreign_key "scores", "criteria", column: "criterion_id"
+  add_foreign_key "scores", "scores", column: "parent_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
   add_foreign_key "submissions", "companies"
