@@ -29,6 +29,8 @@ class Score < ApplicationRecord
     end
 
     parent.recalibrate_score if parent.present?
+
+    scorable.update_scores_sum if parent.blank?
   end
 
   private

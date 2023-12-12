@@ -22,6 +22,10 @@ class Submission < ApplicationRecord
 
   broadcasts_refreshes
 
+  def update_scores_sum
+    update_columns(scores_sum: scores.node_roots.sum(:score)) if scores_sum != scores.sum(:score) # rubocop:disable Rails/SkipsModelValidations
+  end
+
   private
 
   def set_year

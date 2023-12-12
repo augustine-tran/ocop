@@ -13,6 +13,11 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td class="px-4 py-2"></td>
+        <td class="px-4 py-2 text-center text-green-800 font-bold">(<%= @submission.scores_sum %>)</td>
+        <td class="px-4 py-2"></td>
+      </tr>
       <% @submission.scores.node_roots.each do |root| %>
         <%= render partial: 'score_fields', locals: {score: root, level: 0} %>
         <% root.children.each do |group| %>

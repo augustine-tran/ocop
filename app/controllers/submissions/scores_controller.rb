@@ -4,9 +4,7 @@ class Submissions::ScoresController < ApplicationController
   before_action :set_submission
   before_action :set_score, only: %i[show edit update destroy]
 
-  def index
-    @scores = @submission.scores
-  end
+  def index; end
 
   def show; end
 

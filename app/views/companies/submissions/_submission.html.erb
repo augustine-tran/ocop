@@ -4,6 +4,10 @@
     <%= submission.name %>
   </p>
   <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:scores_sum) %>:</strong>
+    <%= submission.scores_sum %>
+  </p>
+  <p class="my-5">
     <strong class="block font-medium mb-1"><%= Submission.human_attribute_name(:product_group) %>:</strong>
     <%= t("activerecord.attributes.submission.product_groups.#{submission.product_group}") %>
   </p>
