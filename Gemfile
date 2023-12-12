@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 7.1.2'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -80,8 +80,8 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-gem 'tailwindcss-rails', '~> 2.0'
+gem 'tailwindcss-rails', '~> 2.0.33'
 
-gem 'litestack', '~> 0.4.1'
+gem 'litestack', '~> 0.4.2'
 
 gem 'authentication-zero', '~> 3.0', group: :development

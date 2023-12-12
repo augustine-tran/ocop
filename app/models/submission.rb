@@ -20,6 +20,8 @@ class Submission < ApplicationRecord
 
   after_create :create_scores_according_to_criteria
 
+  broadcasts_refreshes
+
   private
 
   def set_year
