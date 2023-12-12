@@ -1,18 +1,18 @@
 <%
   case level
   when 0
-    padding = 4
+    padding = 'px-4'
     bolding = 'font-bold'
   when 1
-    padding = 8
+    padding = 'px-8'
     bolding = 'font-semibold'
   when 2
-    padding = 16
+    padding = 'px-16'
     bolding = 'font-normal'
   end
 %>
 <tr>
-  <td class="border px-<%= padding %> py-2 <%= bolding %>"><%= score.title %></td>
+  <td class="border <%= padding %> py-2 <%= bolding %>"><%= score.title %></td>
   <td class="border px-4 py-2"><%= score.score %></td>
   <% if level == 2 %>
     <td class="border px-4 py-2"><%= link_to "Edit", edit_submission_score_path(@submission, score.id), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:underline hover:bg-blue-300 " %></td>
