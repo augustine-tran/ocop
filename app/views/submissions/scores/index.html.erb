@@ -13,37 +13,11 @@
     </thead>
     <tbody>
       <% @submission.scores.node_roots.each do |root| %>
-        <tr>
-          <td class="border px-4 py-2 font-bold"><%= root.title %></td>
-          <td class="border px-4 py-2"><%= root.score %></td>
-          <td class="border px-4 py-2"></td>
-        </tr>
+        <%= render partial: 'score_fields', locals: {score: root, level: 0} %>
         <% root.children.each do |group| %>
-          <tr>
-            <td class="border px-8 py-2 font-semibold"><%= group.title %></td>
-            <td class="border px-4 py-2"><%= group.score %></td>
-            <td class="border px-4 py-2"></td>
-          </tr>
+          <%= render partial: 'score_fields', locals: {score: group, level: 1} %>
           <% group.children.each do |sub| %>
-            <tr class='bg-green-50'>
-              <td class="border px-16 py-2">
-                <p><%= sub.title %></p>
-                <p class='italic text-gray-500 text-sm <%= 'hidden' if sub.description.blank? %>'>
-                  <%= sub.description %>
-                </p>
-              </td>
-              <td class="border px-4 py-2"><%= sub.score %></td>
-              <td class="border px-4 py-2"><%= link_to "Edit", edit_submission_score_path(@submission, sub.id), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:underline hover:bg-blue-300 " %></td>
-            </tr>
-            <%= form_with(model: [@submission, sub], local: true) do |form| %>
-              <% sub.criterium.children.each do |criterion| %>
-                <tr>
-                  <td class="border px-24 py-2">(<%= criterion.score %> điểm) <%= criterion.title %></td>
-                  <td class="border px-4 py-2"><%= form.radio_button :criterion_id, criterion.id, checked: sub.criterion_id == criterion.id, class: 'cursor-pointer', onchange: 'this.form.submit()' %></td>
-                  <td class="border px-4 py-2"></td>
-                </tr>
-              <% end %>
-            <% end %>
+            <%= render partial: 'score_fields', locals: {score: sub, submission: @submission, level: 2} %>
           <% end %>
         <% end %>
       <% end %>

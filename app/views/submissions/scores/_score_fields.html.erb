@@ -1,0 +1,33 @@
+<%
+  case level
+  when 0
+    padding = 4
+    bolding = 'font-bold'
+  when 1
+    padding = 8
+    bolding = 'font-semibold'
+  when 2
+    padding = 16
+    bolding = 'font-normal'
+  end
+%>
+<tr>
+  <td class="border px-<%= padding %> py-2 <%= bolding %>"><%= score.title %></td>
+  <td class="border px-4 py-2"><%= score.score %></td>
+  <% if level == 2 %>
+    <td class="border px-4 py-2"><%= link_to "Edit", edit_submission_score_path(@submission, score.id), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:underline hover:bg-blue-300 " %></td>
+  <% else %>
+    <td class="border px-4 py-2"></td>
+  <% end %>
+</tr>
+<% if level == 2 %>
+  <%= form_with(model: [@submission, score], local: true) do |form| %>
+    <% score.criterium.children.each do |criterion| %>
+      <tr>
+        <td class="border px-24 py-2">(<%= criterion.score %> điểm) <%= criterion.title %></td>
+        <td class="border px-4 py-2"><%= form.radio_button :criterion_id, criterion.id, checked: score.criterion_id == criterion.id, class: 'cursor-pointer', onchange: 'this.form.submit()' %></td>
+        <td class="border px-4 py-2"></td>
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>
