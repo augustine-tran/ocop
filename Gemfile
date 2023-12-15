@@ -85,3 +85,5 @@ gem 'tailwindcss-rails', '~> 2.0.33'
 gem 'litestack', '~> 0.4.2'
 
 gem 'authentication-zero', '~> 3.0', group: :development
+
+gem "cancancan", "~> 3.5"

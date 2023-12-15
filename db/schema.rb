@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -97,6 +97,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
+    t.integer "company_id", null: false
+    t.index ["company_id"], name: "index_clients_on_company_id"
     t.index ["identity_id"], name: "index_clients_on_identity_id"
   end
 
@@ -296,6 +299,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role"
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
@@ -307,6 +311,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
+  add_foreign_key "clients", "companies"
   add_foreign_key "clients", "identities"
   add_foreign_key "companies", "accounts"
   add_foreign_key "criteria", "accounts"

@@ -9,11 +9,21 @@ require 'csv'
 
 account = Account.create! name: 'Huyện Châu Đức'
 
-identity = Identity.create! email: 'nongnghiep@chaduc.vn', name: 'Mạnh Tường', password: 'mypassword123',
+identity = Identity.create! email: 'nongnghiep@chaduc.vn', name: 'Nguyễn Mạnh Tường', password: 'mypassword123',
                             password_confirmation: 'mypassword123',
                             verified: true
 
-person = Person.create! account:, personable: User.new(identity:)
+identity_editor = Identity.create! email: 'chicong@chauduc.vn', name: 'Võ Chí Công', password: 'mypassword123',
+                                   password_confirmation: 'mypassword123',
+                                   verified: true
+
+identity_writer = Identity.create! email: 'kiet@cacao-baria.com', name: 'Trần Tuấn Kiệt', password: 'mypassword123',
+                                   password_confirmation: 'mypassword123',
+                                   verified: true
+
+person = Person.create! account:, personable: User.new(identity:, role: :admin)
+
+Person.create! account:, personable: User.new(identity: identity_editor, role: :editor)
 
 Current.person = person
 Current.account = account
@@ -64,6 +74,8 @@ companies_params.each do |company_param|
   # Employee.create! name: 'Employee 01', manager: ceo, company:, status: Recording.statuses[:active],
   #                  account: Current.account
 end
+
+Person.create! account:, personable: Client.new(identity: identity_writer, role: :writer, company: Company.first!)
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
 csv = CSV.parse csv_text, headers: true, col_sep: ';'
