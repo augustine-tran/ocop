@@ -12,5 +12,8 @@ class Company < ApplicationRecord
 
   has_one :director, -> { where(manager: nil) }, class_name: 'Employee', dependent: :destroy
   has_many :employees, dependent: :destroy
+  has_many :clients, dependent: :destroy
   has_many :submissions, dependent: :destroy
+
+  validates :registration_no, uniqueness: true
 end

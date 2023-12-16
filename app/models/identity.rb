@@ -22,4 +22,6 @@ class Identity < ApplicationRecord
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
   end
+
+  accepts_nested_attributes_for :clients
 end

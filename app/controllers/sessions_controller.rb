@@ -13,6 +13,9 @@ class SessionsController < ApplicationController
 
   def create
     if (identity = Identity.authenticate_by(email: params[:email], password: params[:password]))
+      Current.person = identity.users.first || identity.clients.first
+      Current.account = Current.person.account
+
       @session = identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
 

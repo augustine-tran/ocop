@@ -7,4 +7,5 @@ class Current < ActiveSupport::CurrentAttributes
   attribute :account, :person
 
   delegate :identity, to: :session, allow_nil: true
+  delegate :ability, to: :person
 end

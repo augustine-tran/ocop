@@ -106,7 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "registration_no"
+    t.string "registration_no", null: false
     t.date "registration_date"
     t.string "legal_type"
     t.string "status", default: "active", null: false
@@ -114,6 +114,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_companies_on_account_id"
+    t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
   end
 
   create_table "criteria", force: :cascade do |t|

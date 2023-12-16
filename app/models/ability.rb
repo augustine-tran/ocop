@@ -12,7 +12,7 @@ class Ability
       if personable.admin?
         can :manage, :all
       elsif personable.editor?
-        can :manage, Company, account_id: person.account_id
+        can :manage, Company, account_id: person.account_id, company: personable.company
         can :manage, Submission, account_id: person.account_id, company: personable.company
       else
         can :read, :all

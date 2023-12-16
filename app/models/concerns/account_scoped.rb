@@ -13,6 +13,6 @@ module AccountScoped
   private
 
   def set_account
-    self.account = Current.account
+    self.account = Current.account || Account.first!
   end
 end

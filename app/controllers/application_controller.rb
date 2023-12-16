@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
     if (session_record = Session.find_by(id: cookies.signed[:session_token]))
       Current.session = session_record
       Current.account = Account.first!
+      Current.person = (Current.session.identity.users.first || Current.session.identity.clients.first)&.person
     else
       redirect_to sign_in_path
     end

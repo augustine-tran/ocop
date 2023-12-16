@@ -50,18 +50,21 @@ AdministrativeUnit.create! [
 companies_params = [
   {
     name: 'TNHN Thiên Đức',
+    registration_no: '123456789',
     legal_type: 'pc',
     status: Recording.statuses[:active],
     account: Current.account
   },
   {
     name: 'TNHN Đức Minh',
+    registration_no: '023456789',
     legal_type: 'pc',
     status: Recording.statuses[:active],
     account: Current.account
   },
   {
     name: 'TNHN Nông Sản Hải An',
+    registration_no: '323456789',
     legal_type: 'pc',
     status: Recording.statuses[:active],
     account: Current.account
