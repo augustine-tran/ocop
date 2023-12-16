@@ -12,8 +12,8 @@ class Ability
       if personable.admin?
         can :manage, :all
       elsif personable.editor?
-        can :manage, Company, account_id: person.account_id, company: personable.company
-        can :manage, Submission, account_id: person.account_id, company: personable.company
+        can :manage, Company, account_id: person.account_id
+        can :manage, Submission, account_id: person.account_id
       else
         can :read, :all
       end
@@ -21,6 +21,7 @@ class Ability
 
     return unless person.client?
 
+    can :manage, Company, account_id: person.account_id, id: personable.company_id
     can :manage, Submission, account_id: person.account_id, company: personable.company
   end
 end

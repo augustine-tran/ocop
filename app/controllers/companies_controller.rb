@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class CompaniesController < ApplicationController
-  before_action :set_company, only: %i[show edit update destroy]
+  load_and_authorize_resource
 
   # GET /companies or /companies.json
   def index
-    @companies = Company.accessible_by(Current.ability)
+    @companies = Company.accessible_by(current_ability)
   end
 
   # GET /companies/1 or /companies/1.json

@@ -22,11 +22,11 @@ class Criterium < ApplicationRecord
     node_leaves: 3
   }
 
-  enum product_group: {
-    group1: 'group1',
-    group2: 'group2',
-    group3: 'group3'
-  }
+  # enum product_group: {
+  #   group1: 'group1',
+  #   group2: 'group2',
+  #   group3: 'group3'
+  # }
 
   scope :of_year, ->(year) { where year: }
   scope :of_group, ->(group) { where product_group: group }

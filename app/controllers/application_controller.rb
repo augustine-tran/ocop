@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :authenticate
 
+  protected
+
+  def current_ability
+    @current_ability ||= Ability.new(Current.person)
+  end
+
   private
 
   def authenticate
