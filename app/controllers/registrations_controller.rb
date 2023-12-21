@@ -3,6 +3,8 @@
 class RegistrationsController < ApplicationController
   skip_before_action :authenticate
 
+  def index; end
+
   def new
     @identity = Identity.new
     @identity.clients.build.build_company
