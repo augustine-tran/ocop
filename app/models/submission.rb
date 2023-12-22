@@ -7,6 +7,12 @@ class Submission < ApplicationRecord
 
   after_initialize :set_year
 
+  enum round: {
+    self: 'self',
+    district: 'district',
+    province: 'province'
+  }
+
   enum product_group: {
     group1: 'group1',
     group2: 'group2'
