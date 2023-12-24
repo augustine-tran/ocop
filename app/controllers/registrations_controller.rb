@@ -8,36 +8,41 @@ class RegistrationsController < ApplicationController
   layout 'guest'
 
   def new
+    @account = Account.new
     @identity = Identity.new
-    @identity.clients.build.build_company
   end
 
   def create
-    @identity = Identity.new(identity_params)
+    ActiveRecord::Base.transaction do
+      @account = Account.create!(account_params)
+      @identity = Identity.create!(identity_params)
 
-    if @identity.save
-      Current.account = Account.first!
-      Current.person = Current.account.people.create!(personable: @identity.clients.first)
+      user = User.create!(identity: @identity)
+      @account.people.create!(personable: user, role: 'admin')
 
       session_record = @identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
 
       send_email_verification
-      redirect_to root_path, notice: 'Welcome! You have signed up successfully'
-    else
-      @identity.clients.build.build_company
-      render :new, status: :unprocessable_entity
+      redirect_to root_path, notice: t(:signed_up)
     end
+  rescue ActiveRecord::RecordInvalid
+    @account = Account.new(account_params)
+    @identity = Identity.new(identity_params)
+    render :new, status: :unprocessable_entity
   end
 
   private
 
+  def account_params
+    params.require(:account).permit(:name)
+  end
+
   def identity_params
-    params.require(:identity).permit(:name, :email, :password, :password_confirmation,
-                                     clients_attributes: [company_attributes: %i[name registration_no]])
+    params.require(:identity).permit(:name, :email, :password, :password_confirmation)
   end
 
   def send_email_verification
-    UserMailer.with(user: @user).email_verification.deliver_later
+    UserMailer.with(user: Current.person).email_verification.deliver_later
   end
 end

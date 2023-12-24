@@ -1,15 +1,21 @@
+<%= turbo_stream_from @submission %>
 <div class="mx-auto md:w-2/3 w-full flex">
   <div class="mx-auto">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
-
     <%= render @submission %>
-
-    <%= link_to "Edit this submission", edit_submission_path(@submission), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <% content_for :quick_action do %>
+      <%= link_to submission_scores_path(@submission), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+        <%= render 'shared/icons/add_button' %>
+        <%= t(:evaluate_submission) %>
+      <% end %>
+    <% end %>
     <div class="inline-block ml-2">
-      <%= button_to "Destroy this submission", submission_path(@submission), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to t(:destroy_this_submission), submission_path(@submission), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
-    <%= link_to "Back to submissions", submissions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:back_to_submissions), submissions_path(@company), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:evaluate_submission), submission_scores_path(@submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:edit_this_submission), edit_submission_path(@submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
   </div>
 </div>

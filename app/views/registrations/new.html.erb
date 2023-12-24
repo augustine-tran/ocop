@@ -2,63 +2,59 @@
   <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <% if notice.present? %>
-          <p class="text-green-500 text-sm mb-4"><%= notice %></p>
-        <% end %>
-        <% if alert.present? %>
-          <p class="text-red-500 text-sm mb-4"><%= alert %></p>
-        <% end %>
+        <img class="h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
         <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900"><%= t(".sign_up", default: "Register new account") %></h2>
+        <p class="mt-2 text-sm leading-6 text-gray-500">
+          <%= t('.has_account') %>
+          <%= link_to t('.sign_in'), sign_in_path, class:'font-semibold text-indigo-600 hover:text-indigo-500' %>
+        </p>
       </div>
       <div class="mt-10">
         <div>
-          <%= form_for @identity, url: sign_up_path, html: { class: "space-y-6" } do |form| %>
-            <% if @identity.errors.any? %>
+          <%= form_with url: sign_up_path, html: { class: "space-y-6" } do |form| %>
+            <% if @account.errors.any? %>
               <div class="text-red-500">
                 <h2><%= t 'activerecord.errors.messages.record_invalid' %></h2>
                 <ul>
-                  <% @identity.errors.each do |error| %>
+                  <% @account.errors.each do |error| %>
                     <li><%= error.full_message %></li>
                   <% end %>
                 </ul>
               </div>
             <% end %>
-            <%= form.fields_for :clients do |client| %>
-              <%= client.fields_for :company do |builder| %>
-                <div>
-                  <%= builder.label :name, class: "block text-sm font-medium text-gray-700" %>
-                  <%= builder.text_field :name, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
-                </div>
-                <div>
-                  <%= builder.label :registration_no, class: "block text-sm font-medium text-gray-700" %>
-                  <%= builder.text_field :registration_no, class: "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" %>
-                </div>
-              <% end %>
+            <%= form.fields_for :account do |builder| %>
+              <div>
+                <%= builder.label :name, t('.company_name'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                <%= builder.text_field :name, value: @account.name, required: true, autofocus: true, autocomplete: "name",
+                                         class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
+              </div>
             <% end %>
-            <div>
-              <%= form.label :name, t('.name'), class: "sr-only" %>
-              <%= form.text_field :name, value: @identity.name, required: true, autofocus: true, autocomplete: "name",
-                                         class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                                         placeholder: t('.name') %>
-            </div>
-            <div>
-              <%= form.label :email, t('.email_address'), class: "sr-only" %>
-              <%= form.email_field :email, value: @identity.email, required: true, autofocus: true, autocomplete: "email",
-                                           class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                                           placeholder: t('.email_address') %>
-            </div>
-            <div>
-              <%= form.label :password, t('.password'), class: "sr-only" %>
-              <%= form.password_field :password, required: true, autocomplete: "new-password",
-                                                 class: "relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                                                 placeholder: t('.password') %>
-            </div>
-            <div>
-              <%= form.label :password_confirmation, t('.password_confirmation'), class: "sr-only" %>
-              <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password",
-                                                              class: "relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",
-                                                              placeholder: t('.password_confirmation') %>
-            </div>
+            <%= form.fields_for :identity do |builder| %>
+              <div>
+                <%= builder.label :name, t('.name'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                <%= builder.text_field :name, value: @identity.name, required: true, autofocus: true, autocomplete: "name",
+                                         class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                          %>
+              </div>
+              <div>
+                <%= builder.label :email, t('.email_address'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                <%= builder.email_field :email, value: @identity.email, required: true, autofocus: true, autocomplete: "email",
+                                           class: "relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                           %>
+              </div>
+              <div>
+                <%= builder.label :password, t('.password'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                <%= builder.password_field :password, required: true, autocomplete: "new-password",
+                                                 class: "relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                  %>
+              </div>
+              <div>
+                <%= builder.label :password_confirmation, t('.password_confirmation'), class: "block text-sm font-medium leading-6 text-gray-900" %>
+                <%= builder.password_field :password_confirmation, required: true, autocomplete: "new-password",
+                                                              class: "relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-100 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                              %>
+              </div>
+            <% end %>
             <div>
               <%= form.submit t('.sign_up'), class: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer" %>
             </div>

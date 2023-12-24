@@ -11,7 +11,6 @@ class CreateCriteria < ActiveRecord::Migration[7.1]
       t.integer :level
       t.integer :score
       t.boolean :leaf, null: false, default: 0
-      t.references :account, null: false, foreign_key: true
       t.string :status, null: false, default: 'active'
 
       t.timestamps

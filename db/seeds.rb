@@ -7,23 +7,13 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'csv'
 
-account = Account.create! name: 'Huyện Châu Đức'
+account = Account.create! name: 'Demo Account'
 
-identity = Identity.create! email: 'nongnghiep@chaduc.vn', name: 'Nguyễn Mạnh Tường', password: 'mypassword123',
+identity = Identity.create! email: 'donga.spirit@gmail.com', name: 'Demo Account', password: 'mypassword123',
                             password_confirmation: 'mypassword123',
                             verified: true
 
-identity_editor = Identity.create! email: 'chicong@chauduc.vn', name: 'Võ Chí Công', password: 'mypassword123',
-                                   password_confirmation: 'mypassword123',
-                                   verified: true
-
-identity_writer = Identity.create! email: 'kiet@cacao-baria.com', name: 'Trần Tuấn Kiệt', password: 'mypassword123',
-                                   password_confirmation: 'mypassword123',
-                                   verified: true
-
-person = Person.create! account:, personable: User.new(identity:, role: :admin)
-
-Person.create! account:, personable: User.new(identity: identity_editor, role: :editor)
+person = Person.create! account:, personable: User.new(identity:), role: :admin
 
 Current.person = person
 Current.account = account
@@ -46,39 +36,6 @@ AdministrativeUnit.create! [
     level: 'ward'
   }
 ]
-
-companies_params = [
-  {
-    name: 'TNHN Thiên Đức',
-    registration_no: '123456789',
-    legal_type: 'pc',
-    status: Recording.statuses[:active],
-    account: Current.account
-  },
-  {
-    name: 'TNHN Đức Minh',
-    registration_no: '023456789',
-    legal_type: 'pc',
-    status: Recording.statuses[:active],
-    account: Current.account
-  },
-  {
-    name: 'TNHN Nông Sản Hải An',
-    registration_no: '323456789',
-    legal_type: 'pc',
-    status: Recording.statuses[:active],
-    account: Current.account
-  }
-]
-
-companies_params.each do |company_param|
-  company = Company.create! company_param
-  ceo = Employee.create! name: 'Big Boss', company:, account: Current.account, status: Recording.statuses[:active]
-  # Employee.create! name: 'Employee 01', manager: ceo, company:, status: Recording.statuses[:active],
-  #                  account: Current.account
-end
-
-Person.create! account:, personable: Client.new(identity: identity_writer, role: :writer, company: Company.first!)
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
 csv = CSV.parse csv_text, headers: true, col_sep: ';'
@@ -104,7 +61,6 @@ csv.each do |row|
 
   item = Criterium.find_or_create_by!(params) do |criterium|
     criterium.year = 2023
-    criterium.account = Current.account
     criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
     criterium.status = Recording.statuses[:active]
   end

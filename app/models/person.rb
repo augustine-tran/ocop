@@ -9,6 +9,12 @@ class Person < ApplicationRecord
 
   delegate :can?, :cannot?, to: :ability
 
+  enum role: {
+    admin: 'admin',
+    editor: 'editor',
+    writer: 'writer'
+  }
+
   def ability
     @ability ||= Ability.new(self)
   end

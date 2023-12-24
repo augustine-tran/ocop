@@ -37,6 +37,7 @@ class CreateAccountsAndPeople < ActiveRecord::Migration[7.1]
     create_table :people do |t|
       t.references :account, null: false, foreign_key: true
       t.references :personable, polymorphic: true, null: false
+      t.string :role, :string, default: 'user', null: false
       t.timestamps
     end
 

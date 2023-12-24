@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -97,9 +97,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
-    t.integer "company_id", null: false
-    t.index ["company_id"], name: "index_clients_on_company_id"
     t.index ["identity_id"], name: "index_clients_on_identity_id"
   end
 
@@ -126,28 +123,10 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
     t.integer "level"
     t.integer "score"
     t.boolean "leaf", default: false, null: false
-    t.integer "account_id", null: false
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_criteria_on_account_id"
     t.index ["parent_id"], name: "index_criteria_on_parent_id"
-  end
-
-  create_table "employees", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.string "position"
-    t.string "job_title"
-    t.integer "manager_id"
-    t.string "status", default: "active", null: false
-    t.integer "company_id", null: false
-    t.integer "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_employees_on_account_id"
-    t.index ["company_id"], name: "index_employees_on_company_id"
-    t.index ["manager_id"], name: "index_employees_on_manager_id"
   end
 
   create_table "event_details", force: :cascade do |t|
@@ -199,6 +178,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
     t.integer "account_id", null: false
     t.string "personable_type", null: false
     t.integer "personable_id", null: false
+    t.string "role", default: "user", null: false
+    t.string "string", default: "user", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_people_on_account_id"
@@ -300,7 +281,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
@@ -312,14 +292,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_122202) do
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
-  add_foreign_key "clients", "companies"
   add_foreign_key "clients", "identities"
   add_foreign_key "companies", "accounts"
-  add_foreign_key "criteria", "accounts"
   add_foreign_key "criteria", "criteria", column: "parent_id"
-  add_foreign_key "employees", "accounts"
-  add_foreign_key "employees", "companies"
-  add_foreign_key "employees", "recordings", column: "manager_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"

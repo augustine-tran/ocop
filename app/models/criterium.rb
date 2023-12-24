@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Criterium < ApplicationRecord
-  include AccountScoped, Status
+  include Status
 
   belongs_to :parent, class_name: 'Criterium', optional: true, inverse_of: :children
   has_many :children, class_name: 'Criterium', foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent

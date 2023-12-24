@@ -28,8 +28,8 @@
     <% end %>
   </p>
   <% if action_name != "show" %>
-    <%= link_to "Show this submission", submission, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this submission", edit_submission_path(submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:show_this_submission), [submission], class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:edit_this_submission), edit_submission_path(submission), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
 </div>
