@@ -5,6 +5,8 @@ class RegistrationsController < ApplicationController
 
   def index; end
 
+  layout 'guest'
+
   def new
     @identity = Identity.new
     @identity.clients.build.build_company

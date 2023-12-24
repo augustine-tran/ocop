@@ -5,7 +5,9 @@ class Identity::PasswordResetsController < ApplicationController
 
   before_action :set_user, only: %i[edit update]
 
-  def new; end
+  def new
+    render layout: 'guest'
+  end
 
   def edit; end
 

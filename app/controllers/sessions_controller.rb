@@ -9,7 +9,9 @@ class SessionsController < ApplicationController
     @sessions = Current.identity.sessions.order(created_at: :desc)
   end
 
-  def new; end
+  def new
+    render layout: 'guest'
+  end
 
   def create
     if (identity = Identity.authenticate_by(email: params[:email], password: params[:password]))
