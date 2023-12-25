@@ -16,7 +16,7 @@
             </div>
           </div>
           <% if content_for?(:quick_action) %>
-            <%= render 'shared/quick_action' %>
+            <%= render 'quick_action' %>
           <% end %>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
@@ -115,6 +115,6 @@
     </div>
   </nav>
   <% if content_for?(:page_header) %>
-    <%= render partial: "shared/page_header"  %>
+    <%= render 'page_header'  %>
   <% end %>
 </div>

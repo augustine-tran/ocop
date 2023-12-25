@@ -16,5 +16,6 @@
   <% end %>
   <div id="submissions" class="min-w-full">
     <%= render partial: 'submission_list_item', collection: @submissions, as: :submission %>
+    <%= render 'empty_list' if @submissions.blank? %>
   </div>
 </div>

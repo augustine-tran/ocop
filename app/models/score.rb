@@ -4,7 +4,7 @@ class Score < ApplicationRecord
   include AccountScoped
 
   belongs_to :scorable, polymorphic: true, optional: false, touch: true
-  belongs_to :criterium, dependent: :destroy, optional: false
+  belongs_to :criterium, optional: false
   belongs_to :criterion, class_name: 'Criterium', optional: true
   belongs_to :parent, class_name: 'Score', optional: true, touch: true
   has_many :children, class_name: 'Score', foreign_key: :parent_id, dependent: :destroy

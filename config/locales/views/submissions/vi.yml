@@ -7,3 +7,5 @@ vi:
   destroy_this_submission: "Xóa hồ sơ"
   back_to_submissions: "Quay lại danh sách hồ sơ"
   evaluate_submission: "Chấm điểm"
+  no_submissions: "Không có hồ sơ nào"
+  suggest_to_create_new_submission: "Bạn có thể thêm hồ sơ mới bằng cách nhấn vào nút Thêm hồ sơ"
