@@ -1,32 +1,11 @@
 <%= turbo_stream_from @submission %>
-<div class="mx-auto w-full">
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl"><%= t(:evaluate_submission) %></h1>
-    <%= link_to t(:show_this_submission), submission_path(@submission), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-  <table class="table-auto">
-    <thead>
-      <tr>
-        <th class="px-4 py-2"><%= Score.human_attribute_name(:criterion) %></th>
-        <th class="px-4 py-2"><%= Score.human_attribute_name(:score) %></th>
-        <th class="px-4 py-2"><%= Score.human_attribute_name(:edit) %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="px-4 py-2"></td>
-        <td class="px-4 py-2 text-center text-green-800 font-bold">(<%= @submission.scores_sum %>)</td>
-        <td class="px-4 py-2"></td>
-      </tr>
-      <% @submission.scores.node_roots.each do |root| %>
-        <%= render partial: 'score_fields', locals: {score: root, level: 0} %>
-        <% root.children.each do |group| %>
-          <%= render partial: 'score_fields', locals: {score: group, level: 1} %>
-          <% group.children.each do |sub| %>
-            <%= render partial: 'score_fields', locals: {score: sub, submission: @submission, level: 2} %>
-          <% end %>
-        <% end %>
+<ul class="flex flex-col space-y-4">
+  <% @submission.scores.node_roots.each do |root| %>
+    <li class="flex flex-col space-y-4">
+      <h2 class="text-gray-900 font-bold"><%= root.title %></h2>
+      <% root.children.each do |group| %>
+        <%= render partial: 'node_groups', locals: {group: , submission: @submission} %>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    </li>
+  <% end %>
+</ul>

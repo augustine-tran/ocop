@@ -1,0 +1,21 @@
+<%= form_with model: [submission, sub], local: true do |form| %>
+  <%= form.hidden_field :criterion_id, value: criterium.id %>
+  <!-- Checked: "z-10 border-indigo-200 bg-indigo-50", Not Checked: "border-gray-200" -->
+  <label class="<%= 'rounded-tl-md rounded-tr-md' if criterium_counter === 0 %> <%= 'rounded-bl-md rounded-br-md' if criterium_counter == sub.criterium.children.length - 1 %> relative flex cursor-pointer border p-4 focus:outline-none <%= criterium.id === sub.criterion&.id ? "z-10 border-indigo-200 bg-indigo-50" : "border-gray-200" %> flex flex-nowrap items-center justify-arround">
+    <!-- Not Checked: "invisible" -->
+    <svg class="h-5 w-5 text-indigo-600 <%= "invisible" unless criterium.id == sub.criterion&.id %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+    </svg>
+    <span class="ml-3 flex flex-col">
+      <!-- Checked: "text-indigo-900", Not Checked: "text-gray-900" -->
+      <span id="privacy-setting-<%= criterium.id %>-label" class="block text-sm font-medium <%= criterium.id === sub.criterion&.id ? "text-indigo-900" : "text-gray-900" %>"><%= criterium.title %></span>
+      <!-- Checked: "text-indigo-700", Not Checked: "text-gray-500" -->
+      <span id="privacy-setting-<%= criterium.id %>-description" class="block text-sm <%= criterium.id === sub.criterion&.id ? "text-indigo-700" : "text-gray-500" %>"><%= criterium.description %></span>
+    </span>
+    <div class="flex flex-1 px-2 justify-end">
+      <span class="<%= 'hidden' if sub.criterion_id == criterium.id %> relative">
+        <%= form.submit t(:select), class: "rounded-lg py-3 px-5 text-blue-600 hover:text-blue-800 hover:underline font-medium cursor-pointer" %>
+      </span>
+    </div>
+  </label>
+<% end %>
