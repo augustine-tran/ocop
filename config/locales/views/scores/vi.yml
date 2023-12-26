@@ -1,3 +1,4 @@
 vi:
   select: Chọn
   title: "Đánh giá hồ sơ: %{name}"
+  points: "%{points} điểm"
