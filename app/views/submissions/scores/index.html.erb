@@ -1,11 +1,14 @@
 <%= turbo_stream_from @submission %>
-<ul class="flex flex-col space-y-4">
+<ul class="flex flex-col space-y-8 divide-dashed divide-y-2">
   <% @submission.scores.node_roots.each do |root| %>
     <li class="flex flex-col space-y-4">
-      <h2 class="text-gray-900 font-bold"><%= root.title %></h2>
+      <h2 class="font-bold text-indigo-900 caption mt-8"><%= root.title.upcase %></h2>
       <% root.children.each do |group| %>
         <%= render partial: 'node_groups', locals: {group: , submission: @submission} %>
       <% end %>
     </li>
   <% end %>
 </ul>
+<% content_for :page_header do %>
+  <%= t(:title, name: @submission.name) %>
+<% end %>

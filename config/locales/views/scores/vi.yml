@@ -1,2 +1,3 @@
 vi:
-  select: "Chọn"
+  select: Chọn
+  title: "Đánh giá hồ sơ: %{name}"

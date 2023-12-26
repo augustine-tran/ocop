@@ -1,21 +1,22 @@
 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
-  <div class="px-4 py-6 sm:px-6">
-    <h3 class="text-base font-semibold leading-7 text-gray-900"><%= group.title %></h3>
+  <div class="px-4 py-6 sm:px-6 bg-blue-100"> <!-- Changed to a light blue background -->
+    <h3 class="text-base font-semibold leading-7 text-gray-800 "><%= group.title %></h3>
+    <!-- Slightly lighter text color for balance -->
     <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= group.description %></p>
   </div>
   <div class="border-t border-gray-100">
-    <dl class="divide-y divide-gray-100">
-      <% group.children.each do |sub| %>
-        <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+    <dl class="divide-y divide-gray-200">
+      <% group.children.each_with_index do |sub, index| %>
+        <div class="<%= index.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-900">
-            <p class="text-gray-900 text-sm"><%= sub.title %></p>
-            <p class="text-gray-500 text-sm "><%= sub.description %></p>
+            <%= sub.title %>
           </dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+          <dd class="text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+            <p class="text-sm text-gray-500 mb-2"><%= sub.description %></p>
             <fieldset>
-              <legend class="sr-only">Select a mailing list</legend>
+              <legend class="sr-only"><%= sub.title %></legend>
               <div class="-space-y-px rounded-md bg-white">
-                <%= render partial: 'score_form', collection: sub.criterium.children, as: :criterium, locals: {sub: , submission: } %>
+                <%= render partial: 'score_form', collection: sub.criterium.children, as: :criterium, locals: { sub: sub, submission: submission } %>
               </div>
             </fieldset>
           </dd>
