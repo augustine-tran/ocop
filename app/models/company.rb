@@ -15,5 +15,5 @@ class Company < ApplicationRecord
   has_many :clients, dependent: :destroy
   has_many :submissions, dependent: :destroy
 
-  validates :registration_no, uniqueness: true
+  validates :registration_no, uniqueness: true, if: :registration_no?
 end

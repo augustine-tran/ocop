@@ -6,13 +6,5 @@ module AccountScoped
   included do
     belongs_to :account
     default_scope { where account: Current.account }
-
-    before_validation :set_account
-  end
-
-  private
-
-  def set_account
-    self.account = Current.account || Account.first!
   end
 end

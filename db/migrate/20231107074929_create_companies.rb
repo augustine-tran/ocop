@@ -3,7 +3,9 @@ class CreateCompanies < ActiveRecord::Migration[7.1]
     create_table :companies do |t|
       t.string :name
       t.string :description
-      t.string :registration_no, null: false, index: { unique: true }
+      t.boolean :is_primary, null: false, default: false
+      t.string :registration_name
+      t.string :registration_no, index: { unique: true }
       t.date :registration_date
       t.string :legal_type
       t.string :status, null: false, default: 'active'

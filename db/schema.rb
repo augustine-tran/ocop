@@ -103,7 +103,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.string "registration_no", null: false
+    t.boolean "is_primary", default: false, null: false
+    t.string "registration_name"
+    t.string "registration_no"
     t.date "registration_date"
     t.string "legal_type"
     t.string "status", default: "active", null: false
