@@ -1,0 +1,25 @@
+<div class="bg-gray-900">
+  <div class="mx-auto max-w-7xl rounded-lg shadow">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white/5"> <!-- Updated to two columns -->
+      <!-- First Column -->
+      <div class="col-span-1 bg-gray-900 rounded-lg flex flex-col items-center justify-center">
+        <p class="mt-2 flex items-baseline gap-x-2">
+          <span class="text-4xl font-semibold tracking-tight text-white"><%= t(:points_over_max, points: @submission.scores_sum, max: 100) %></span>
+        </p>
+        <p class="text-sm font-medium leading-6 text-gray-400 flex flex-nowrap"><%= render_stars(@submission.scores_sum, 100, 5) %></p>
+        <p class="text-sm font-medium leading-6 text-gray-400"><%= @submission.name %></p>
+      </div>
+      <!-- Second Column with Nested 3-row Grid -->
+      <div class="col-span-1 grid grid-rows-3 gap-4 rounded-lg">
+        <% @submission.scores.node_roots.each do |root| %>
+          <div class="bg-gray-900 px-4 py-6 sm:px-6 lg:px-8 rounded-lg  text-center md:text-right">
+            <p class="mt-2 flex items-baseline gap-x-2 justify-center md:justify-end">
+              <span class="text-4xl font-semibold tracking-tight text-white"><%= t(:points, points: root.score) %></span>
+            </p>
+            <p class="text-sm font-medium leading-6 text-gray-400"><%= root.title %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

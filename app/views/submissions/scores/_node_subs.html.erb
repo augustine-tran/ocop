@@ -1,0 +1,26 @@
+<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+  <dt class="flex flex-wrap md:block">
+    <!-- First Column -->
+    <span class="w-4/5 md:w-full font-bold">
+      <%= node.title %>
+    </span>
+    <!-- Second Column -->
+    <span class="w-1/5 md:w-full justify-end md:justify-start flex">
+      <span class="flex flex-nowrap">
+        <%= render_stars(node.score, node.criterium.children.last.score) %>
+      </span>
+    </span>
+    <!-- Third Column -->
+    <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
+      <%= node.description %>
+    </p>
+  </dt>
+  <dd class="text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+    <fieldset>
+      <legend class="sr-only"><%= node.title %></legend>
+      <div class="-space-y-px rounded-md bg-white">
+        <%= render partial: 'score_form', collection: node.criterium.children, as: :criterium, locals: { sub: node } %>
+      </div>
+    </fieldset>
+  </dd>
+</div>

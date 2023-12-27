@@ -1,38 +1,11 @@
 <div class="overflow-hidden bg-white shadow sm:rounded-lg">
   <div class="px-4 py-6 sm:px-6 bg-blue-100 flex flex-col sm:flex-row">
-    <h3 class="sm:w-3/4 text-base font-semibold leading-7 text-gray-800 mb-2 sm:mb-0"><%= group.title %></h3>
-    <p class="sm:w-1/4 max-w-2xl text-sm leading-6 font-semibold text-gray-500 sm:text-right sm:px-8"><%= t(:points, points: group.score) %></p>
+    <h3 class="sm:w-3/4 text-base font-semibold leading-7 text-gray-800 mb-2 sm:mb-0"><%= node.title %></h3>
+    <p class="sm:w-1/4 max-w-2xl text-sm leading-6 font-semibold text-gray-500 sm:text-right sm:px-8"><%= t(:points, points: node.score) %></p>
   </div>
   <div class="border-t border-gray-100">
     <dl class="divide-y divide-gray-200">
-      <% group.children.each_with_index do |sub, index| %>
-        <div class="<%= index.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-          <dt class="flex flex-wrap md:block">
-            <!-- First Column -->
-            <span class="w-4/5 md:w-full font-bold">
-              <%= sub.title %>
-            </span>
-            <!-- Second Column -->
-            <span class="w-1/5 md:w-full justify-end md:justify-start flex">
-              <span class="flex flex-nowrap">
-                <%= render_stars(sub.score, sub.criterium.children.last.score) %>
-              </span>
-            </span>
-            <!-- Third Column -->
-            <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
-              <%= sub.description %>
-            </p>
-          </dt>
-          <dd class="text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-            <fieldset>
-              <legend class="sr-only"><%= sub.title %></legend>
-              <div class="-space-y-px rounded-md bg-white">
-                <%= render partial: 'score_form', collection: sub.criterium.children, as: :criterium, locals: { sub: sub, submission: submission } %>
-              </div>
-            </fieldset>
-          </dd>
-        </div>
-      <% end %>
+      <%= render partial: 'node_subs', collection: node.children, as: :node %>
     </dl>
   </div>
 </div>
