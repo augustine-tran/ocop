@@ -13,3 +13,36 @@
 </div>
 <br>
 <%= button_to "Log out", Current.session, method: :delete %>
+<% content_for :page_header do %>
+  <%= t(:home) %>
+<% end %>
+<% content_for :left_column do %>
+  <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+      <div class="ml-4 mt-4">
+        <div class="flex items-center">
+          <h3 class="text-base font-semibold leading-6 text-gray-900"><%= t(:submissions) %></h3>
+        </div>
+      </div>
+      <div class="ml-4 mt-4 flex flex-shrink-0">
+        <%= link_to new_submission_path, class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+          <%= render 'shared/icons/add_button' %>
+          <%= t(:create_submission) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= turbo_frame_tag "submissions", src: submissions_path, target: :_top %>
+<% end %>
+<% content_for :right_column do %>
+  <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+      <div class="ml-4 mt-4">
+        <div class="flex items-center">
+          <h3 class="text-base font-semibold leading-6 text-gray-900"><%= t(:company) %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= turbo_frame_tag "company", src: company_path(Current.account.primary_company), target: :_top %>
+<% end %>

@@ -1,27 +1,25 @@
 <div id="<%= dom_id company %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Company.human_attribute_name(:name) %>:</strong>
-    <%= company.name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Company.human_attribute_name(:description) %>:</strong>
-    <%= company.description %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Company.human_attribute_name(:registration_no) %>:</strong>
-    <%= company.registration_no %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Company.human_attribute_name(:registration_date) %>:</strong>
-    <%= company.registration_date %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Company.human_attribute_name(:legal_type) %>:</strong>
-    <%= t("activerecord.attributes.company.legal_types.#{company.legal_type}") %>
-  </p>
-  <% if action_name != "show" %>
-    <%= link_to t(:show_this_company), company, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to t(:edit_this_company), edit_company_path(company), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+  <div class="lg:col-start-3 lg:row-end-1">
+    <h2 class="sr-only">Summary</h2>
+    <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+      <dl class="flex flex-col mt-8 divide-y divide-gray-200 text-sm px-8">
+        <div class="flex items-center justify-between py-4">
+          <dt class="text-gray-600"><%= Company.human_attribute_name(:name) %></dt>
+          <dd class="font-medium text-gray-900"><%= company.name %></dd>
+        </div>
+        <div class="flex items-center justify-between py-4">
+          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_name) %></dt>
+          <dd class="font-medium text-gray-900"><%= company.registration_name %></dd>
+        </div>
+        <div class="flex items-center justify-between py-4">
+          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_no) %></dt>
+          <dd class="font-medium text-gray-900"><%= company.registration_no %></dd>
+        </div>
+        <div class="flex items-center justify-between py-4">
+          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_date) %></dt>
+          <dd class="font-medium text-gray-900"><%= company.registration_date %></dd>
+        </div>
+      </dl>
+    </div>
+  </div>
 </div>
