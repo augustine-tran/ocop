@@ -1,25 +1,27 @@
-<div id="<%= dom_id company %>">
-  <div class="lg:col-start-3 lg:row-end-1">
-    <h2 class="sr-only">Summary</h2>
-    <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
-      <dl class="flex flex-col mt-8 divide-y divide-gray-200 text-sm px-8">
-        <div class="flex items-center justify-between py-4">
-          <dt class="text-gray-600"><%= Company.human_attribute_name(:name) %></dt>
-          <dd class="font-medium text-gray-900"><%= company.name %></dd>
-        </div>
-        <div class="flex items-center justify-between py-4">
-          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_name) %></dt>
-          <dd class="font-medium text-gray-900"><%= company.registration_name %></dd>
-        </div>
-        <div class="flex items-center justify-between py-4">
-          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_no) %></dt>
-          <dd class="font-medium text-gray-900"><%= company.registration_no %></dd>
-        </div>
-        <div class="flex items-center justify-between py-4">
-          <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_date) %></dt>
-          <dd class="font-medium text-gray-900"><%= company.registration_date %></dd>
-        </div>
-      </dl>
+<%= turbo_frame_tag 'company' do %>
+  <div id="<%= dom_id company %>">
+    <div class="lg:col-start-3 lg:row-end-1">
+      <h2 class="sr-only">Summary</h2>
+      <div class="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+        <dl class="flex flex-col mt-8 divide-y divide-gray-200 text-sm px-8">
+          <div class="flex items-center justify-between py-4">
+            <dt class="text-gray-600"><%= Company.human_attribute_name(:name) %></dt>
+            <dd class="font-medium text-gray-900"><%= company.name %></dd>
+          </div>
+          <div class="flex items-center justify-between py-4">
+            <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_name) %></dt>
+            <dd class="font-medium text-gray-900"><%= company.registration_name %></dd>
+          </div>
+          <div class="flex items-center justify-between py-4">
+            <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_no) %></dt>
+            <dd class="font-medium text-gray-900"><%= company.registration_no %></dd>
+          </div>
+          <div class="flex items-center justify-between py-4">
+            <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_date) %></dt>
+            <dd class="font-medium text-gray-900"><%= company.registration_date %></dd>
+          </div>
+        </dl>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
