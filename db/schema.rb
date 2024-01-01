@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_31_152733) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -209,6 +209,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
     t.index ["account_id"], name: "index_prompts_on_account_id"
   end
 
+  create_table "quotes", force: :cascade do |t|
+    t.string "name"
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_quotes_on_account_id"
+  end
+
   create_table "recordings", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "creator_id", null: false
@@ -306,6 +314,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_111835) do
   add_foreign_key "products", "accounts"
   add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"
+  add_foreign_key "quotes", "accounts"
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"
   add_foreign_key "recordings", "recordings", column: "parent_id"
