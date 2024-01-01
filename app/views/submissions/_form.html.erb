@@ -27,19 +27,32 @@
       <%= form.file_field :photos,
                           multiple: true,
                           direct_upload: true,
+                          class: 'w-full',
                           data: {
                             dropzone_target: "input"
                           } %>
-      <% submission.photos.each do |photo| %>
-        <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
-        <div class="w-32 h-32 overflow-hidden">
-          <%= image_tag(photo.variant(:thumb), class: "w-full h-full object-cover") if photo.content_type.start_with?('image/') %>
-          <%= content_tag(:span, "[Non-image file]", class: "w-full h-full object-cover" ) unless photo.content_type.start_with?('image/') %>
-        </div>
-      <% end %>
-      <div class="dropzone-msg dz-message needsclick text-gray-600">
-        <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
-        <span class="dropzone-msg-desc text-sm">2 MB file size maximum. Allowed file types png, jpg.</span>
+      <div class="flex flex-wrap -m-1">
+        <% submission.photos.each do |photo| %>
+          <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
+          <div class="p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+            <%= label_tag "photos_to_remove_#{photo.id}", class: "cursor-pointer block" do %>
+              <% if photo.content_type.start_with?('image/') %>
+                <%= image_tag(photo.variant(:thumb), class: "w-full h-auto object-cover") %>
+              <% else %>
+                <span class="block w-full h-full p-2 bg-gray-100 border border-gray-200 rounded">
+                  <%= photo.filename %><br>
+                  <small>(<%= photo.content_type %>)</small>
+                </span>
+              <% end %>
+              <%= check_box_tag 'submission[photos_to_remove][]', photo.id, false, id: "photos_to_remove_#{photo.id}" %>
+              <span class="text-sm text-gray-600"><%= t(:delete_file, name: photo.filename) %></span>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-4 p-4 border border-dashed border-gray-300 text-gray-600 text-center">
+        <h3 class="text-lg font-semibold">Drag here to upload or click here to browse</h3>
+        <span class="text-sm">2 MB file size maximum. Allowed file types png, jpg.</span>
       </div>
     <% end %>
   </div>

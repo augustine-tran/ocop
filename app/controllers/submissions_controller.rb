@@ -21,15 +21,16 @@ class SubmissionsController < ApplicationController
     if @submission.save
       redirect_to submission_path(@submission), notice: t(:created_successfully)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    if @submission.update(submission_params)
+    if @submission.update(submission_params.except(:photos_to_remove))
+      remove_photos(submission_params[:photos_to_remove]) if submission_params[:photos_to_remove].present?
       redirect_to submission_path(@submission), notice: t(:updated_successfully)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -45,6 +46,10 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:name, :status, :description, :product_group, photos: [])
+    params.require(:submission).permit(:name, :status, :description, :product_group, photos: [], photos_to_remove: [])
+  end
+
+  def remove_photos(photos_to_remove)
+    @submission.photos.where(id: photos_to_remove).map(&:purge)
   end
 end
