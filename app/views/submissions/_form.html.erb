@@ -23,12 +23,24 @@
   </div>
   <div class="my-5">
     <%= form.label :photos %>
-    <%= form.file_field :photos, multiple: true %>
-    <% submission.photos.each do |photo| %>
-      <div class="w-32 h-32 overflow-hidden">
-        <%= image_tag photo.variant(:thumb), class: "w-full h-full object-cover" %>
+    <%= dropzone_controller_div do %>
+      <%= form.file_field :photos,
+                          multiple: true,
+                          direct_upload: true,
+                          data: {
+                            dropzone_target: "input"
+                          } %>
+      <% submission.photos.each do |photo| %>
+        <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
+        <div class="w-32 h-32 overflow-hidden">
+          <%= image_tag(photo.variant(:thumb), class: "w-full h-full object-cover") if photo.content_type.start_with?('image/') %>
+          <%= content_tag(:span, "[Non-image file]", class: "w-full h-full object-cover" ) unless photo.content_type.start_with?('image/') %>
+        </div>
+      <% end %>
+      <div class="dropzone-msg dz-message needsclick text-gray-600">
+        <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+        <span class="dropzone-msg-desc text-sm">2 MB file size maximum. Allowed file types png, jpg.</span>
       </div>
-      <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
     <% end %>
   </div>
   <div class="my-5">

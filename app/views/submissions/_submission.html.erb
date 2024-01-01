@@ -18,7 +18,8 @@
         <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
           <% submission.photos.each do |photo| %>
             <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
-              <%= image_tag(photo.variant(:thumb), class: "w-full h-full object-cover") %>
+              <%= image_tag(photo.variant(:thumb), class: "w-full h-full object-cover") if photo.content_type.start_with?('image/') %>
+              <%= content_tag(:span, "[Non-image file]", class: "w-full h-full object-cover" ) unless photo.content_type.start_with?('image/') %>
             </div>
           <% end %>
         </dd>
