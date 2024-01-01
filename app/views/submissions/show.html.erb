@@ -13,7 +13,9 @@
     <% content_for :page_header do%>
       <%= @submission.name %>
     <% end %>
-    <%= render @submission %>
+    <%= turbo_frame_tag @submission do %>
+      <%= render @submission %>
+    <% end %>
     <div class="flex flex-col items-center space-y-2 justify-arround space-x-2 px-4 py-5 sm:px-6">
       <%= link_to t(:back_to_submissions), submissions_path, class: "block rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
       <%= link_to t(:destroy_this_submission), submission_path(@submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-100 font-medium" %>

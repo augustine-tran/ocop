@@ -3,7 +3,7 @@ vi:
   create_submission: "Thêm hồ sơ"
   show_list_of_submissions: "Danh sách hồ sơ"
   show_this_submission: "Xem chi tiết"
-  edit_this_submission: "Chỉnh sửa hồ sơ"
+  edit_submission: "Chỉnh sửa hồ sơ"
   destroy_this_submission: "Xóa hồ sơ"
   back_to_submissions: "Quay lại danh sách hồ sơ"
   evaluate_submission: "Chấm điểm"
