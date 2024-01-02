@@ -31,10 +31,14 @@
                           data: {
                             dropzone_target: "input"
                           } %>
-      <div class="flex flex-wrap -m-1">
+      <%= tag.div class: 'flex flex-wrap -m-1',
+                  data: {
+                    controller: "sortable",
+                    sortable_url_value: move_image_submission_path(submission)
+                  } do %>
         <% submission.photos.each do |photo| %>
-          <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
-          <div class="p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+          <div class="p-1 w-full sm:w-1/2 md:w-1/3 lg:w-1/4" >
+            <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
             <%= label_tag "photos_to_remove_#{photo.id}", class: "cursor-pointer block" do %>
               <% if photo.content_type.start_with?('image/') %>
                 <%= image_tag(photo.variant(:thumb), class: "w-full h-auto object-cover") %>
@@ -49,7 +53,7 @@
             <% end %>
           </div>
         <% end %>
-      </div>
+      <% end %>
       <div class="mt-4 p-4 border border-dashed border-gray-300 text-gray-600 text-center">
         <h3 class="text-lg font-semibold">Drag here to upload or click here to browse</h3>
         <span class="text-sm">2 MB file size maximum. Allowed file types png, jpg.</span>

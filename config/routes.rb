@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :submissions do
     resources :scores, controller: 'submissions/scores'
+    member do
+      patch :move_image, controller: 'submissions/attachment_positions'
+    end
   end
 
   resources :prompts
