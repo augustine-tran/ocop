@@ -1,8 +1,3 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <% content_for :page_header do %>
-    <%= t(:editing_submission) %>
-  <% end %>
+<div class="mx-auto px-8 w-full">
   <%= render "form", submission: @submission %>
-  <%= link_to t(:show_this_submission), @submission, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to t(:back_to_submissions), submissions_path(@product), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>

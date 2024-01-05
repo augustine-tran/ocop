@@ -41,6 +41,6 @@ module ApplicationHelper
       'dropzone-dict-invalid-file-type' => 'Nesprávny formát súboru. Iba obrazky .jpg, .png alebo .gif su povolene'
     }
 
-    content_tag(:div, class: 'dropzone dropzone-default dz-clickable', data:, &)
+    content_tag(:div, class: 'border rounded p-4 dz-clickable', data:, &)
   end
 end

@@ -4,6 +4,9 @@ vi:
   show_list_of_submissions: Danh sách hồ sơ
   show_this_submission: Xem chi tiết
   edit_submission: Chỉnh sửa hồ sơ
+  editing_submission: Chỉnh sửa hồ sơ
+  creating_submission: Thêm hồ sơ mới
+  editing_submission_guide: "Thông tin hồ sơ bao gồm: hình ảnh sản phẩm, mô tả sản phẩm và nhóm sản phẩm theo danh mục OCOP"
   destroy_this_submission: Xóa hồ sơ
   back_to_submissions: Quay lại danh sách hồ sơ
   evaluate_submission: Chấm điểm
