@@ -210,14 +210,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.index ["account_id"], name: "index_prompts_on_account_id"
   end
 
-  create_table "quotes", force: :cascade do |t|
-    t.string "name"
-    t.integer "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_quotes_on_account_id"
-  end
-
   create_table "recordings", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "creator_id", null: false
@@ -315,7 +307,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
   add_foreign_key "products", "accounts"
   add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"
-  add_foreign_key "quotes", "accounts"
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"
   add_foreign_key "recordings", "recordings", column: "parent_id"
