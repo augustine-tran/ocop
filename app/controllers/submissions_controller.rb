@@ -19,7 +19,7 @@ class SubmissionsController < ApplicationController
     @submission = Submission.build(submission_params)
 
     if @submission.save
-      redirect_to submission_path(@submission), notice: t(:created_successfully)
+      redirect_to submission_scores_path(@submission), notice: t(:created_successfully)
     else
       render :new, status: :unprocessable_entity
     end
