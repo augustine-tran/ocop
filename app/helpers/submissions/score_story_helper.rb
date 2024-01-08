@@ -1,0 +1,2 @@
+module Submissions::ScoreStoryHelper
+end

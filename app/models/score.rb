@@ -11,7 +11,8 @@ class Score < ApplicationRecord
   has_many_attached :photos do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
   end
-  has_rich_text :description
+  has_many_attached :files
+  has_rich_text :story
 
   delegate :level, :title, :description, to: :criterium
 

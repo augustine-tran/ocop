@@ -2,6 +2,7 @@
 
 class Account < ApplicationRecord
   has_many :people, dependent: :destroy
+  has_many :submissions, dependent: :destroy
   has_many :companies, dependent: :destroy
   has_one :primary_company, -> { where(is_primary: true) }, class_name: 'Company', dependent: :destroy
 
