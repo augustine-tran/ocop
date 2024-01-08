@@ -8,8 +8,6 @@ class Ability
 
     can :read, :all
 
-    can :manage, Submission, account_id: person.account_id if person.editor?
-
     return unless person.admin?
 
     can :manage, Company, account_id: person.account_id

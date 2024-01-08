@@ -13,7 +13,7 @@ vi:
           group1: "Nhóm 1"
           group2: "Nhóm 2"
         statuses:
-          draft: "Nháp"
+          drafted: "Nháp"
           active: "Đang hoạt động"
           trashed: "Đã xóa"
           archived: "Đã lưu trữ"

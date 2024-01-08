@@ -60,7 +60,7 @@ csv.each do |row|
   params['level'] = level_mapping[params['level']] || 'node_roots'
 
   item = Criterium.find_or_create_by!(params) do |criterium|
-    criterium.year = 2023
+    criterium.year = Time.zone.today.year
     criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
     criterium.status = Recording.statuses[:active]
   end

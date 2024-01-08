@@ -86,4 +86,8 @@ gem 'litestack', '~> 0.4.2'
 
 gem 'authentication-zero', '~> 3.0', group: :development
 
-gem "cancancan", "~> 3.5"
+gem 'cancancan', '~> 3.5'
+
+gem 'acts_as_list', '~> 1.1'
+
+gem 'requestjs-rails', '~> 0.0.11'
