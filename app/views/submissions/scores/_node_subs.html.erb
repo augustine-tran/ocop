@@ -1,25 +1,24 @@
-<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-  <dt class="flex flex-wrap md:block">
-    <!-- First Column -->
-    <span class="w-4/5 md:w-full font-bold">
-      <%= node.title %>
-    </span>
-    <!-- Second Column -->
-    <span class="w-1/5 md:w-full justify-end md:justify-start flex">
-      <span class="flex flex-nowrap">
-        <%= render_stars(node.score, node.criterium.children.last.score) %>
+<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+  <dt class="flex flex-col sm:col-span-3">
+    <div class="flex-shrink-0 flex flex-wrap md:block">
+      <!-- First Column -->
+      <span class="w-4/5 md:w-full font-bold">
+        <%= node.title %>
       </span>
-    </span>
-    <!-- Third Column -->
-    <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
-      <%= node.description %>
-      <%= link_to score_story_score_path(node), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-        <%= render 'shared/icons/add_button' %>
-        <%= t(:add_score_story) %>
-      <% end %>
-    </p>
+      <!-- Second Column -->
+      <span class="w-1/5 md:w-full justify-end md:justify-start flex">
+        <span class="flex flex-nowrap">
+          <%= render_stars(node.score, node.criterium.children.last.score) %>
+        </span>
+      </span>
+      <!-- Third Column -->
+      <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
+        <%= node.description %>
+      </p>
+    </div>
+    <%= turbo_frame_tag node, src: score_evidences_path(node), loading: 'lazy', class: "w-full mt-2 flex justify-center flex-1 flex place-items-center justify-around p-2 text-sm bg-slate-800 rounded shadow " %>
   </dt>
-  <dd class="text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+  <dd class="text-sm leading-6 text-gray-700 sm:col-span-3 sm:mt-0">
     <fieldset>
       <legend class="sr-only"><%= node.title %></legend>
       <div class="-space-y-px rounded-md bg-white">

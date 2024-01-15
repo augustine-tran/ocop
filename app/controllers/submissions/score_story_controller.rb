@@ -3,6 +3,15 @@
 class Submissions::ScoreStoryController < ApplicationController
   before_action :set_score
 
+  def show
+    authorize! :read, @score.scorable
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
+  end
+
   def edit; end
 
   def update

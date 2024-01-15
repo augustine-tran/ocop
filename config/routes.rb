@@ -17,10 +17,10 @@ Rails.application.routes.draw do
   end
 
   resources :scores do
-    member do
-      get :score_story, to: 'submissions/score_story#edit'
-      patch :score_story, to: 'submissions/score_story#update'
-      patch :move_image, to: 'submissions/score_story#move_image'
+    resources :evidences, controller: 'scores/evidences' do
+      member do
+        patch :move_image, to: 'scores/evidences/move_image'
+      end
     end
   end
 

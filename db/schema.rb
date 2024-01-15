@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_10_113142) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -158,6 +158,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.index ["recording_id"], name: "index_events_on_recording_id"
   end
 
+  create_table "evidences", force: :cascade do |t|
+    t.integer "score_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["score_id"], name: "index_evidences_on_score_id"
+  end
+
   create_table "identities", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -301,6 +308,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"
+  add_foreign_key "evidences", "scores"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"

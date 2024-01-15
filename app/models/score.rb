@@ -8,11 +8,7 @@ class Score < ApplicationRecord
   belongs_to :criterion, class_name: 'Criterium', optional: true
   belongs_to :parent, class_name: 'Score', optional: true, touch: true
   has_many :children, class_name: 'Score', foreign_key: :parent_id, dependent: :destroy
-  has_many_attached :photos do |attachable|
-    attachable.variant :thumb, resize_to_limit: [150, nil]
-  end
-  has_many_attached :files
-  has_rich_text :story
+  has_one :evidence, dependent: :destroy
 
   delegate :level, :title, :description, to: :criterium
 
