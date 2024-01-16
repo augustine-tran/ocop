@@ -1,5 +1,5 @@
 <div id="<%= dom_id(evidence) %>" class="relative w-full">
-  <div class="relative" data-controller="slider" data-slider-index-value="0">
+  <div class="relative" data-controller="slider" data-slider-index-value="0" data-action="fullscreenchange@document->slider#closeFullScreen">
     <!--Carousel indicators-->
     <div class="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0">
       <% evidence.files.each_with_index do |file, idx| %>
@@ -18,9 +18,11 @@
                     style="backface-visibility: hidden">
           <% if file.representable? %>
             <%= image_tag file.representation(resize_and_pad: [360, 210]),
-                          class: "block mx-auto",
+                          class: "block mx-auto cursor-pointer object-cover",
                           data: {
-                            action: "click->slider#toggleFullScreen",
+                            action: "click->slider#openFullScreen",
+                            'slider-url-param': url_for(file),
+                            'slider-is-pdf-param': file.content_type.end_with?('pdf'),
                             'slider-target': "slide"
                           } %>
           <% else %>

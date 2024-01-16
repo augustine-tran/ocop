@@ -43,4 +43,33 @@ export default class extends Controller {
       el.classList.toggle(this.constructor.supportedClasses[2], this.indexValue === i);
     });
   }
+
+  openFullScreen(event) {
+    const image = event.target;
+
+    const originalSrc = image.src;
+
+    const highResSrc = event.params.url;
+
+    if (event.params.isPdf) {
+      return window.open(highResSrc, '_blank');
+    }
+
+    if (!document.fullscreenElement) {
+      if (highResSrc) {
+        image.originalSrc = originalSrc;
+        image.src = highResSrc;
+      }
+
+      image.requestFullscreen();
+    }
+  }
+
+  closeFullScreen() {
+    const image = this.slideTargets[this.indexValue];
+
+    if (image.originalSrc && image.src !== image.originalSrc) {
+      image.src = image.originalSrc;
+    }
+  }
 }
