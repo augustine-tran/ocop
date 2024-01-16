@@ -1,3 +1,4 @@
+<% accepted_files = %w[application/pdf image/jpeg image/jpg image/png image/gif] %>
 <%= form_with(model: [@score, evidence], class: "contents") do |form| %>
   <div class="space-y-12 sm:space-y-16">
     <div>
@@ -7,8 +8,8 @@
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :photos, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= dropzone_controller_div do %>
-              <%= form.file_field :photos,
+            <%= dropzone_controller_div accepted_files: do %>
+              <%= form.file_field :files,
                                   multiple: true,
                                   direct_upload: true,
                                   class: 'w-full',
@@ -21,44 +22,26 @@
                             controller: "sortable",
                             sortable_url_value: evidence.persisted? ? move_image_score_evidence_path(@score, evidence) : ''
                           } do %>
-                <% evidence.photos.each do |photo| %>
-                  <li class="relative ">
-                    <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
-                    <%= label_tag "photos_to_remove_#{photo.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
-                      <div class="aspect-h-7 aspect-w-10 block overflow-hidden rounded-lg ">
-                        <%= image_tag(photo.variant(:thumb), class: "object-cover") %>
-                      </div>
-                      <div class="mx-auto">
-                        <%= check_box_tag 'evidence[photos_to_remove][]', photo.id, false, id: "photos_to_remove_#{photo.id}" %>
-                        <span class="ml-1">Xoá</span>
-                      </div>
-                    <% end %>
-                  </li>
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
-          <%= form.label :files, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
-          <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= dropzone_files_controller_div do %>
-              <%= form.file_field :files,
-                                  multiple: true,
-                                  direct_upload: true,
-                                  class: 'w-full',
-                                  data: {
-                                    dropzone_target: "input"
-                                  } %>
-              <%= tag.ul  class: 'grid grid-cols-1 gap-x-4 gap-y-8 ',
-                          role: "list" do %>
                 <% evidence.files.each do |file| %>
                   <li class="relative ">
                     <%= form.hidden_field :files, multiple: true, value: file.signed_id %>
-                    <%= label_tag "files_to_remove_#{file.id}", class: "cursor-pointer group w-full flex flex-row flex-no-wrap justify-between gap-y-2" do %>
-                      <div><%= file.filename %></div>
-                      <div class="flex flex-no-wrap items-center">
-                        <%= check_box_tag 'score[files_to_remove][]', file.id, false, id: "files_to_remove_#{file.id}" %>
+                    <%= label_tag "files_to_remove_#{file.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
+                      <div class="aspect-h-7 aspect-w-10 block overflow-hidden rounded-lg ">
+                        <% if file.representable? %>
+                          <%= image_tag file.representation(resize_to_limit: [150, 150]),
+                                        class: "object-cover",
+                                        data: {
+                                          action: "click->slider#toggleFullScreen",
+                                          'slider-target': "slide"
+                                        } %>
+                        <% else %>
+                          <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                            <%= image_tag "placeholder.png", alt: "Download file" %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                      <div class="mx-auto">
+                        <%= check_box_tag 'evidence[files_to_remove][]', file.id, false, id: "files_to_remove_#{file.id}" %>
                         <span class="ml-1">Xoá</span>
                       </div>
                     <% end %>

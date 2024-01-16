@@ -2,12 +2,12 @@
 
 class Scores::EvidencesController < ApplicationController
   before_action :set_score
-  before_action :set_evidence, only: %i[show edit update destroy]
+  before_action :set_evidence, only: %i[show edit update destroy move_image]
 
   def index
     @evidence = @score.evidence
 
-    redirect_to score_evidence_path(@score, @evidence) if @evidence.present?
+    redirect_to score_evidence_path(@score, @evidence) if @evidence.present? && @evidence.files.present?
   end
 
   def show; end
@@ -29,8 +29,7 @@ class Scores::EvidencesController < ApplicationController
   end
 
   def update
-    if @evidence.update(evidence_params.except(:photos_to_remove, :files_to_remove))
-      remove_photos(evidence_params[:photos_to_remove]) if evidence_params[:photos_to_remove].present?
+    if @evidence.update(evidence_params.except(:files_to_remove))
       remove_files(evidence_params[:files_to_remove]) if evidence_params[:files_to_remove].present?
 
       redirect_to score_evidence_path(@score, @evidence), notice: 'Score was successfully updated.'
@@ -44,8 +43,8 @@ class Scores::EvidencesController < ApplicationController
   def move_image
     authorize! :edit, @score.scorable
 
-    @image = @score.photos[params[:old_position].to_i - 1]
-    @image.insert_at(params[:new_position].to_i)
+    @file = @evidence.files[params[:old_position].to_i - 1]
+    @file.insert_at(params[:new_position].to_i)
     head :ok
   end
 
@@ -60,11 +59,7 @@ class Scores::EvidencesController < ApplicationController
   end
 
   def evidence_params
-    params.require(:evidence).permit(:story, photos_to_remove: [], files_to_remove: [], photos: [], files: [])
-  end
-
-  def remove_photos(photos_to_remove)
-    @evidence.photos.where(id: photos_to_remove).map(&:purge)
+    params.require(:evidence).permit(:story, files_to_remove: [], files: [])
   end
 
   def remove_files(files_to_remove)

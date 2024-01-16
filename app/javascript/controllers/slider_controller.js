@@ -9,6 +9,22 @@ export default class extends Controller {
     this.indexValue = parseInt(event.params.index);
   }
 
+  next() {
+    if (this.indexValue === this.slideTargets.length - 1) {
+      this.indexValue = 0;
+    } else {
+      this.indexValue++;
+    }
+  }
+
+  prev() {
+    if (this.indexValue === 0) {
+      this.indexValue = this.slideTargets.length - 1;
+    } else {
+      this.indexValue--;
+    }
+  }
+
   indexValueChanged() {
     this.updateSlide();
   }
