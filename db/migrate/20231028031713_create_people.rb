@@ -1,12 +1,7 @@
 # frozen_string_literal: true
 
-class CreateAccountsAndPeople < ActiveRecord::Migration[7.1]
+class CreatePeople < ActiveRecord::Migration[7.1]
   def change
-    create_table :accounts do |t|
-      t.string :name, null: false
-      t.timestamps
-    end
-
     create_table :identities do |t|
       t.string :name,           null: false
       t.string :email,           null: false, index: { unique: true }
@@ -38,12 +33,6 @@ class CreateAccountsAndPeople < ActiveRecord::Migration[7.1]
       t.references :account, null: false, foreign_key: true
       t.references :personable, polymorphic: true, null: false
       t.string :role, :string, default: 'user', null: false
-      t.timestamps
-    end
-
-    create_table :administratorships do |t|
-      t.references :account, null: false, foreign_key: true
-      t.references :person, null: false, foreign_key: true
       t.timestamps
     end
 

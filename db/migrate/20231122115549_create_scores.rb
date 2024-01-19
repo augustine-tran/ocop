@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateScores < ActiveRecord::Migration[7.1]
   def change
     create_table :scores do |t|
@@ -7,7 +9,6 @@ class CreateScores < ActiveRecord::Migration[7.1]
       t.references :criterium, null: false, foreign_key: true
       t.references :criterion, foreign_key: { to_table: :criteria }
       t.integer :score, null: false, default: 0
-      t.references :account, null: false, foreign_key: true
 
       t.timestamps
     end

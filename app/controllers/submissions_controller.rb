@@ -2,9 +2,14 @@
 
 class SubmissionsController < ApplicationController
   before_action :set_submission, only: %i[show edit update destroy]
+  before_action :set_company, only: %i[index]
 
   def index
-    @submissions = Submission.all
+    @submissions = if Current.account.company?
+                     Current.account.submissions
+                   else
+                     Current.account.managed_submissions
+                   end
   end
 
   def show; end
@@ -17,6 +22,7 @@ class SubmissionsController < ApplicationController
 
   def create
     @submission = Submission.build(submission_params)
+    @submission.account = Current.account
 
     if @submission.save
       redirect_to submission_scores_path(@submission), notice: t(:created_successfully)
@@ -43,6 +49,10 @@ class SubmissionsController < ApplicationController
 
   def set_submission
     @submission = Submission.find(params[:id])
+  end
+
+  def set_company
+    @company = Company.find(request.query_parameters[:company_id]) if request.query_parameters[:company_id].present?
   end
 
   def submission_params

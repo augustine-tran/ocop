@@ -14,7 +14,10 @@ class RegistrationsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      @account = Account.create!(account_params)
+      @account = Account.new(account_params)
+      @account.accountable = Company.new
+      @account.save!
+
       @identity = Identity.create!(identity_params)
 
       user = User.create!(identity: @identity)
@@ -35,7 +38,7 @@ class RegistrationsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:name)
+    params.require(:account).permit(:name, :administrator_id)
   end
 
   def identity_params

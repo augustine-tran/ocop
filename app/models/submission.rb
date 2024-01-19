@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Submission < ApplicationRecord
-  include Scorable, Status, AccountScoped
+  include Scorable, Status
 
   attr_accessor :year
 
@@ -18,12 +18,16 @@ class Submission < ApplicationRecord
     group2: 'group2'
   }
 
+  belongs_to :account
+
   has_many_attached :photos do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
   end
   has_rich_text :description
 
   after_create :create_scores_according_to_criteria
+
+  has_many :evidences, through: :score
 
   broadcasts_refreshes
 

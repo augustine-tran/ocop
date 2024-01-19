@@ -1,24 +1,22 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
+  delegated_type :accountable, types: Accountable::TYPES
+
+  belongs_to :administrator, class_name: 'Account', optional: true
+  belongs_to :district, class_name: 'AdministrativeUnit', optional: true
+  belongs_to :province, class_name: 'AdministrativeUnit', optional: true
+
   has_many :people, dependent: :destroy
   has_many :submissions, dependent: :destroy
-  has_many :companies, dependent: :destroy
-  has_one :primary_company, -> { where(is_primary: true) }, class_name: 'Company', dependent: :destroy
+  has_many :managed_accounts, class_name: 'Account', foreign_key: :administrator_id, dependent: :nullify
+  has_many :managed_submissions, through: :managed_accounts, source: :submissions
 
-  after_create :create_primary_company
-
-  def primary_company=(company)
-    ActiveRecord::Base.transaction do
-      companies.update_all(is_primary: false) # Reset the primary status of all companies # rubocop:disable Rails/SkipsModelValidations
-      company.update(is_primary: true) # Set the new primary company
-    end
+  def province
+    province || administrator&.province
   end
 
-  private
-
-  def create_primary_company
-    logger.info "Creating primary company for account #{id}"
-    companies.create!(is_primary: true, name:)
+  def district
+    province || administrator&.province
   end
 end

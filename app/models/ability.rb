@@ -10,7 +10,7 @@ class Ability
 
     return unless person.admin?
 
-    can :manage, Company, account_id: person.account_id
+    can :manage, Company
     can :manage, Submission, account_id: person.account_id
   end
 end

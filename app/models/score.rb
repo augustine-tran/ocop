@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Score < ApplicationRecord
-  include AccountScoped
-
   belongs_to :scorable, polymorphic: true, optional: false, touch: true
   belongs_to :criterium, optional: false
   belongs_to :criterion, class_name: 'Criterium', optional: true
