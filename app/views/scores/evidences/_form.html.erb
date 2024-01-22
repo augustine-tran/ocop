@@ -1,0 +1,67 @@
+<% accepted_files = %w[application/pdf image/jpeg image/jpg image/png image/gif] %>
+<%= form_with(model: [@score, evidence], class: "contents") do |form| %>
+  <div class="space-y-12 sm:space-y-16">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t(evidence.new_record? ? :creating_submission : :editing_submission) %></h2>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-600"><%= t(:editing_submission_guide) %></p>
+      <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :photos, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= dropzone_controller_div accepted_files: do %>
+              <%= form.file_field :files,
+                                  multiple: true,
+                                  direct_upload: true,
+                                  class: 'w-full',
+                                  data: {
+                                    dropzone_target: "input"
+                                  } %>
+              <%= tag.ul  class: 'grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8',
+                          role: "list",
+                          data: {
+                            controller: "sortable",
+                            sortable_url_value: evidence.persisted? ? move_image_score_evidence_path(@score, evidence) : ''
+                          } do %>
+                <% evidence.files.each do |file| %>
+                  <li class="relative ">
+                    <%= form.hidden_field :files, multiple: true, value: file.signed_id %>
+                    <%= label_tag "files_to_remove_#{file.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
+                      <div class="aspect-h-7 aspect-w-10 block overflow-hidden rounded-lg ">
+                        <% if file.representable? %>
+                          <%= image_tag file.representation(resize_to_limit: [150, 150]),
+                                        class: "object-cover",
+                                        data: {
+                                          action: "click->slider#toggleFullScreen",
+                                          'slider-target': "slide"
+                                        } %>
+                        <% else %>
+                          <%= link_to rails_blob_path(file, disposition: "attachment") do %>
+                            <%= image_tag "placeholder.png", alt: "Download file" %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                      <div class="mx-auto">
+                        <%= check_box_tag 'evidence[files_to_remove][]', file.id, false, id: "files_to_remove_#{file.id}" %>
+                        <span class="ml-1">Xoá</span>
+                      </div>
+                    <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :story, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.rich_text_area :story, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= link_to t(:cancel), submission_scores_path(@score.scorable), class: "text-sm font-semibold leading-6 text-gray-900" %>
+    <%= form.submit t(:save), class: "inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer" %>
+  </div>
+<% end %>

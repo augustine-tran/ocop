@@ -31,17 +31,23 @@ module ApplicationHelper
     end.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def dropzone_controller_div(&)
+  def dropzone_controller_div(accepted_files: nil, max_file_size: '8', max_files: '10', &block)
+    accepted_files = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] unless accepted_files.is_a?(Array)
+
+    accepted_files = accepted_files.join(',')
+
+    # Prepare the data hash
     data = {
       controller: 'dropzone',
-      'dropzone-max-file-size' => '8',
-      'dropzone-max-files' => '10',
-      'dropzone-accepted-files' => 'image/jpeg,image/jpg,image/png,image/gif',
-      'dropzone-dict-file-too-big' => 'Váš obrázok ma veľkosť {{filesize}} ale povolené sú len obrázky do veľkosti {{maxFilesize}} MB',
-      'dropzone-dict-invalid-file-type' => 'Nesprávny formát súboru. Iba obrazky .jpg, .png alebo .gif su povolene'
+      'dropzone-max-file-size' => max_file_size,
+      'dropzone-max-files' => max_files,
+      'dropzone-accepted-files' => accepted_files,
+      'dropzone-dict-file-too-big' => 'File is too large. Please upload a file smaller than {{maxFilesize}} MB',
+      'dropzone-dict-invalid-file-type' => "File type is not supported. Please upload a file of type #{accepted_files}"
     }
 
-    content_tag(:div, class: 'dropzone dropzone-default dz-clickable border rounded p-4', data:, &)
+    # Create the content tag
+    content_tag(:div, class: 'dropzone dropzone-default dz-clickable border rounded p-4', data:, &block)
   end
 
   def dropzone_files_controller_div(&)

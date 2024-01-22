@@ -1,0 +1,8 @@
+vi:
+  activerecord:
+    attributes:
+      account:
+        name: Tên tổ chức
+        adminitrator_id: Đơn vị quản lý
+        province: Tỉnh thành
+        district: Quận huyện

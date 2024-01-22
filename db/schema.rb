@@ -10,11 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_10_113142) do
   create_table "accounts", force: :cascade do |t|
+    t.string "accountable_type", null: false
+    t.integer "accountable_id", null: false
+    t.integer "administrator_id"
     t.string "name", null: false
+    t.integer "district_id"
+    t.integer "province_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable"
+    t.index ["administrator_id"], name: "index_accounts_on_administrator_id"
+    t.index ["district_id"], name: "index_accounts_on_district_id"
+    t.index ["province_id"], name: "index_accounts_on_province_id"
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -102,18 +111,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.boolean "is_primary", default: false, null: false
     t.string "registration_name"
     t.string "registration_no"
     t.date "registration_date"
     t.string "legal_type"
     t.string "status", default: "active", null: false
-    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_companies_on_account_id"
     t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
   end
 
@@ -130,6 +134,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_criteria_on_parent_id"
+  end
+
+  create_table "district_departments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "event_details", force: :cascade do |t|
@@ -156,6 +165,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.index ["recordable_previous_type", "recordable_previous_id"], name: "index_events_on_recordable_previous"
     t.index ["recordable_type", "recordable_id"], name: "index_events_on_recordable"
     t.index ["recording_id"], name: "index_events_on_recording_id"
+  end
+
+  create_table "evidences", force: :cascade do |t|
+    t.integer "score_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["score_id"], name: "index_evidences_on_score_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -233,10 +249,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.integer "criterium_id", null: false
     t.integer "criterion_id"
     t.integer "score", default: 0, null: false
-    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_scores_on_account_id"
     t.index ["criterion_id"], name: "index_scores_on_criterion_id"
     t.index ["criterium_id"], name: "index_scores_on_criterium_id"
     t.index ["parent_id"], name: "index_scores_on_parent_id"
@@ -259,15 +273,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.string "product_group", default: "group1", null: false
     t.string "status", default: "active", null: false
     t.string "round", default: "self", null: false
-    t.integer "parent_id"
-    t.integer "company_id"
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "scores_sum"
     t.index ["account_id"], name: "index_submissions_on_account_id"
-    t.index ["company_id"], name: "index_submissions_on_company_id"
-    t.index ["parent_id"], name: "index_submissions_on_parent_id"
   end
 
   create_table "tombstones", force: :cascade do |t|
@@ -287,6 +297,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
+  add_foreign_key "accounts", "accounts", column: "administrator_id"
+  add_foreign_key "accounts", "administrative_units", column: "district_id"
+  add_foreign_key "accounts", "administrative_units", column: "province_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "accounts"
@@ -296,11 +309,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
-  add_foreign_key "companies", "accounts"
   add_foreign_key "criteria", "criteria", column: "parent_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"
+  add_foreign_key "evidences", "scores"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
@@ -310,14 +323,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_032304) do
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"
   add_foreign_key "recordings", "recordings", column: "parent_id"
-  add_foreign_key "scores", "accounts"
   add_foreign_key "scores", "criteria"
   add_foreign_key "scores", "criteria", column: "criterion_id"
   add_foreign_key "scores", "scores", column: "parent_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
-  add_foreign_key "submissions", "companies"
-  add_foreign_key "submissions", "submissions", column: "parent_id"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"
