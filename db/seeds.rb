@@ -32,13 +32,28 @@ account = Account.create! name: 'Phòng Nông nghiệp và Phát triển nông t
                           accountable: DistrictDepartment.create!,
                           province: AdministrativeUnit.find_or_create_by!(name: 'Bà Rịa Vũng Tàu',
                                                                           level: AdministrativeUnit.levels[:province]),
-                          district: AdministrativeUnit.find_or_create_by!(name: 'Chaa Đức',
+                          district: AdministrativeUnit.find_or_create_by!(name: 'Châu Đức',
                                                                           level: AdministrativeUnit.levels[:district])
 
 identity = Identity.create! email: 'donga.spirit@gmail.com', name: 'Demo Account', password: 'mypassword123',
                             password_confirmation: 'mypassword123',
                             verified: true
 
+person = Person.create! account:, personable: User.new(identity:), role: :admin
+
+Current.person = person
+Current.account = account
+
+account = Account.create! name: 'Demo Company',
+                          accountable: Company.create!,
+                          province: AdministrativeUnit.find_or_create_by!(name: 'Bà Rịa Vũng Tàu',
+                                                                          level: AdministrativeUnit.levels[:province]),
+                          district: AdministrativeUnit.find_or_create_by!(name: 'Châu Đức',
+                                                                          level: AdministrativeUnit.levels[:district])
+
+identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'mypassword123',
+                            password_confirmation: 'mypassword123',
+                            verified: true
 person = Person.create! account:, personable: User.new(identity:), role: :admin
 
 Current.person = person

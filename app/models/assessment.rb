@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 class Assessment < ApplicationRecord
-  belongs_to :criterium
-  belongs_to :score
-  belongs_to :judge, class_name: 'Person'
+  include Scorable, Status
 
-  enum round: {
-    self: 'self',
-    district: 'district',
-    province: 'province'
-  }
+  belongs_to :submission
+  delegated_type :assessable, types: Assessable::TYPES
+
+  delegate :year, :product_group, :name, :account, to: :submission
 end

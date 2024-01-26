@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Score < ApplicationRecord
-  belongs_to :scorable, polymorphic: true, optional: false, touch: true
+  belongs_to :assessment, optional: false, touch: true
   belongs_to :criterium, optional: false
   belongs_to :criterion, class_name: 'Criterium', optional: true
   belongs_to :parent, class_name: 'Score', optional: true, touch: true
@@ -29,7 +29,7 @@ class Score < ApplicationRecord
 
     parent.recalibrate_score if parent.present?
 
-    scorable.update_scores_sum if parent.blank?
+    assessment.update_scores_sum if parent.blank?
   end
 
   private

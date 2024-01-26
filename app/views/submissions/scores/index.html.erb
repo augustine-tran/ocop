@@ -1,8 +1,0 @@
-<%= turbo_stream_from @submission %>
-<%= render 'summary' %>
-<ul class="flex flex-col space-y-8 divide-dashed divide-y-2">
-  <%= render partial: 'node_roots', collection: @submission.scores.node_roots, as: :node %>
-</ul>
-<% content_for :page_header do %>
-  <%= t(:title, name: @submission.name) %>
-<% end %>

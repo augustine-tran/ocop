@@ -1,4 +1,4 @@
-<%= form_with model: [@submission, sub], local: true do |form| %>
+<%= form_with model: [@assessment, sub], local: true do |form| %>
   <%= form.hidden_field :criterion_id, value: criterium.id %>
   <!-- Checked: "z-10 border-indigo-200 bg-indigo-50", Not Checked: "border-gray-200" -->
   <label class="<%= 'rounded-tl-md rounded-tr-md' if criterium_counter === 0 %> <%= 'rounded-bl-md rounded-br-md' if criterium_counter == sub.criterium.children.length - 1 %> relative flex cursor-pointer border p-4 focus:outline-none <%= criterium.id === sub.criterion&.id ? "z-10 border-indigo-200 bg-indigo-50" : "border-gray-200" %> flex flex-nowrap items-center justify-arround">

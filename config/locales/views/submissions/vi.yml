@@ -13,4 +13,4 @@ vi:
   no_submissions: Không có hồ sơ nào
   suggest_to_create_new_submission: Bạn có thể thêm hồ sơ mới bằng cách nhấn vào nút Thêm hồ sơ
   delete_file: "Xoá %{name}"
-  add_score_story: Bổ sung thông tin
+  do_assessment: Đánh giá

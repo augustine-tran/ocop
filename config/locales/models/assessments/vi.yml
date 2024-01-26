@@ -1,0 +1,19 @@
+vi:
+  activerecord:
+    attributes:
+      assessment:
+        name: "Tên sản phẩm"
+        product_group: "Nhóm sản phẩm"
+        status: "Trạng thái"
+        description: "Mô tả"
+        price: "Giá"
+        photos: "Hình minh hoạ"
+        scores_sum: "Tổng điểm"
+        product_groups:
+          group1: "Nhóm 1"
+          group2: "Nhóm 2"
+        statuses:
+          drafted: "Nháp"
+          active: "Đang hoạt động"
+          trashed: "Đã xóa"
+          archived: "Đã lưu trữ"

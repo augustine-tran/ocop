@@ -3,6 +3,7 @@
 class SubmissionsController < ApplicationController
   before_action :set_submission, only: %i[show edit update destroy]
   before_action :set_company, only: %i[index]
+  before_action :set_assessment, only: %i[show]
 
   def index
     @submissions = if Current.account.company?
@@ -53,6 +54,14 @@ class SubmissionsController < ApplicationController
 
   def set_company
     @company = Company.find(request.query_parameters[:company_id]) if request.query_parameters[:company_id].present?
+  end
+
+  def set_assessment
+    @assessment = if Current.account == @submission.account
+                    @submission.self_assessment
+                  else
+                    @submission.assessment_for(Current.person)
+                  end
   end
 
   def submission_params

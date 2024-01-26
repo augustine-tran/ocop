@@ -7,8 +7,10 @@ class Account < ApplicationRecord
   belongs_to :district, class_name: 'AdministrativeUnit', optional: true
   belongs_to :province, class_name: 'AdministrativeUnit', optional: true
 
-  has_many :people, dependent: :destroy
   has_many :submissions, dependent: :destroy
+  has_many :assessments, through: :submissions
+
+  has_many :people, dependent: :destroy
   has_many :managed_accounts, class_name: 'Account', foreign_key: :administrator_id, dependent: :nullify
   has_many :managed_submissions, through: :managed_accounts, source: :submissions
 

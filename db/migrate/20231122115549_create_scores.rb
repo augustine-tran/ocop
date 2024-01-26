@@ -3,7 +3,7 @@
 class CreateScores < ActiveRecord::Migration[7.1]
   def change
     create_table :scores do |t|
-      t.references :scorable, polymorphic: true, null: false
+      t.references :assessment, null: false
       t.string :level, null: false, default: 'node_roots'
       t.references :parent, foreign_key: { to_table: :scores }
       t.references :criterium, null: false, foreign_key: true

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_26_070949) do
   create_table "accounts", force: :cascade do |t|
     t.string "accountable_type", null: false
     t.integer "accountable_id", null: false
@@ -103,6 +103,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
     t.index ["person_id"], name: "index_administratorships_on_person_id"
   end
 
+  create_table "assessments", force: :cascade do |t|
+    t.integer "submission_id", null: false
+    t.string "assessable_type", null: false
+    t.integer "assessable_id", null: false
+    t.integer "scores_sum", default: 0, null: false
+    t.string "status", default: "drafted", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assessable_type", "assessable_id"], name: "index_assessments_on_assessable"
+    t.index ["submission_id"], name: "index_assessments_on_submission_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
@@ -191,6 +203,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
     t.index ["score_id"], name: "index_evidences_on_score_id"
   end
 
+  create_table "final_assessments", force: :cascade do |t|
+    t.integer "judge_id", null: false
+    t.string "level", default: "district", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["judge_id"], name: "index_final_assessments_on_judge_id"
+  end
+
   create_table "identities", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -208,6 +228,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_ownerships_on_account_id"
     t.index ["person_id"], name: "index_ownerships_on_person_id"
+  end
+
+  create_table "panel_assessments", force: :cascade do |t|
+    t.integer "judge_id", null: false
+    t.string "level", default: "district", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["judge_id"], name: "index_panel_assessments_on_judge_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -259,8 +287,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
   end
 
   create_table "scores", force: :cascade do |t|
-    t.string "scorable_type", null: false
-    t.integer "scorable_id", null: false
+    t.integer "assessment_id", null: false
     t.string "level", default: "node_roots", null: false
     t.integer "parent_id"
     t.integer "criterium_id", null: false
@@ -268,10 +295,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
     t.integer "score", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assessment_id"], name: "index_scores_on_assessment_id"
     t.index ["criterion_id"], name: "index_scores_on_criterion_id"
     t.index ["criterium_id"], name: "index_scores_on_criterium_id"
     t.index ["parent_id"], name: "index_scores_on_parent_id"
-    t.index ["scorable_type", "scorable_id"], name: "index_scores_on_scorable"
+  end
+
+  create_table "self_assessments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -325,6 +357,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
+  add_foreign_key "assessments", "submissions"
   add_foreign_key "clients", "identities"
   add_foreign_key "council_members", "councils"
   add_foreign_key "council_members", "people"
@@ -334,8 +367,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"
   add_foreign_key "evidences", "scores"
+  add_foreign_key "final_assessments", "people", column: "judge_id"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
+  add_foreign_key "panel_assessments", "people", column: "judge_id"
   add_foreign_key "people", "accounts"
   add_foreign_key "products", "accounts"
   add_foreign_key "products", "companies"

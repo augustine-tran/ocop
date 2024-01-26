@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Submission < ApplicationRecord
-  include Scorable, Status
+  include Status
 
   attr_accessor :year
 
@@ -19,21 +19,20 @@ class Submission < ApplicationRecord
   }
 
   belongs_to :account
+  has_many :assessments, dependent: :destroy
+  has_one :self_assessment, lambda {
+                              where assessable_type: 'SelfAssessment'
+                            }, class_name: 'Assessment', dependent: :destroy
+  has_many :panel_assessments, through: :assessements, source: :assessable, source_type: 'PanelAssessment'
 
   has_many_attached :photos do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
   end
   has_rich_text :description
 
-  after_create :create_scores_according_to_criteria
-
-  has_many :evidences, through: :score
-
   broadcasts_refreshes
 
-  def update_scores_sum
-    update_columns(scores_sum: scores.node_roots.sum(:score)) if scores_sum != scores.sum(:score) # rubocop:disable Rails/SkipsModelValidations
-  end
+  after_create :create_self_assessment
 
   private
 
@@ -41,19 +40,7 @@ class Submission < ApplicationRecord
     self.year ||= created_at&.year || Time.zone.today.year
   end
 
-  def create_scores_according_to_criteria
-    Criterium.for_submission(self).node_roots.each do |root_criterium|
-      create_scores(root_criterium, nil)
-    end
-  end
-
-  def create_scores(criterium, parent_score)
-    # Skip if criterium is leaf (level 3)
-    return if criterium.children.blank?
-
-    new_score = scores.create(criterium:, parent: parent_score, level: criterium.level)
-    criterium.children.each do |child_criterium|
-      create_scores(child_criterium, new_score)
-    end
+  def create_self_assessment
+    assessments.create(assessable: SelfAssessment.new)
   end
 end
