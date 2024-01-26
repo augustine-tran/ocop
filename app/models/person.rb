@@ -9,13 +9,22 @@ class Person < ApplicationRecord
 
   delegate :can?, :cannot?, to: :ability
 
+  has_one :council_member, dependent: :destroy
+
+  has_many :accounts, through: :council_members
+
   enum role: {
     admin: 'admin',
-    editor: 'editor',
-    writer: 'writer'
+    head_judge: 'head_jugde',
+    judge: 'jugde',
+    user: 'user'
   }
 
   def ability
     @ability ||= Ability.new(self)
+  end
+
+  def president?
+    self == Current.account.president
   end
 end

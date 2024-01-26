@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_10_113142) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_22_083909) do
   create_table "accounts", force: :cascade do |t|
     t.string "accountable_type", null: false
     t.integer "accountable_id", null: false
@@ -119,6 +119,23 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_10_113142) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
+  end
+
+  create_table "council_members", force: :cascade do |t|
+    t.integer "council_id", null: false
+    t.integer "person_id", null: false
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["council_id"], name: "index_council_members_on_council_id"
+    t.index ["person_id"], name: "index_council_members_on_person_id"
+  end
+
+  create_table "councils", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_councils_on_account_id"
   end
 
   create_table "criteria", force: :cascade do |t|
@@ -309,6 +326,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_10_113142) do
   add_foreign_key "administratorships", "accounts"
   add_foreign_key "administratorships", "people"
   add_foreign_key "clients", "identities"
+  add_foreign_key "council_members", "councils"
+  add_foreign_key "council_members", "people"
+  add_foreign_key "councils", "accounts"
   add_foreign_key "criteria", "criteria", column: "parent_id"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"

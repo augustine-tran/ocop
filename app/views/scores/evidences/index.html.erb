@@ -1,8 +1,12 @@
 <%= turbo_frame_tag @score do %>
-  <div class="flex place-content-center">
-    <%= link_to new_score_evidence_path(@score), class: "block inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-      <%= render 'shared/icons/add_button' %>
-      <%= t(:add_score_story) %>
-    <% end %>
-  </div>
+  <% if @score.scorable.account === Current.account %>
+    <div class="flex place-content-center">
+      <%= link_to new_score_evidence_path(@score), class: "block inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+        <%= render 'shared/icons/add_button' %>
+        <%= t(:add_score_story) %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= render 'empty_list' %>
+  <% end %>
 <% end %>
