@@ -6,6 +6,7 @@ module Scorable
   included do
     has_many :scores, dependent: :destroy
     has_many :criteria, through: :scores
+    has_many :evidences, through: :scores
 
     after_create :create_scores_according_to_criteria
 
@@ -13,6 +14,10 @@ module Scorable
 
     def update_scores_sum
       update_columns(scores_sum: scores.node_roots.sum(:score)) if scores_sum != scores.sum(:score) # rubocop:disable Rails/SkipsModelValidations
+    end
+
+    def scored_all?
+      scores.node_subs.where(criterion: nil).count.zero?
     end
 
     private

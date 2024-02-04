@@ -5,7 +5,8 @@ class Scores::EvidencesController < ApplicationController
   before_action :set_evidence, only: %i[show edit update destroy move_image]
 
   def index
-    @evidence = @score.evidence
+    @evidence = @score.evidence ||
+                @score.assessment.submission.self_assessment&.evidences&.find_by(criterium_id: @score.criterium_id)
 
     redirect_to score_evidence_path(@score, @evidence) if @evidence.present? && @evidence.files.present?
   end
@@ -20,6 +21,7 @@ class Scores::EvidencesController < ApplicationController
 
   def create
     @evidence = @score.build_evidence(evidence_params)
+    @evidence.criterium_id = @score.criterium_id
 
     if @evidence.save
       redirect_to score_evidence_path(@score, @evidence), notice: 'Score was successfully created.'

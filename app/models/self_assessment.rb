@@ -2,4 +2,8 @@
 
 class SelfAssessment < ApplicationRecord
   include Assessable
+
+  def notify_submission
+    assessment.submission.finish_self_assessment
+  end
 end

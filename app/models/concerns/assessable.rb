@@ -7,5 +7,7 @@ module Assessable
 
   included do
     has_one :assessment, as: :assessable, touch: true, dependent: :destroy
+
+    delegate :submission, :judge, to: :assessment
   end
 end

@@ -34,6 +34,11 @@ class Submission < ApplicationRecord
 
   after_create :create_self_assessment
 
+  def finish_self_assessment
+    Rails.logger.debug '--> finish_self_assessment'
+    CreatePanelAssessmentsJob.perform_later self
+  end
+
   private
 
   def set_year
@@ -41,6 +46,6 @@ class Submission < ApplicationRecord
   end
 
   def create_self_assessment
-    assessments.create(assessable: SelfAssessment.new)
+    CreateSelfAssessmentJob.perform_now self
   end
 end

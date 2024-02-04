@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     resources :scores, controller: 'assessments/scores'
     member do
       patch :move_image, controller: 'assessments/attachment_positions'
+      post :submit, to: 'assessments#submit'
     end
   end
 

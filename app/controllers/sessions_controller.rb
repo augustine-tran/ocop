@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 
   def create
     if (identity = Identity.authenticate_by(email: params[:email], password: params[:password]))
-      Current.person = identity.users.first || identity.clients.first
+      Current.person = (identity.users.first || identity.clients.first).person
       Current.account = Current.person.account
 
       @session = identity.sessions.create!

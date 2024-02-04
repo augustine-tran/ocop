@@ -15,8 +15,6 @@ class Person < ApplicationRecord
 
   enum role: {
     admin: 'admin',
-    head_judge: 'head_jugde',
-    judge: 'jugde',
     user: 'user'
   }
 

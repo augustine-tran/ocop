@@ -44,8 +44,20 @@ person = Person.create! account:, personable: User.new(identity:), role: :admin
 Current.person = person
 Current.account = account
 
+ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá năng lực nông nghiệp huyện Châu Đức',
+                                                councilable: OcopCouncil.new
+9.times do |i|
+  idx = (i + 1).to_s.rjust(2, '0')
+  identity = Identity.create! email: "judge#{idx}@g.com", name: "Judge #{idx}", password: 'mypassword123',
+                              password_confirmation: 'mypassword123',
+                              verified: true
+  person = Person.create! account:, personable: User.new(identity:), role: Person.roles[:user]
+  ocop_council.members.create! person:, role: CouncilMember.roles[(i.zero? ? :president : :judge)]
+end
+
 account = Account.create! name: 'Demo Company',
                           accountable: Company.create!,
+                          administrator: Current.account,
                           province: AdministrativeUnit.find_or_create_by!(name: 'Bà Rịa Vũng Tàu',
                                                                           level: AdministrativeUnit.levels[:province]),
                           district: AdministrativeUnit.find_or_create_by!(name: 'Châu Đức',
