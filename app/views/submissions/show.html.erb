@@ -5,20 +5,16 @@
     <%= t(:do_assessment) %>
   <% end %>
 <% end %>
-<div class="mx-auto md:w-2/3 w-full flex">
-  <div class="mx-auto">
+<div class="mx-auto ">
+  <div class="mx-auto w-full flex">
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
     <% content_for :page_header do %>
       <%= @submission.name %>
     <% end %>
-    <%= turbo_frame_tag @submission do %>
+    <%= turbo_frame_tag @submission, class: 'w-full' do %>
       <%= render @submission %>
     <% end %>
-    <div class="flex flex-col items-center space-y-2 justify-arround space-x-2 px-4 py-5 sm:px-6">
-      <%= link_to t(:back_to_submissions), submissions_path, class: "block rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= link_to t(:destroy_this_submission), submission_path(@submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-100 font-medium" %>
-      <%= link_to t(:edit_submission), edit_submission_path(@submission), class: "block rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    </div>
   </div>
+</div>

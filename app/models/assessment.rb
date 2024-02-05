@@ -7,7 +7,7 @@ class Assessment < ApplicationRecord
   delegated_type :assessable, types: Assessable::TYPES
   belongs_to :judge, class_name: 'Person', optional: true
 
-  delegate :year, :product_group, :name, :account, to: :submission
+  delegate :year, :product_group, :name, :account, :photos, :files, :description, to: :submission
 
   after_save :notify_submission, if: :status_previously_changed_to_active?
 

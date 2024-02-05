@@ -8,6 +8,6 @@ module Assessable
   included do
     has_one :assessment, as: :assessable, touch: true, dependent: :destroy
 
-    delegate :submission, :judge, to: :assessment
+    delegate :submission, :judge, :scores_sum, :status, :photos, :description, to: :assessment
   end
 end

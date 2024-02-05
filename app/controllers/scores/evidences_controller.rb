@@ -2,12 +2,9 @@
 
 class Scores::EvidencesController < ApplicationController
   before_action :set_score
-  before_action :set_evidence, only: %i[show edit update destroy move_image]
+  before_action :set_evidence, only: %i[show edit update destroy move_image index]
 
   def index
-    @evidence = @score.evidence ||
-                @score.assessment.submission.self_assessment&.evidences&.find_by(criterium_id: @score.criterium_id)
-
     redirect_to score_evidence_path(@score, @evidence) if @evidence.present? && @evidence.files.present?
   end
 
@@ -57,7 +54,8 @@ class Scores::EvidencesController < ApplicationController
   end
 
   def set_evidence
-    @evidence = @score.evidence
+    @evidence = @score.evidence ||
+                @score.assessment.submission.self_assessment&.evidences&.find_by(criterium_id: @score.criterium_id)
   end
 
   def evidence_params
