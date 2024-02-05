@@ -9,9 +9,7 @@ class Person < ApplicationRecord
 
   delegate :can?, :cannot?, to: :ability
 
-  has_one :council_member, dependent: :destroy
-
-  has_many :accounts, through: :council_members
+  has_many :council_members, dependent: :destroy
 
   has_many :assessments, foreign_key: :judge_id, dependent: :destroy, inverse_of: :judge
 
@@ -19,7 +17,11 @@ class Person < ApplicationRecord
                                  where assessable_type: 'PanelAssessment'
                                }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id
 
-  has_many :final_assessments, -> { where assessable_type: 'FinalAssessment' }, through: :assessments
+  has_many :final_assessments, lambda {
+                                 where assessable_type: 'FinalAssessment'
+                               }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id
+
+  has_many :final_submissions, through: :final_assessments, source: :submission
 
   enum role: {
     admin: 'admin',
@@ -31,6 +33,6 @@ class Person < ApplicationRecord
   end
 
   def president?
-    self == Current.account.president
+    council_members.president.count.positive?
   end
 end

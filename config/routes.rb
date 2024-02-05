@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :panel_assessments do
-  #   resources :scores, controller: 'panel_assessments/scores'
-  # end
+  resources :final_submissions do
+    resources :assessments, controller: 'final_submissions/assessments'
+  end
 
   resources :scores do
     resources :evidences, controller: 'scores/evidences' do

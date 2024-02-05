@@ -23,6 +23,9 @@ class Submission < ApplicationRecord
   has_one :self_assessment, lambda {
                               where assessable_type: 'SelfAssessment'
                             }, class_name: 'Assessment', dependent: :destroy
+  has_one :final_assessment, lambda {
+                               where assessable_type: 'FinalAssessment'
+                             }, class_name: 'Assessment', dependent: :destroy
 
   has_many :panel_assessments, lambda {
                                  where assessable_type: 'PanelAssessment'

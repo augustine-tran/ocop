@@ -1,0 +1,19 @@
+<%= turbo_stream_from @submission %>
+<div class="mx-auto ">
+  <div class="mx-auto w-full">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+    <% content_for :page_header do %>
+      <%= @submission.name %>
+    <% end %>
+    <div class="mx-auto w-full">
+      <%= turbo_frame_tag @submission, class: 'mx-auto w-full' do %>
+        <%= render @submission %>
+      <% end %>
+    </div>
+    <div class="mx-auto w-full">
+      <%= turbo_frame_tag @submission, class: 'mx-auto w-full', src: final_submission_assessments_path(@submission) %>
+    </div>
+  </div>
+</div>
