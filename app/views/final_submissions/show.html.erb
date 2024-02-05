@@ -9,7 +9,7 @@
     <% end %>
     <div class="mx-auto w-full">
       <%= turbo_frame_tag @submission, class: 'mx-auto w-full' do %>
-        <%= render @submission %>
+        <%= render partial: 'submission', locals: { submission: @submission } %>
       <% end %>
     </div>
     <div class="mx-auto w-full">

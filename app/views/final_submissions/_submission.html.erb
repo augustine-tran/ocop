@@ -35,25 +35,4 @@
       </div>
     </dl>
   </div>
-  <div class="px-4 py-5 sm:px-6">
-    <%= link_to assessment_path(submission.assessment_for(Current.person)), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500",
-                                                                            data: {
-                                                                              turbo_frame: '_top'
-                                                                            } do %>
-      <%= render 'shared/icons/add_button' %>
-      <%= t(:do_assessment) %>
-    <% end %>
-    <%= link_to t(:show_this_submission), submission,
-                class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
-                data: {
-                  turbo_frame: '_top'
-                } %>
-    <%= link_to t(:edit_submission), edit_submission_path(submission),
-                class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
-                data: {
-                  turbo_frame: '_top'
-                } %>
-    <%= link_to t(:destroy_this_submission), submission_path(submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-                                                                          class: "rounded-lg px-3 py-2 bg-red-100 font-medium" %>
-  </div>
 </div>
