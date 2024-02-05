@@ -3,28 +3,33 @@
 <% end %>
 <div class="w-full">
   <%= turbo_frame_tag @submission do %>
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="mt-8 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div class="inline-block min-w-full py-2 align-middle">
-            <table class="min-w-full divide-y divide-gray-300">
-              <thead>
-                <tr>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"><%= Person.human_attribute_name(:name) %></th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Assessment.human_attribute_name(:scores_sum) %></th>
-                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
-                    <span class="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-                <%= render partial: 'assessment_list_item', collection: @assessments, as: :assessment %>
-                <%= render 'empty_list' if @assessments.blank? %>
-              </tbody>
-            </table>
+    <%= form_with url: final_submission_differences_path(@submission), method: :get, data: { turbo_frame: '_top' } do |form| %>
+      <div class="px-4 sm:px-6 lg:px-8">
+        <div class="mt-8 flow-root">
+          <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle">
+              <table class="min-w-full divide-y divide-gray-300">
+                <thead>
+                  <tr>
+                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"><%= t(:judge) %></th>
+                    <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Assessment.human_attribute_name(:scores_sum) %></th>
+                    <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
+                      <span class="sr-only">Edit</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 bg-white">
+                  <%= render partial: 'assessment_list_item', collection: @assessments, as: :assessment, locals: { form: } %>
+                  <%= render 'empty_list' if @assessments.blank? %>
+                </tbody>
+              </table>
+            </div>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+              <%= form.submit t(:show_differences), class: "inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer" %>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

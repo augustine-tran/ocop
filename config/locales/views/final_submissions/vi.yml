@@ -1,3 +1,6 @@
 vi:
-  final_assessments: Chung
+  final_submissions: Hồ sơ chung khảo
   scores_sum: "%{scores} điểm"
+  show_differences: So sánh
+  judge: Giám khảo
+  show_this_assessment: Xem

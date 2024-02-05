@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         post :submit, to: 'final_submissions/assessments#submit'
       end
     end
+    get 'differences', to: 'final_submissions/differences#index'
   end
 
   resources :scores do
