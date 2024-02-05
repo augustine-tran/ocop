@@ -16,6 +16,8 @@ class Assessment < ApplicationRecord
   end
 
   def can_submit?
+    return drafted? if assessable.is_a? FinalAssessment
+
     drafted? && scored_all?
   end
 

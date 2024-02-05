@@ -47,7 +47,11 @@ class Submission < ApplicationRecord
 
   def finish_panel_assessment(assessment)
     Rails.logger.debug { "--> finish_panel_assessment #{assessment.inspect}" }
-    panel_assessments.active.count
+    final_assessment.update scores_sum: panel_assessments.active.average(:scores_sum)
+  end
+
+  def finish_final_assessment
+    update status: :archived
   end
 
   def unfinish_panel_assessments_count

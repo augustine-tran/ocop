@@ -20,7 +20,11 @@ Rails.application.routes.draw do
   end
 
   resources :final_submissions do
-    resources :assessments, controller: 'final_submissions/assessments'
+    resources :assessments, controller: 'final_submissions/assessments' do
+      member do
+        post :submit, to: 'final_submissions/assessments#submit'
+      end
+    end
   end
 
   resources :scores do

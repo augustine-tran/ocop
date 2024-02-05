@@ -45,16 +45,16 @@
         <%= t(:do_assessment) %>
       <% end %>
       <%= link_to t(:show_this_submission), submission,
-                  class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium",
+                  class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
                   data: {
                     turbo_frame: '_top'
                   } %>
       <%= link_to t(:edit_submission), edit_submission_path(submission),
-                  class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium",
+                  class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
                   data: {
                     turbo_frame: '_top'
                   } %>
-      <%= link_to t(:destroy_this_submission), submission_path(submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "rounded-lg py-3 px-5 bg-red-100 font-medium" %>
+      <%= link_to t(:destroy_this_submission), submission_path(submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "rounded-lg px-3 py-2 bg-red-100 font-medium" %>
     </div>
   </div>
 <% end %>
