@@ -31,7 +31,7 @@ module ApplicationHelper
     end.join.html_safe # rubocop:disable Rails/OutputSafety
   end
 
-  def dropzone_controller_div(accepted_files: nil, max_file_size: '8', max_files: '10', &block)
+  def dropzone_controller_div(accepted_files: nil, max_file_size: '20', max_files: '10', &block)
     accepted_files = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'] unless accepted_files.is_a?(Array)
 
     accepted_files = accepted_files.join(',')
@@ -53,7 +53,7 @@ module ApplicationHelper
   def dropzone_files_controller_div(&)
     data = {
       controller: 'dropzone',
-      'dropzone-max-file-size' => '8',
+      'dropzone-max-file-size' => '20',
       'dropzone-max-files' => '10',
       'dropzone-accepted-files' => 'application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'dropzone-dict-file-too-big' => 'Váš obrázok ma veľkosť {{filesize}} ale povolené sú len obrázky do veľkosti {{maxFilesize}} MB',

@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require 'letter_avatar/has_avatar'
+
 class Account < ApplicationRecord
+  include LetterAvatar::HasAvatar
+
   delegated_type :accountable, types: Accountable::TYPES
 
   belongs_to :administrator, class_name: 'Account', optional: true

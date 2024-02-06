@@ -6,4 +6,8 @@ class SelfAssessment < ApplicationRecord
   def notify_submission
     assessment.submission.finish_self_assessment
   end
+
+  def can_submit?
+    assessment.drafted? && assessment.scored_all?
+  end
 end

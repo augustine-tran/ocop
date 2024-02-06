@@ -8,17 +8,12 @@ class Assessment < ApplicationRecord
   belongs_to :judge, class_name: 'Person', optional: true
 
   delegate :year, :product_group, :name, :account, :photos, :files, :description, to: :submission
+  delegate :can_submit?, to: :assessable
 
   after_save :notify_submission, if: :status_previously_changed_to_active?
 
   def submit
     update(status: Assessment.statuses[:active]) if can_submit?
-  end
-
-  def can_submit?
-    return drafted? if assessable.is_a? FinalAssessment
-
-    drafted? && scored_all?
   end
 
   private

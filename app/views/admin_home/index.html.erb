@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+<p>Signed as <%= Current.identity.email %></p>
+<h2>Login and verification</h2>
+<div>
+  <%= link_to t('change_password'), edit_password_path %>
+</div>
+<div>
+  <%= link_to t('change_email'), edit_identity_email_path %>
+</div>
+<h2>Access history</h2>
+<div>
+  <%= link_to "Devices & Sessions", sessions_path %>
+</div>
+<br>
+<%= button_to "Log out", Current.session, method: :delete %>
+<% content_for :page_header do %>
+  <%= t(:home) %>
+<% end %>
+<% content_for :left_column do %>
+  <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+    <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+      <div class="ml-4 mt-4">
+        <div class="flex items-center">
+          <h3 class="text-base font-semibold leading-6 text-gray-900"><%= t(:submissions) %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= turbo_frame_tag "submissions", src: panel_submissions_path, target: :_top %>
+<% end %>

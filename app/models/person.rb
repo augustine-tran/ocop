@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require 'letter_avatar/has_avatar'
+
 class Person < ApplicationRecord
+  include LetterAvatar::HasAvatar
+
   belongs_to :account
 
   delegated_type :personable, types: Personable::TYPES
@@ -16,6 +20,8 @@ class Person < ApplicationRecord
   has_many :panel_assessments, lambda {
                                  where assessable_type: 'PanelAssessment'
                                }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id
+
+  has_many :panel_submissions, through: :panel_assessments, source: :submission
 
   has_many :final_assessments, lambda {
                                  where assessable_type: 'FinalAssessment'

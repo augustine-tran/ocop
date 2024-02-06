@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     get 'differences', to: 'final_submissions/differences#index'
   end
 
+  resources :panel_submissions
+
   resources :scores do
     resources :evidences, controller: 'scores/evidences' do
       member do
@@ -36,8 +38,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :concils do
+    resources :members
+  end
+
   resources :prompts
 
+  get  'admin_home', to: 'admin_home#index'
   get  'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'
   get  'test', to: 'registrations#index'

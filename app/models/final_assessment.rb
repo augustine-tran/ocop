@@ -6,4 +6,8 @@ class FinalAssessment < ApplicationRecord
   def notify_submission
     assessment.submission.finish_final_assessment
   end
+
+  def can_submit?
+    assessment.drafted? && submission.assessments.drafted.count.zero?
+  end
 end

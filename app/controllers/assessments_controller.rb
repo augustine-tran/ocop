@@ -5,6 +5,8 @@ class AssessmentsController < ApplicationController
 
   def show; end
 
+  def edit; end
+
   def submit
     if @assessment.submit
       redirect_to submission_path(@assessment.submission), notice: 'Assessment was successfully submitted.'

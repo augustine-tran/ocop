@@ -1,0 +1,2 @@
+module PanelSubmissionsHelper
+end
