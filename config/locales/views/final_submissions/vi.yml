@@ -1,5 +1,5 @@
 vi:
-  final_submissions: Hồ sơ chung khảo
+  menu_final_submissions: Hồ sơ chung khảo
   scores_sum: "%{scores} điểm"
   show_differences: So sánh
   judge: Giám khảo

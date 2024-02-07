@@ -1,0 +1,6 @@
+vi:
+  final_submissions:
+    differences:
+      index:
+        show_differences: "(Hồ sơ: %{name}) So sánh điểm số"
+        back: Quay lại hồ sơ

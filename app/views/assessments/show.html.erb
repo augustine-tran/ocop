@@ -12,5 +12,6 @@
   <%= render partial: 'node_roots', collection: @assessment.scores.node_roots, as: :node %>
 </ul>
 <% content_for :page_header do %>
+  <%= "(#{@assessment.judge.name}) " if @assessment.judge.present? %>
   <%= t(:title, name: @assessment.name) %>
 <% end %>

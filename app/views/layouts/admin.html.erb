@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html class="h-full bg-gray-100">
   <head>
-    <title>OCOP</title>
+    <title>
+      <%= yield :page_header %>
+    </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
