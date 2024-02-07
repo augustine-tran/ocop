@@ -40,7 +40,7 @@ class Scores::EvidencesController < ApplicationController
   def destroy; end
 
   def move_image
-    authorize! :edit, @score.assessment
+    # authorize! :edit, @score.assessment
 
     @file = @evidence.files[params[:old_position].to_i - 1]
     @file.insert_at(params[:new_position].to_i)

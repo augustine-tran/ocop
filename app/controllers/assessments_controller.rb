@@ -12,7 +12,7 @@ class AssessmentsController < ApplicationController
       redirect_to submission_path(@assessment.submission), notice: 'Assessment was successfully submitted.'
 
     else
-      redirect_to assessment_path(@assessment)
+      redirect_to edit_assessment_path(@assessment)
     end
   end
 

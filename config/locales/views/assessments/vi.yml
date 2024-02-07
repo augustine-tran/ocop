@@ -1,2 +1,4 @@
 vi:
-  add_score_story: Bổ sung thông tin
+  add_score_story: Thêm minh chứng
+  judge_info: "Người chấm điểm: %{judge}"
+  self_assessment: Tự đánh giá

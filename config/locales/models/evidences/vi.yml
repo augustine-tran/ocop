@@ -1,0 +1,6 @@
+vi:
+  activerecord:
+    attributes:
+      evidence:
+        photos: Minh chứng
+        files: Minh chứng
