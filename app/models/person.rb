@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require 'letter_avatar/has_avatar'
+
 class Person < ApplicationRecord
+  include LetterAvatar::HasAvatar
+
   belongs_to :account
 
   delegated_type :personable, types: Personable::TYPES
@@ -9,14 +13,24 @@ class Person < ApplicationRecord
 
   delegate :can?, :cannot?, to: :ability
 
-  has_one :council_member, dependent: :destroy
+  has_many :council_members, dependent: :destroy
 
-  has_many :accounts, through: :council_members
+  has_many :assessments, foreign_key: :judge_id, dependent: :destroy, inverse_of: :judge
+
+  has_many :panel_assessments, lambda {
+                                 where assessable_type: 'PanelAssessment'
+                               }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id
+
+  has_many :panel_submissions, through: :panel_assessments, source: :submission
+
+  has_many :final_assessments, lambda {
+                                 where assessable_type: 'FinalAssessment'
+                               }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id
+
+  has_many :final_submissions, through: :final_assessments, source: :submission
 
   enum role: {
     admin: 'admin',
-    head_judge: 'head_jugde',
-    judge: 'jugde',
     user: 'user'
   }
 
@@ -25,6 +39,6 @@ class Person < ApplicationRecord
   end
 
   def president?
-    self == Current.account.president
+    council_members.president.count.positive?
   end
 end

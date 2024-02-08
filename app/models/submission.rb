@@ -23,7 +23,13 @@ class Submission < ApplicationRecord
   has_one :self_assessment, lambda {
                               where assessable_type: 'SelfAssessment'
                             }, class_name: 'Assessment', dependent: :destroy
-  has_many :panel_assessments, through: :assessements, source: :assessable, source_type: 'PanelAssessment'
+  has_one :final_assessment, lambda {
+                               where assessable_type: 'FinalAssessment'
+                             }, class_name: 'Assessment', dependent: :destroy
+
+  has_many :panel_assessments, lambda {
+                                 where assessable_type: 'PanelAssessment'
+                               }, class_name: 'Assessment', dependent: :destroy
 
   has_many_attached :photos do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
@@ -34,6 +40,30 @@ class Submission < ApplicationRecord
 
   after_create :create_self_assessment
 
+  def finish_self_assessment
+    Rails.logger.debug '--> finish_self_assessment'
+    CreatePanelAssessmentsJob.perform_later self
+  end
+
+  def finish_panel_assessment(assessment)
+    Rails.logger.debug { "--> finish_panel_assessment #{assessment.inspect}" }
+    final_assessment.update scores_sum: panel_assessments.active.average(:scores_sum)
+  end
+
+  def finish_final_assessment
+    update status: :archived
+  end
+
+  def unfinish_panel_assessments_count
+    panel_assessments.drafted.count
+  end
+
+  def assessment_for(judge)
+    return self_assessment if Current.account == account
+
+    assessments.find_by(judge:)
+  end
+
   private
 
   def set_year
@@ -41,6 +71,6 @@ class Submission < ApplicationRecord
   end
 
   def create_self_assessment
-    assessments.create(assessable: SelfAssessment.new)
+    CreateSelfAssessmentJob.perform_now self
   end
 end

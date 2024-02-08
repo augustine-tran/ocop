@@ -3,5 +3,11 @@
 class PanelAssessment < ApplicationRecord
   include Assessable
 
-  belongs_to :judge, class_name: 'Person'
+  def notify_submission
+    assessment.submission.finish_panel_assessment assessment
+  end
+
+  def can_submit?
+    assessment.drafted? && assessment.scored_all?
+  end
 end

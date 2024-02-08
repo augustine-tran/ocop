@@ -1,0 +1,86 @@
+<%= form_with(model: [submission], class: "contents") do |form| %>
+  <% if submission.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
+      <ul>
+        <% submission.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="space-y-12 sm:space-y-16">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900"><%= t(submission.new_record? ? :creating_submission : :editing_submission) %></h2>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-600"><%= t(:editing_submission_guide) %></p>
+      <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :name, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :name,
+                                autocomplete: "given-name",
+                                class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :product_group, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.select :product_group, Submission.product_groups.keys.map { |group| [t("activerecord.attributes.submission.product_groups.#{group}"), group] },
+                            autocomplete: "given-name",
+                            class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :photos, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= dropzone_controller_div do %>
+              <%= form.file_field :photos,
+                                  multiple: true,
+                                  direct_upload: true,
+                                  class: 'w-full',
+                                  data: {
+                                    dropzone_target: "input"
+                                  } %>
+              <%= tag.ul  class: 'grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8',
+                          role: "list",
+                          data: {
+                            controller: "sortable",
+                            sortable_url_value: submission.persisted? ? move_image_submission_path(submission) : ''
+                          } do %>
+                <% submission.photos.each do |photo| %>
+                  <li class="relative ">
+                    <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
+                    <%= label_tag "photos_to_remove_#{photo.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
+                      <div class="aspect-h-7 aspect-w-10 block overflow-hidden rounded-lg ">
+                        <%= image_tag(photo.variant(:thumb), class: "object-cover") %>
+                      </div>
+                      <div class="mx-auto">
+                        <%= check_box_tag 'submission[photos_to_remove][]', photo.id, false, id: "photos_to_remove_#{photo.id}" %>
+                        <span class="ml-1">Xoá</span>
+                      </div>
+                    <% end %>
+                  </li>
+                <% end %>
+              <% end %>
+              <div class="mt-4 p-4 border border-dashed border-gray-300 text-gray-600 text-center">
+                <h3 class="text-lg font-semibold">Drag here to upload or click here to browse</h3>
+                <span class="text-sm">2 MB file size maximum. Allowed file types png, jpg.</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :description, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.rich_text_area :description, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6 flex items-center justify-end gap-x-6">
+    <%= link_to t(:show_this_submission), @submission, class: "text-sm font-semibold leading-6 text-gray-900" if @submission.persisted? %>
+    <%= link_to t(:back_to_submissions), submissions_path, class: "text-sm font-semibold leading-6 text-gray-900" %>
+    <%= form.submit t(submission.new_record? ? :create_submission : :edit_submission), class: "inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer" %>
+  </div>
+<% end %>

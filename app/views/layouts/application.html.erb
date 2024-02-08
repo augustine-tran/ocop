@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html class="h-full bg-gray-100">
   <head>
-    <title>OCOP</title>
+    <title>
+      <%= yield :page_header %>
+    </title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +16,7 @@
   </head>
   <body class="h-full">
     <div class="min-h-full">
-      <%= render "navigation"  %>
+      <%= render "navigation" %>
       <main class="-mt-32">
         <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <div class="rounded-lg bg-white px-5 py-6 shadow sm:px-6">

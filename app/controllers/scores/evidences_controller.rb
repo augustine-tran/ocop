@@ -2,11 +2,9 @@
 
 class Scores::EvidencesController < ApplicationController
   before_action :set_score
-  before_action :set_evidence, only: %i[show edit update destroy move_image]
+  before_action :set_evidence, only: %i[show edit update destroy move_image index]
 
   def index
-    @evidence = @score.evidence
-
     redirect_to score_evidence_path(@score, @evidence) if @evidence.present? && @evidence.files.present?
   end
 
@@ -20,6 +18,7 @@ class Scores::EvidencesController < ApplicationController
 
   def create
     @evidence = @score.build_evidence(evidence_params)
+    @evidence.criterium_id = @score.criterium_id
 
     if @evidence.save
       redirect_to score_evidence_path(@score, @evidence), notice: 'Score was successfully created.'
@@ -41,7 +40,7 @@ class Scores::EvidencesController < ApplicationController
   def destroy; end
 
   def move_image
-    authorize! :edit, @score.assessment
+    # authorize! :edit, @score.assessment
 
     @file = @evidence.files[params[:old_position].to_i - 1]
     @file.insert_at(params[:new_position].to_i)
@@ -55,7 +54,8 @@ class Scores::EvidencesController < ApplicationController
   end
 
   def set_evidence
-    @evidence = @score.evidence
+    @evidence = @score.evidence ||
+                @score.assessment.submission.self_assessment&.evidences&.find_by(criterium_id: @score.criterium_id)
   end
 
   def evidence_params

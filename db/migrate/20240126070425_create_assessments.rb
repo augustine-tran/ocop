@@ -7,6 +7,7 @@ class CreateAssessments < ActiveRecord::Migration[7.1]
       t.references :assessable, polymorphic: true, null: false
       t.integer :scores_sum, null: false, default: 0
       t.string :status, null: false, default: 'drafted'
+      t.references :judge, foreign_key: { to_table: :people }
 
       t.timestamps
     end

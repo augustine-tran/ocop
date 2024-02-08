@@ -1,0 +1,7 @@
+vi:
+  menu_final_submissions: Hồ sơ chung khảo
+  scores_sum: "%{scores} điểm"
+  show_differences: So sánh
+  judge: Giám khảo
+  show_this_assessment: Xem
+  not_finish: Đang chấm điểm

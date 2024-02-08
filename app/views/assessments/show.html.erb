@@ -1,8 +1,17 @@
 <%= turbo_stream_from @assessment %>
 <%= render 'summary' %>
-<ul class="flex flex-col space-y-8 divide-dashed divide-y-2">
+<% if @assessment.can_submit? %>
+  <% content_for :quick_action do %>
+    <%= button_to submit_assessment_path(@assessment), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+      <%= render 'shared/icons/add_button' %>
+      <%= t(:submit_assessment) %>
+    <% end %>
+  <% end %>
+<% end %>
+<ul class="flex flex-col space-y-8 divide-dashed divide-y-2 border-t-2 border-t-gray-500 mt-4">
   <%= render partial: 'node_roots', collection: @assessment.scores.node_roots, as: :node %>
 </ul>
 <% content_for :page_header do %>
+  <%= "(#{@assessment.judge.name}) " if @assessment.judge.present? %>
   <%= t(:title, name: @assessment.name) %>
 <% end %>

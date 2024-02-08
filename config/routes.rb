@@ -15,8 +15,20 @@ Rails.application.routes.draw do
     resources :scores, controller: 'assessments/scores'
     member do
       patch :move_image, controller: 'assessments/attachment_positions'
+      post :submit, to: 'assessments#submit'
     end
   end
+
+  resources :final_submissions do
+    resources :assessments, controller: 'final_submissions/assessments' do
+      member do
+        post :submit, to: 'final_submissions/assessments#submit'
+      end
+    end
+    get 'differences', to: 'final_submissions/differences#index'
+  end
+
+  resources :panel_submissions
 
   resources :scores do
     resources :evidences, controller: 'scores/evidences' do
@@ -26,8 +38,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :concils do
+    resources :members
+  end
+
   resources :prompts
 
+  get  'admin_home', to: 'admin_home#index'
   get  'sign_in', to: 'sessions#new'
   post 'sign_in', to: 'sessions#create'
   get  'test', to: 'registrations#index'

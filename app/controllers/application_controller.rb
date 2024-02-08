@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_current_request_details
   before_action :authenticate
+  before_action :set_layout_base_on_account_type
 
   protected
 
@@ -16,6 +17,13 @@ class ApplicationController < ActionController::Base
   helper_method :current_session
 
   private
+
+  def set_layout_base_on_account_type
+    layout = Current.account&.accountable.is_a?(DistrictDepartment) ? 'admin' : 'application'
+    Rails.logger.info "Setting layout to #{layout}"
+    Rails.logger.info "Current.account: #{Current.account.inspect}"
+    self.class.layout(layout)
+  end
 
   def authenticate
     if (session_record = Session.find_by(id: cookies.signed[:session_token]))

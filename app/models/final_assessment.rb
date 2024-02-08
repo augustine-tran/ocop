@@ -2,5 +2,12 @@
 
 class FinalAssessment < ApplicationRecord
   include Assessable
-  belongs_to :judge, class_name: 'Person'
+
+  def notify_submission
+    assessment.submission.finish_final_assessment
+  end
+
+  def can_submit?
+    assessment.drafted? && submission.assessments.drafted.count.zero?
+  end
 end
