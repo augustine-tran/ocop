@@ -15,13 +15,12 @@ registry:
     - DOCKER_REGISTRY_USERNAME
   password:
     - DOCKER_REGISTRY_TOKEN
+
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
-# env:
-#   clear:
-#     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
+env:
+  secret:
+    - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
 # ssh:
@@ -43,6 +42,8 @@ builder:
   remote:
     arch: amd64
     host: ssh://root@103.163.119.77
+    secrets:
+      - RAILS_MASTER_KEY
 # Use accessory services (secrets come from .env).
 # accessories:
 #   db:
@@ -67,21 +68,20 @@ builder:
 #       - data:/data
 
 # Configure custom arguments for Traefik
-# traefik:
-#   args:
-#     accesslog: true
+traefik:
+  args:
+    accesslog: true
 #     accesslog.format: json
 
 # Configure a custom healthcheck (default is /up on port 3000)
-# healthcheck:
-#   path: /healthz
-#   port: 4000
+healthcheck:
+  path: /up
+  port: 3000
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
 # version inside the asset_path.
-# asset_path: /rails/public/assets
-
+asset_path: /rails/public/assets
 # Configure rolling deploys by setting a wait time between batches of restarts.
 # boot:
 #   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
