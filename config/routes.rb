@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   resources :scores do
     resources :evidences, controller: 'scores/evidences' do
       member do
-        patch :move_image, to: 'scores/evidences/move_image'
+        patch :move_image, to: 'scores/evidences#move_image'
       end
     end
   end
