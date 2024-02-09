@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { enter, leave } from './transition';
+import { enter, leave } from 'helpers/transition';
 
 // Connects to data-controller="navigation"
 export default class extends Controller {
