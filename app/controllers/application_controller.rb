@@ -19,10 +19,10 @@ class ApplicationController < ActionController::Base
   private
 
   def set_layout_base_on_account_type
-    return if Current.account.nil?
+    return if Current.account.nil? || Current.account&.accountable.is_a?(Company)
 
-    layout = Current.account&.accountable.is_a?(DistrictDepartment) ? 'admin' : 'application'
-    Rails.logger.info "Setting layout to #{layout}"
+    layout = 'admin'
+    Rails.logger.info "Setting layout to #{layout} for district department."
     Rails.logger.info "Current.account: #{Current.account.inspect}"
     self.class.layout(layout)
   end
