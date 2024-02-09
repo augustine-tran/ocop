@@ -4,49 +4,45 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.3.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.1.3'
+gem 'rails', github: 'rails/rails', branch: 'main'
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# Deployment
+gem 'puma', '~> 6.4'
+
+# Assets
+gem 'importmap-rails'
 gem 'sprockets-rails'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
-# Use the Puma web server [https://github.com/puma/puma]
-gem 'puma'
-
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
-
-# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
-gem 'turbo-rails', '~> 2.0.0-beta.1'
-
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+# Hotwire
 gem 'stimulus-rails'
+gem 'turbo-rails', github: 'hotwired/turbo-rails'
 
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem 'jbuilder'
-
-# Use Redis adapter to run Action Cable in productiondev
+# Drivers
 gem 'redis'
+gem 'sqlite3'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-gem 'bcrypt', '~> 3.1.7'
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
 
 # Use Sass to process CSS
 # gem "sassc-rails"
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# Media handling
 gem 'image_processing', '~> 1.2'
+
+# Other
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem 'acts_as_list', '~> 1.1'
+gem 'bcrypt', '~> 3.1.7'
+gem 'bootsnap', require: false
+gem 'cancancan', '~> 3.5'
+gem 'jbuilder'
+gem 'letter_avatar'
+gem 'litestack', '~> 0.4.2'
+gem 'requestjs-rails', '~> 0.0.11'
+gem 'tailwindcss-rails', '~> 2.0.33'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -56,6 +52,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
+
+  gem 'authentication-zero', '~> 3.0', group: :development
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -79,17 +77,3 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-
-gem 'tailwindcss-rails', '~> 2.0.33'
-
-gem 'litestack', '~> 0.4.2'
-
-gem 'authentication-zero', '~> 3.0', group: :development
-
-gem 'cancancan', '~> 3.5'
-
-gem 'acts_as_list', '~> 1.1'
-
-gem 'requestjs-rails', '~> 0.0.11'
-
-gem 'letter_avatar'
