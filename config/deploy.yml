@@ -6,7 +6,11 @@ image: ocop/ocop
 
 # Deploy to these servers.
 servers:
-  - 103.163.119.77
+  web:
+    hosts:
+      - 103.163.119.77
+    options:
+      user: "1001:1001" # UID:GID of the user to run the container as. To allow write access to the mounted volumes.
 
 # Credentials for your image host.
 registry:
@@ -19,8 +23,11 @@ registry:
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
 env:
+  clear:
+    RAILS_LOG_TO_STDOUT: 1
   secret:
     - RAILS_MASTER_KEY
+    - MAILGUN_API_KEY
 
 # Use a different ssh user than root
 # ssh:
@@ -44,6 +51,12 @@ builder:
     host: ssh://root@103.163.119.77
     secrets:
       - RAILS_MASTER_KEY
+
+# Make sure below directories exist on the server and chown them to the rails:rails user.
+volumes:
+  - "/opt/ocop/db/production:/rails/db/production"
+  - "/opt/ocop/storage:/rails/storage"
+
 # Use accessory services (secrets come from .env).
 # accessories:
 #   db:
@@ -92,8 +105,7 @@ asset_path: /rails/public/assets
 #
 # Caution: there's no support for role renaming yet, so be careful to cleanup
 #          the previous role on the deployed hosts.
-# primary_role: web
-
+primary_role: web
 # Controls if we abort when see a role with no hosts. Disabling this may be
 # useful for more complex deploy configurations.
 #

@@ -42,7 +42,7 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips && \
+    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips poppler-utils && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
@@ -50,7 +50,9 @@ COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
 # Run and own only the runtime files as a non-root user for security
+# Set the user to the same UID and GID as the host user to allow access mounted volumes
 RUN useradd rails --create-home --shell /bin/bash && \
+    usermod -u 1001 rails && groupmod -g 1001 rails && \
     chown -R rails:rails db log storage tmp
 USER rails:rails
 
