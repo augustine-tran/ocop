@@ -17,3 +17,5 @@ pin '@rails/activestorage', to: 'activestorage.esm.js'
 pin 'dropzone', to: 'https://ga.jspm.io/npm:dropzone@6.0.0-beta.2/dist/dropzone.mjs'
 pin 'just-extend', to: 'https://ga.jspm.io/npm:just-extend@5.1.1/index.esm.js'
 pin 'sortablejs', to: 'https://ga.jspm.io/npm:sortablejs@1.15.1/modular/sortable.esm.js'
+pin 'stimulus-lightbox' # @3.2.0
+pin 'lightgallery' # @2.7.2

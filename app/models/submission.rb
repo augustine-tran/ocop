@@ -31,8 +31,9 @@ class Submission < ApplicationRecord
                                  where assessable_type: 'PanelAssessment'
                                }, class_name: 'Assessment', dependent: :destroy
 
-  has_many_attached :photos do |attachable|
+  has_many_attached :files do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
+    attachable.variant :large, resize_to_limit: [920, nil]
   end
   has_rich_text :description
 

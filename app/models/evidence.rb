@@ -6,7 +6,10 @@ class Evidence < ApplicationRecord
 
   before_create :set_criterium
 
-  has_many_attached :files
+  has_many_attached :files do |attachable|
+    attachable.variant :thumb, resize_to_limit: [150, nil]
+    attachable.variant :large, resize_to_limit: [960, nil]
+  end
 
   has_rich_text :story
 

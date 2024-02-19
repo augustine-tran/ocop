@@ -7,7 +7,7 @@ vi:
         status: "Trạng thái"
         description: "Mô tả"
         price: "Giá"
-        photos: "Hình minh hoạ"
+        files: "Tập tin đính kèm"
         scores_sum: "Tổng điểm"
         product_groups:
           group1: "Nhóm 1"
