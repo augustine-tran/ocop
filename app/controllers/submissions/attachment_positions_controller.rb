@@ -6,8 +6,8 @@ class Submissions::AttachmentPositionsController < ApplicationController
   def move_image
     authorize! :edit, @submission
 
-    @image = @submission.photos[params[:old_position].to_i - 1]
-    @image.insert_at(params[:new_position].to_i)
+    @file = @submission.files[params[:old_position].to_i - 1]
+    @file.insert_at(params[:new_position].to_i)
     head :ok
   end
 

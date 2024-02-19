@@ -1,3 +1,4 @@
+<% accepted_files = %w[application/pdf image/jpeg image/jpg image/png image/gif] %>
 <%= form_with(model: [submission], class: "contents") do |form| %>
   <% if submission.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
@@ -31,10 +32,10 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
-          <%= form.label :photos, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <%= form.label :files, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= dropzone_controller_div do %>
-              <%= form.file_field :photos,
+            <%= dropzone_controller_div accepted_files: do %>
+              <%= form.file_field :files,
                                   multiple: true,
                                   direct_upload: true,
                                   class: 'w-full',
@@ -47,15 +48,19 @@
                             controller: "sortable",
                             sortable_url_value: submission.persisted? ? move_image_submission_path(submission) : ''
                           } do %>
-                <% submission.photos.each do |photo| %>
+                <% submission.files.each do |photo| %>
                   <li class="relative ">
-                    <%= form.hidden_field :photos, multiple: true, value: photo.signed_id %>
-                    <%= label_tag "photos_to_remove_#{photo.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
+                    <%= form.hidden_field :files, multiple: true, value: photo.signed_id %>
+                    <%= label_tag "files_to_remove_#{photo.id}", class: "cursor-pointer group w-full flex flex-col gap-y-2" do %>
                       <div class="aspect-h-7 aspect-w-10 block overflow-hidden rounded-lg ">
-                        <%= image_tag(photo.variant(:thumb), class: "object-cover") %>
+                        <% if photo.representable? %>
+                          <%= image_tag(photo.representation(:thumb), class: "object-cover", alt: photo.filename) %>
+                        <% else %>
+                          <%= image_tag "placeholder.png", alt: photo.filename %>
+                        <% end %>
                       </div>
                       <div class="mx-auto">
-                        <%= check_box_tag 'submission[photos_to_remove][]', photo.id, false, id: "photos_to_remove_#{photo.id}" %>
+                        <%= check_box_tag 'submission[files_to_remove][]', photo.id, false, id: "files_to_remove_#{photo.id}" %>
                         <span class="ml-1">Xoá</span>
                       </div>
                     <% end %>

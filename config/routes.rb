@@ -9,7 +9,11 @@ Rails.application.routes.draw do
     resources :products, controller: 'companies/products'
   end
 
-  resources :submissions
+  resources :submissions do
+    member do
+      patch :move_image, controller: 'submissions/attachment_positions'
+    end
+  end
 
   resources :assessments do
     resources :scores, controller: 'assessments/scores'

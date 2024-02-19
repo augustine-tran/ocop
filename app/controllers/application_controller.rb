@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include ActiveStorage::SetCurrent
+
   before_action :set_current_request_details
   before_action :authenticate
   before_action :set_layout_base_on_account_type
