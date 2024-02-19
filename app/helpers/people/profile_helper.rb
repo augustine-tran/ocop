@@ -1,0 +1,2 @@
+module People::ProfileHelper
+end

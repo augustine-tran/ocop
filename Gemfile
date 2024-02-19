@@ -23,7 +23,6 @@ gem 'sqlite3'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
-
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -39,9 +38,11 @@ gem 'cancancan', '~> 3.5'
 gem 'jbuilder'
 gem 'letter_avatar'
 gem 'litestack', '~> 0.4.2'
+gem 'net-http-persistent'
 gem 'requestjs-rails', '~> 0.0.11'
 gem 'tailwindcss-rails', '~> 2.0.33'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'web-push'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

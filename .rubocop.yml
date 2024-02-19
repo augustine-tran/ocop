@@ -3,8 +3,8 @@ require:
   - rubocop-performance
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.2.0
-  TargetRailsVersion: 7.0
+  TargetRubyVersion: 3.3.0
+  TargetRailsVersion: 7.1
   UseCache: true
 Rails:
   Enabled: true
@@ -24,7 +24,7 @@ Metrics/BlockLength:
   Max: 30
   Exclude:
     - Rakefile
-    - '**/*.rake'
+    - "**/*.rake"
     - config/environments/*.rb
     - config/initializers/*.rb
     - config/routes.rb

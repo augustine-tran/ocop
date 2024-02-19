@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  skip_before_action :authenticate, only: %i[new create]
-
-  before_action :set_session, only: :destroy
+  allow_unauthenticated_access only: %i[new create]
 
   def index
     @sessions = Current.identity.sessions.order(created_at: :desc)
@@ -15,26 +13,29 @@ class SessionsController < ApplicationController
 
   def create
     if (identity = Identity.authenticate_by(email: params[:email], password: params[:password]))
-      Current.person = (identity.users.first || identity.clients.first).person
-      Current.account = Current.person.account
-
-      @session = identity.sessions.create!
-      cookies.signed.permanent[:session_token] = { value: @session.id, httponly: true }
-
-      redirect_to root_path, notice: t('.signed_in_successfully')
+      start_new_session_for identity
+      redirect_to post_authenticating_url
     else
-      redirect_to sign_in_path(email_hint: params[:email]), alert: t('.that_email_or_password_is_incorrect')
+      render_rejection :unauthorized
     end
   end
 
   def destroy
-    @session.destroy
-    redirect_to(sessions_path, notice: t('.that_session_has_been_logged_out'))
+    remove_push_subscription
+    reset_authentication
+    redirect_to root_url
   end
 
   private
 
-  def set_session
-    @session = Current.identity.sessions.find(params[:id])
+  def render_rejection(status)
+    flash.now[:alert] = '⛔️' # rubocop:disable Rails/I18nLocaleTexts
+    render :new, status:
+  end
+
+  def remove_push_subscription
+    return unless endpoint = params[:push_subscription_endpoint]
+
+    Push::Subscription.destroy_by(endpoint:, user_id: Current.user.id)
   end
 end

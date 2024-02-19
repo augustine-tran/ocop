@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'home#index'
+
   resources :criteria
 
   resources :administrative_units
@@ -63,7 +65,26 @@ Rails.application.routes.draw do
     resource :password_reset,     only: %i[new edit create update]
   end
 
-  root 'home#index'
+  resources :people, only: :show do
+    scope module: 'people' do
+      scope defaults: { person_id: 'me' } do
+        resource :profiles
+        resources :push_subscriptions do
+          scope module: 'push_subscriptions' do
+            resources :test_notifications, only: :create
+          end
+        end
+      end
+    end
+  end
+
+  direct :fresh_account_logo do |_options|
+    route_for :account_logo, v: Current.account&.updated_at&.to_fs(:number)
+  end
+
+  get 'webmanifest'    => 'pwa#manifest'
+  get 'service-worker' => 'pwa#service_worker'
+
   get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

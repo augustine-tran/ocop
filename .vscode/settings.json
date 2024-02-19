@@ -9,7 +9,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[ruby]": {
-    "editor.defaultFormatter": "Shopify.ruby-lsp",
+    "editor.defaultFormatter": "misogi.ruby-rubocop",
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "editor.tabSize": 2,
@@ -37,23 +37,23 @@
   "rubyLsp.formatter": "rubocop",
   "railsI18n.localeFilePattern": "config/locales/**/*.yml",
   "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#16726d",
-    "activityBar.background": "#16726d",
+    "activityBar.activeBackground": "#4751d3",
+    "activityBar.background": "#4751d3",
     "activityBar.foreground": "#e7e7e7",
     "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#df79e5",
+    "activityBarBadge.background": "#e07e85",
     "activityBarBadge.foreground": "#15202b",
     "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#16726d",
-    "statusBar.background": "#0e4744",
+    "sash.hoverBorder": "#4751d3",
+    "statusBar.background": "#2d37ba",
     "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#16726d",
-    "statusBarItem.remoteBackground": "#0e4744",
+    "statusBarItem.hoverBackground": "#4751d3",
+    "statusBarItem.remoteBackground": "#2d37ba",
     "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#0e4744",
+    "titleBar.activeBackground": "#2d37ba",
     "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#0e474499",
+    "titleBar.inactiveBackground": "#2d37ba99",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#0e4744"
+  "peacock.color": "#2d37ba"
 }
