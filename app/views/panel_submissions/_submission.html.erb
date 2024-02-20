@@ -19,14 +19,22 @@
         <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:status) %></dt>
         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= t("activerecord.attributes.submission.statuses.#{submission.status}") %></dd>
       </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 <%= 'hidden' if submission.photos.blank? %>">
-        <dt class="text-sm font-medium leading-6 text-gray-900"><%= Submission.human_attribute_name(:photos) %></dt>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 <%= 'hidden' if submission.files.blank? %>">
+        <dt class="text-sm font-medium leading-6 text-gray-900"><%= Submission.human_attribute_name(:files) %></dt>
         <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          <% submission.photos.each do |photo| %>
-            <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
-              <%= image_tag(photo.variant(:thumb), class: "w-full h-full object-cover") %>
-            </div>
-          <% end %>
+          <div data-controller="lightbox">
+            <% submission.files.each do |file| %>
+              <% if file.representable? %>
+                <%= tag.a href: file.representation(:large).processed.url, data: { download_url: url_for(file) } do %>
+                  <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
+                    <%= image_tag file.representation(:thumb), class: "w-full h-full object-cover", alt: file.filename %>
+                  </div>
+                <% end %>
+              <% else %>
+                <%= image_tag "placeholder.png", alt: "Download file" %>
+              <% end %>
+            <% end %>
+          </div>
         </dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -43,10 +51,5 @@
       <%= render 'shared/icons/add_button' %>
       <%= t(:do_assessment) %>
     <% end %>
-    <%= link_to t(:show_this_submission), panel_submission_path(submission),
-                class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
-                data: {
-                  turbo_frame: '_top'
-                } %>
   </div>
 </div>

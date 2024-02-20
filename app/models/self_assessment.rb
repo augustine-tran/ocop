@@ -8,6 +8,6 @@ class SelfAssessment < ApplicationRecord
   end
 
   def can_submit?
-    assessment.drafted? && assessment.scored_all?
+    assessment.drafted?
   end
 end

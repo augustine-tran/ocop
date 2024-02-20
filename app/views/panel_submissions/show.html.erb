@@ -14,7 +14,7 @@
       <%= @submission.name %>
     <% end %>
     <%= turbo_frame_tag @submission, class: 'w-full' do %>
-      <%= render @submission %>
+      <%= render partial: 'panel_submissions/submission', locals: { submission: @submission } %>
     <% end %>
   </div>
 </div>
