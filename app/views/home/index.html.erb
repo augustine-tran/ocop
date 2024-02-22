@@ -1,56 +1,31 @@
-<p style="color: green"><%= notice %></p>
-<p>Signed as <%= Current.identity.email %></p>
-<h2>Login and verification</h2>
-<div>
-  <%= link_to t('change_password'), edit_password_path %>
-</div>
-<div>
-  <%= link_to t('change_email'), edit_identity_email_path %>
-</div>
-<h2>Access history</h2>
-<div>
-  <%= link_to "Devices & Sessions", sessions_path %>
-</div>
-<br>
-<%= button_to "Log out", Current.session, method: :delete %>
 <% content_for :page_header do %>
   <%= t(:home) %>
 <% end %>
-<% content_for :left_column do %>
-  <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-    <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-      <div class="ml-4 mt-4">
-        <div class="flex items-center">
-          <h3 class="text-base font-semibold leading-6 text-gray-900"><%= t(:submissions) %></h3>
-        </div>
-      </div>
-      <div class="ml-4 mt-4 flex flex-shrink-0">
-        <%= link_to new_submission_path, class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-          <%= render 'shared/icons/add_button' %>
-          <%= t(:create_submission) %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <%= turbo_frame_tag "submissions", src: submissions_path, target: :_top %>
-<% end %>
-<% if Current.account.company? %>
-  <% content_for :right_column do %>
-    <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
-      <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-        <div class="ml-4 mt-4">
-          <div class="flex items-center">
-            <h3 class="text-base font-semibold leading-6 text-gray-900"><%= t(:company) %></h3>
+<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+  <h1 class="sr-only">Page title</h1>
+  <!-- Main 3 column grid -->
+  <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">
+    <!-- Left column -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-2">
+      <section aria-labelledby="section-1-title">
+        <h2 class="sr-only" id="section-1-title">Section title</h2>
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+          <div class="p-6">
+            <%= render 'home/left' %>
           </div>
         </div>
-        <div class="ml-4 mt-4 flex flex-shrink-0">
-          <%= link_to edit_company_path(Current.account.accountable), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-            <%= render 'shared/icons/add_button' %>
-            <%= t(:edit_company) %>
-          <% end %>
-        </div>
-      </div>
+      </section>
     </div>
-    <%= turbo_frame_tag "company", src: company_path(Current.account.accountable), target: :_top %>
-  <% end %>
-<% end %>
+    <!-- Right column -->
+    <div class="grid grid-cols-1 gap-4">
+      <section aria-labelledby="section-2-title">
+        <h2 class="sr-only" id="section-2-title">Section title</h2>
+        <div class="overflow-hidden rounded-lg bg-white shadow">
+          <div class="p-6">
+            <%= render 'home/right' %>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

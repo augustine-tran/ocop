@@ -13,4 +13,6 @@ vi:
   no_submissions: Không có hồ sơ nào
   suggest_to_create_new_submission: Bạn có thể thêm hồ sơ mới bằng cách nhấn vào nút Thêm hồ sơ
   delete_file: "Xoá %{name}"
-  do_assessment: Đánh giá
+  submission_name: "Hồ sơ: %{name}"
+  do_assessment: Chấm điểm
+  submission: Hồ sơ

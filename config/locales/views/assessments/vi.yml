@@ -2,6 +2,7 @@ vi:
   add_score_story: Thêm minh chứng
   judge_info: "Người chấm điểm: %{judge}"
   self_assessment: Tự đánh giá
+  final_assessment: Điểm chung khảo
   assessments:
     edit:
       submit_assessment: Nộp hồ sơ lên hội đồng chấm điểm

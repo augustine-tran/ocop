@@ -6,6 +6,10 @@ class Evidence < ApplicationRecord
 
   before_create :set_criterium
 
+  delegate :assessment, to: :score
+  delegate :submission, to: :assessment
+  delegate :account_id, to: :submission
+
   has_many_attached :files do |attachable|
     attachable.variant :thumb, resize_to_limit: [150, nil]
     attachable.variant :large, resize_to_limit: [960, nil]

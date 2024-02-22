@@ -2,6 +2,7 @@
 
 class AssessmentsController < ApplicationController
   before_action :set_assessment
+  before_action :set_submission
 
   def show; end
 
@@ -20,5 +21,10 @@ class AssessmentsController < ApplicationController
 
   def set_assessment
     @assessment = Assessment.find(params[:id])
+    @submission = @assessment.submission
+  end
+
+  def set_submission
+    @submission = @assessment.submission
   end
 end

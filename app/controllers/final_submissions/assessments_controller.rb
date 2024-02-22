@@ -2,11 +2,13 @@
 
 class FinalSubmissions::AssessmentsController < ApplicationController
   before_action :set_submission
-  before_action :set_assessment, only: %i[submit]
+  before_action :set_assessment, only: %i[show submit]
 
   def index
     @assessments = @submission.panel_assessments
   end
+
+  def show; end
 
   def submit
     if @assessment.submit
