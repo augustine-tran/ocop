@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_070950) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   create_table "accounts", force: :cascade do |t|
     t.string "accountable_type", null: false
     t.integer "accountable_id", null: false
@@ -330,13 +330,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_070950) do
 
   create_table "sessions", force: :cascade do |t|
     t.integer "identity_id", null: false
-    t.string "token", null: false
-    t.string "ip_address"
     t.string "user_agent"
-    t.datetime "last_active_at", null: false
+    t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token", default: "", null: false
+    t.datetime "last_active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["identity_id"], name: "index_sessions_on_identity_id"
+    t.index ["token"], name: "index_sessions_on_token", unique: true
   end
 
   create_table "submissions", force: :cascade do |t|
