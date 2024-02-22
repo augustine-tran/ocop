@@ -1,0 +1,6 @@
+<% content_for :page_header do %>
+  <%= t(:list_concils) %>
+<% end %>
+<div class="w-full">
+  <%= render partial: 'council_list_item', collection: @councils, as: :council %>
+</div>

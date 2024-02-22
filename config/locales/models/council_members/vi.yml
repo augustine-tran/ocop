@@ -1,0 +1,8 @@
+vi:
+  activerecord:
+    attributes:
+      council_member:
+        role: Vai trò
+        roles:
+          president: Chủ tịch
+          judge: Giám khảo

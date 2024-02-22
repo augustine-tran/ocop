@@ -9,7 +9,7 @@ class Person < ApplicationRecord
 
   delegated_type :personable, types: Personable::TYPES
 
-  delegate :name, :email, :role, to: :personable
+  delegate :name, :email, :department, :role, to: :personable
 
   delegate :can?, :cannot?, to: :ability
 

@@ -1,0 +1,7 @@
+vi:
+  activerecord:
+    attributes:
+      person:
+        name: Họ và tên
+        department: Đơn vị công tác
+        email: Email

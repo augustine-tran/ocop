@@ -44,8 +44,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :concils do
-    resources :members
+  resources :councils do
+    resources :members, controller: 'councils/members'
   end
 
   resources :prompts
