@@ -62,4 +62,47 @@ module ApplicationHelper
 
     content_tag(:div, class: 'dropzone dropzone-default dz-clickable border rounded p-4', data:, &)
   end
+
+  def create_option(text, url)
+    [text, url, { selected: current_page?(url) }]
+  end
+
+  def submission_tab_options(submission, assessment = nil)
+    list_options = []
+
+    if Current.person.can? :edit,
+                           submission
+      list_options << create_option(t(:submission), submission_url(submission))
+    end
+    if Current.person.can? :judge,
+                           submission
+      list_options << create_option(t(:submission_name, name: submission.name),
+                                    panel_submission_url(submission))
+    end
+    if Current.person.can? :final,
+                           submission
+      list_options << create_option(t(:submission_name, name: submission.name),
+                                    final_submission_url(submission))
+    end
+    list_options << if submission.self_assessment.can_submit?
+                      create_option(t(:self_assessment),
+                                    edit_assessment_url(submission.self_assessment))
+                    else
+                      create_option(t(:self_assessment),
+                                    assessment_url(submission.self_assessment))
+                    end
+
+    if Current.person.can? :final, submission
+      list_options << create_option(t(:final_assessment),
+                                    final_submission_assessment_url(submission, submission.final_assessment))
+      if assessment.present? && assessment.panel_assessment?
+        list_options << create_option(t(assessment.judge.name),
+                                      assessment_url(assessment))
+      end
+    elsif Current.person.can? :judge, submission
+      list_options << create_option(t(:do_assessment), edit_assessment_url(submission.assessment_for(Current.person)))
+    end
+
+    list_options
+  end
 end

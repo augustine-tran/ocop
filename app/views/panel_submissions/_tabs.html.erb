@@ -1,0 +1,25 @@
+<% list_options = submission_tab_options(@submission) %>
+<div data-controller="tab">
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+    <div class="sm:hidden" data-controller="tab">
+      <label for="tabs" class="sr-only">Select a tab</label>
+      <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+      <%= select_tag 'tabs', options_for_select(list_options), id: "tabs", name: "tabs", class: "block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm", data: { tab_target: "select", action: "tab#change" } %>
+    </div>
+  </div>
+  <div class="hidden sm:block">
+    <div class="border-b border-gray-200">
+      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+        <% list_options.each do |option| %>
+          <% if option[2].present? && option[2][:selected] then %>
+            <%= link_to option[0], option[1], class: "border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium", aria_current: "page" %>
+          <% else %>
+            <%= link_to option[0], option[1], class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" %>
+          <% end %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
