@@ -47,8 +47,8 @@ Current.account = account
 ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá năng lực nông nghiệp huyện Châu Đức',
                                                 councilable: OcopCouncil.new
 9.times do |i|
-  idx = (i + 1).to_s.rjust(2, '0')
-  identity = Identity.create! email: "judge#{idx}@g.com", name: "Judge #{idx}", password: 'mypassword123',
+  idx = (i + 1)
+  identity = Identity.create! email: "giamkhao#{idx}@g.com", name: "Giám khảo #{idx}", password: 'mypassword123',
                               password_confirmation: 'mypassword123',
                               verified: true
   person = Person.create! account:, personable: User.new(identity:), role: Person.roles[:user]

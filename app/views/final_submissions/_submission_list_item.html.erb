@@ -1,7 +1,11 @@
 <%= turbo_frame_tag submission do %>
   <div id="<%= dom_id(submission) %>" class="overflow-hidden bg-white shadow sm:rounded-lg mb-4">
     <div class="px-4 py-6 sm:px-6">
-      <h3 class="text-base font-semibold leading-7 text-gray-900"><%= submission.name %></h3>
+      <h3 class="text-base font-semibold leading-7 text-gray-900">
+        <%= link_to final_submission_path(submission), class: "shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500", data: { turbo_frame: :_top } do %>
+          <%= submission.name %>
+        <% end %>
+      </h3>
       <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= t("activerecord.attributes.submission.product_groups.#{submission.product_group}") %></p>
     </div>
     <div class="border-t border-gray-100">
@@ -46,7 +50,7 @@
     </div>
     <div class="px-4 py-5 sm:px-6">
       <%= link_to t(:show_this_submission), final_submission_path(submission),
-                  class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
+                  class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium bg-indigo-500 text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500",
                   data: {
                     turbo_frame: '_top'
                   } %>

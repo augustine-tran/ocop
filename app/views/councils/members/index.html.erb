@@ -1,0 +1,29 @@
+<% content_for :page_header do %>
+  <%= t(:list_concils) %>
+<% end %>
+<div class="w-full">
+  <%= turbo_frame_tag :members do %>
+    <div class="px-4 sm:px-6 lg:px-8">
+      <div class="sm:flex sm:items-center">
+        <div class="sm:flex-auto">
+          <h1 class="text-xl font-semibold leading-6 text-gray-900"><%= @council.name %></h1>
+          <p class="mt-2 text-sm text-gray-700">Danh sách thành viên giám khám thuộc hội đồng</p>
+        </div>
+      </div>
+      <div class="-mx-4 mt-8 sm:-mx-0">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= Person.human_attribute_name(:name) %></th>
+              <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"><%= Person.human_attribute_name(:department) %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= CouncilMember.human_attribute_name(:role) %></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+            <%= render partial: 'member_list_item', collection: @members, as: :member %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

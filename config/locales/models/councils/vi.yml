@@ -1,0 +1,5 @@
+vi:
+  activerecord:
+    attributes:
+      council:
+        name: Tên hội đồng

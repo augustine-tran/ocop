@@ -1,0 +1,12 @@
+<tr>
+  <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
+    <%= member.name %>
+    <dl class="font-normal lg:hidden">
+      <dt class="sr-only">Tên</dt>
+      <dd class="mt-1 truncate text-gray-700"><%= member.department %></dd>
+      <dt class="sr-only sm:hidden">Đơn vị công tác</dt>
+    </dl>
+  </td>
+  <td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell"><%= member.department %></td>
+  <td class="px-3 py-4 text-sm text-gray-500"><%= t("activerecord.attributes.council_member.roles.#{member.role}") %></td>
+</tr>

@@ -5,16 +5,18 @@
         <div class="flex h-16 items-center justify-between px-4 sm:px-0">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <%= tag.img src: Current.account.avatar_url(200), class: 'h-10 w-10 rounded-full', alt: Current.account.name %>
+              <%= link_to root_path, class: "relative inline-flex items-center gap-x-1.5 px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+                <%= tag.img src: Current.account.avatar_url(200), class: 'h-10 w-10 rounded-full', alt: Current.account.name %>
+              <% end %>
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <%= link_to t(:home), root_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
+                <%= link_to t(:home), admin_home_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(admin_home_path)}", "aria-current": ("page" if current_page?(admin_home_path)) %>
                 <%= link_to t(:panel_submissions), panel_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(panel_submissions_path)}", "aria-current": ("page" if current_page?(panel_submissions_path)) %>
                 <% if Current.person.president? %>
                   <%= link_to t(:menu_final_submissions), final_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
-                  <%= link_to t(:concils), concils_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(concils_path)}", "aria-current": ("page" if current_page?(concils_path)) %>
+                  <%= link_to t(:councils), councils_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(councils_path)}", "aria-current": ("page" if current_page?(councils_path)) %>
                 <% end %>
               </div>
             </div>
