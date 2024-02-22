@@ -59,7 +59,7 @@
                   data-transition-leave-from="transform opacity-100 scale-100"
                   data-transition-leave-to="transform opacity-0 scale-95">
                   <!-- Active: "bg-gray-100", Not Active: "" -->
-                  <%= link_to t(:profile), root_path, class:'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
+                  <%= link_to t(:profile), person_profiles_path, class:'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100' %>
                   <%= button_to t(:sign_out), Current.session, method: :delete, class: "block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
                 </div>
               </div>
@@ -110,7 +110,7 @@
           </button>
         </div>
         <div class="mt-3 space-y-1 px-2">
-          <%= link_to t(:profile), root_path, class:'block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white' %>
+          <%= link_to t(:profile), person_profiles_path, class: 'block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white' %>
           <%= button_to t(:sign_out), Current.session, method: :delete, class:'block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white' %>
         </div>
       </div>

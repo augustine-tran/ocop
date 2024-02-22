@@ -29,6 +29,8 @@ class Person < ApplicationRecord
 
   has_many :final_submissions, through: :final_assessments, source: :submission
 
+  has_many :push_subscriptions, class_name: 'Push::Subscription', dependent: :delete_all
+
   enum role: {
     admin: 'admin',
     user: 'user'

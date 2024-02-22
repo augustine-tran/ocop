@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_26_070949) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   create_table "accounts", force: :cascade do |t|
     t.string "accountable_type", null: false
     t.integer "accountable_id", null: false
@@ -280,6 +280,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_070949) do
     t.index ["account_id"], name: "index_prompts_on_account_id"
   end
 
+  create_table "push_subscriptions", force: :cascade do |t|
+    t.integer "person_id", null: false
+    t.string "endpoint"
+    t.string "p256dh_key"
+    t.string "auth_key"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["endpoint", "p256dh_key", "auth_key"], name: "idx_on_endpoint_p256dh_key_auth_key_7553014576"
+    t.index ["endpoint"], name: "index_push_subscriptions_on_endpoint", unique: true
+    t.index ["person_id"], name: "index_push_subscriptions_on_person_id"
+  end
+
   create_table "recordings", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "creator_id", null: false
@@ -321,7 +334,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_070949) do
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token", default: "", null: false
+    t.datetime "last_active_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.index ["identity_id"], name: "index_sessions_on_identity_id"
+    t.index ["token"], name: "index_sessions_on_token", unique: true
   end
 
   create_table "submissions", force: :cascade do |t|
@@ -384,6 +400,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_26_070949) do
   add_foreign_key "products", "accounts"
   add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"
+  add_foreign_key "push_subscriptions", "people"
   add_foreign_key "recordings", "accounts"
   add_foreign_key "recordings", "people", column: "creator_id"
   add_foreign_key "recordings", "recordings", column: "parent_id"
