@@ -8,7 +8,7 @@ image: ocop/ocop
 servers:
   web:
     hosts:
-      - 103.163.119.77
+      - 103.20.102.121
     options:
       user: "1001:1001" # UID:GID of the user to run the container as. To allow write access to the mounted volumes.
 
@@ -48,7 +48,7 @@ builder:
   #   host: unix:///Users/<%= `whoami`.strip %>/.docker/run/docker.sock
   remote:
     arch: amd64
-    host: ssh://root@103.163.119.77
+    host: ssh://root@176.223.133.220
     secrets:
       - RAILS_MASTER_KEY
 
@@ -56,6 +56,7 @@ builder:
 volumes:
   - "/opt/ocop/db/production:/rails/db/production"
   - "/opt/ocop/storage:/rails/storage"
+  - "/opt/ocop/public/system:/rails/public/system"
 
 # Use accessory services (secrets come from .env).
 # accessories:

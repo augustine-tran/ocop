@@ -42,8 +42,12 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips poppler-utils && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    apt-get install --no-install-recommends -y curl libsqlite3-0 libvips poppler-utils
+
+# imagemagick is needed for letter_avartar gem
+RUN apt-get install -y imagemagick --no-install-recommends
+
+RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
