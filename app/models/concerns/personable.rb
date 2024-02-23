@@ -3,7 +3,7 @@
 module Personable
   extend ActiveSupport::Concern
 
-  TYPES = %w[User Client Tombstone].freeze
+  TYPES = %w[User Judge Tombstone].freeze
 
   included do
     has_one :person, as: :personable, touch: true, dependent: :destroy

@@ -14,14 +14,12 @@ class RegistrationsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      @account = Account.new(account_params)
-      @account.accountable = Company.new
-      @account.save!
+      @account = Account.first!
 
       @identity = Identity.create!(identity_params)
 
       user = User.create!(identity: @identity)
-      @account.people.create!(personable: user, role: 'admin')
+      @account.people.create!(personable: user)
 
       session_record = @identity.sessions.create!
       cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }

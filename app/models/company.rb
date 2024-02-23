@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  include Accountable
+  include AccountScoped
   include Addressable, Status
 
   enum legal_type: {

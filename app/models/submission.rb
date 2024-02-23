@@ -1,24 +1,17 @@
 # frozen_string_literal: true
 
 class Submission < ApplicationRecord
-  include Status
+  include AccountScoped, Status
 
   attr_accessor :year
 
   after_initialize :set_year
 
-  enum round: {
-    self: 'self',
-    district: 'district',
-    province: 'province'
-  }
+  belongs_to :creator, class_name: 'Person'
 
-  enum product_group: {
-    group1: 'group1',
-    group2: 'group2'
-  }
+  belongs_to :council
+  belongs_to :criteria_group
 
-  belongs_to :account
   has_many :assessments, dependent: :destroy
   has_one :self_assessment, lambda {
                               where assessable_type: 'SelfAssessment'
@@ -39,6 +32,7 @@ class Submission < ApplicationRecord
 
   broadcasts_refreshes
 
+  before_create :set_creator
   after_create :create_self_assessment
 
   def finish_self_assessment
@@ -66,6 +60,10 @@ class Submission < ApplicationRecord
   end
 
   private
+
+  def set_creator
+    self.creator ||= Current.person
+  end
 
   def set_year
     self.year ||= created_at&.year || Time.zone.today.year

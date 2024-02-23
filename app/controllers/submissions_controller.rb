@@ -6,11 +6,7 @@ class SubmissionsController < ApplicationController
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = if Current.account.company?
-                     Current.account.submissions
-                   else
-                     Current.account.managed_submissions
-                   end
+    @submissions = Current.person.submissions
   end
 
   def show; end

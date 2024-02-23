@@ -15,9 +15,6 @@ class Ability
     can :edit, Assessment, judge_id: person.id, assessable_type: :FinalAssessment
     can :edit, Evidence, account_id: person.account_id
 
-    return unless person.admin?
-
-    can :manage, Company
     can :view, Submission, account_id: person.account_id
     can :edit, Submission, account_id: person.account_id
     can :destroy, Submission, account_id: person.account_id

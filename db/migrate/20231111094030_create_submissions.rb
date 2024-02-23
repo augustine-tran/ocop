@@ -4,11 +4,12 @@ class CreateSubmissions < ActiveRecord::Migration[7.1]
   def change
     create_table :submissions do |t|
       t.string :name, null: false
+      t.references :council, null: false, foreign_key: true
+      t.references :criteria_group, null: false, foreign_key: true
       t.string :description
-      t.string :submission_type
-      t.string :product_group, null: false, default: 'group1'
       t.string :status, null: false, default: 'active'
       t.string :round, null: false, default: 'self'
+      t.references :creator, foreign_key: { to_table: :people }
       t.references :account, null: false, foreign_key: true
 
       t.timestamps
