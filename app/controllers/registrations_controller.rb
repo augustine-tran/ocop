@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RegistrationsController < ApplicationController
-  skip_before_action :authenticate
+  allow_unauthenticated_access only: %i[new create]
 
   def index; end
 

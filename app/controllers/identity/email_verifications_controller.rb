@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Identity::EmailVerificationsController < ApplicationController
-  skip_before_action :authenticate, only: :show
+  allow_unauthenticated_access only: %i[show]
 
   before_action :set_user, only: :show
 

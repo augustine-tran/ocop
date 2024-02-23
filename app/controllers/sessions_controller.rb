@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
   def render_rejection(status)
     flash.now[:alert] = '⛔️' # rubocop:disable Rails/I18nLocaleTexts
-    render :new, status:
+    render :new, layout: 'guest', status:
   end
 
   def remove_push_subscription
