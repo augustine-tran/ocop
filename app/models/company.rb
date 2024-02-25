@@ -11,18 +11,19 @@ class Company < ApplicationRecord
     htx: 'htx'
   }
 
+  belongs_to :owner, class_name: 'Person'
+
   has_one :director, -> { where(manager: nil) }, class_name: 'Employee', dependent: :destroy
   has_many :employees, dependent: :destroy
   has_many :clients, dependent: :destroy
 
   validates :registration_no, uniqueness: true, if: :registration_no?
 
-  after_create :set_user_company, if: -> { Current.person&.user? }
+  before_validation :set_owner, if: :new_record?
 
   private
 
-  def set_user_company
-    Current.person.personable.update company: self
-    Current.person.reload
+  def set_owner
+    self.owner = Current.person
   end
 end

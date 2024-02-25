@@ -3,6 +3,7 @@ vi:
     attributes:
       submission:
         name: Tên sản phẩm
+        company: Đơn vị chủ thể
         status: Trạng thái
         description: Mô tả
         council: Hội đồng

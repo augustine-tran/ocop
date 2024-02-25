@@ -74,6 +74,7 @@ module ApplicationHelper
                            submission
       list_options << create_option(t(:submission), submission_url(submission))
     end
+
     if Current.person.can? :judge,
                            submission
       list_options << create_option(t(:submission_name, name: submission.name),

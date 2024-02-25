@@ -19,6 +19,8 @@ class Person < ApplicationRecord
 
   has_many :assessments, foreign_key: :judge_id, dependent: :destroy, inverse_of: :judge
 
+  has_many :companies, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
+
   has_many :panel_assessments, lambda {
                                  where assessable_type: 'PanelAssessment'
                                }, class_name: 'Assessment', dependent: :destroy, foreign_key: :judge_id

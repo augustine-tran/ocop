@@ -25,25 +25,33 @@
                                 class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
           </div>
         </div>
-        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
-          <%= form.label :council, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
-          <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.collection_select :council_id, Council.all, :id, :name, { prompt: t(:select_council) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
-                                                                                                             data: {
-                                                                                                               dependent_select_target: "primary",
-                                                                                                               action: "change->dependent-select#primaryChange"
-                                                                                                             } %>
+        <% if submission.new_record? %>
+          <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+            <%= form.label :company, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+            <div class="mt-2 sm:col-span-3 sm:mt-0">
+              <%= form.collection_select :company_id, companies_collection, :id, :name, { prompt: t(:select_company) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            </div>
           </div>
-        </div>
-        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
-          <%= form.label :criteria_group, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
-          <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.collection_select :criteria_group_id, [], :id, :name, { include_blank: "Please select a dependent" }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
-                                                                                                                           data: {
-                                                                                                                             dependent_select_target: "dependent"
-                                                                                                                           } %>
+          <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+            <%= form.label :council, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+            <div class="mt-2 sm:col-span-3 sm:mt-0">
+              <%= form.collection_select :council_id, Council.all, :id, :name, { prompt: t(:select_council) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
+                                                                                                              data: {
+                                                                                                                dependent_select_target: "primary",
+                                                                                                                action: "change->dependent-select#primaryChange"
+                                                                                                              } %>
+            </div>
           </div>
-        </div>
+          <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+            <%= form.label :criteria_group, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+            <div class="mt-2 sm:col-span-3 sm:mt-0">
+              <%= form.collection_select :criteria_group_id, [], :id, :name, { include_blank: "Please select a dependent" }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
+                                                                                                                            data: {
+                                                                                                                              dependent_select_target: "dependent"
+                                                                                                                            } %>
+            </div>
+          </div>
+        <% end %>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :files, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">

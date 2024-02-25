@@ -52,7 +52,7 @@ end
 identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'Ocop@2024',
                             password_confirmation: 'Ocop@2024',
                             verified: true
-Person.create! account:, personable: User.new(identity:, company: Company.new(name: 'ACME'))
+Person.create! account:, personable: User.new(identity:)
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
 csv = CSV.parse csv_text, headers: true, col_sep: ';'

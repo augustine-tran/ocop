@@ -59,7 +59,7 @@ class Submission < ApplicationRecord
   end
 
   def assessment_for(judge)
-    assessments.find_by(judge:)
+    panel_assessments.find_by(judge:) || final_assessment.find_by(judge:)
   end
 
   private

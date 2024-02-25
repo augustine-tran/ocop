@@ -102,6 +102,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.integer "account_id", null: false
+    t.integer "owner_id", null: false
     t.string "registration_name"
     t.string "registration_no"
     t.date "registration_date"
@@ -110,6 +111,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_companies_on_account_id"
+    t.index ["owner_id"], name: "index_companies_on_owner_id"
     t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
   end
 
@@ -365,10 +367,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
 
   create_table "users", force: :cascade do |t|
     t.integer "identity_id", null: false
-    t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
@@ -381,6 +381,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   add_foreign_key "assessments", "people", column: "judge_id"
   add_foreign_key "assessments", "submissions"
   add_foreign_key "companies", "accounts"
+  add_foreign_key "companies", "people", column: "owner_id"
   add_foreign_key "council_members", "councils"
   add_foreign_key "council_members", "people"
   add_foreign_key "councils", "accounts"
@@ -416,6 +417,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   add_foreign_key "submissions", "people", column: "creator_id"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
-  add_foreign_key "users", "companies"
   add_foreign_key "users", "identities"
 end
