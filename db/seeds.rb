@@ -29,14 +29,6 @@ AdministrativeUnit.create! [
 ]
 
 account = Account.create! name: 'Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức'
-
-identity = Identity.create! email: 'donga.spirit@gmail.com', name: 'Demo Account', password: 'Ocop@2024',
-                            password_confirmation: 'Ocop@2024',
-                            verified: true
-
-person = Person.create! account:, personable: User.new(identity:)
-
-Current.person = person
 Current.account = account
 
 departments = ['Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức',
@@ -60,7 +52,7 @@ end
 identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'Ocop@2024',
                             password_confirmation: 'Ocop@2024',
                             verified: true
-Person.create! account:, personable: User.new(identity:)
+Person.create! account:, personable: User.new(identity:, company: Company.new(name: 'ACME'))
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
 csv = CSV.parse csv_text, headers: true, col_sep: ';'

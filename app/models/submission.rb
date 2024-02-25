@@ -8,6 +8,7 @@ class Submission < ApplicationRecord
   after_initialize :set_year
 
   belongs_to :creator, class_name: 'Person'
+  belongs_to :company
 
   belongs_to :council
   belongs_to :criteria_group
@@ -32,7 +33,11 @@ class Submission < ApplicationRecord
 
   broadcasts_refreshes
 
-  before_create :set_creator
+  before_validation :set_creator, if: -> { new_record? && creator.blank? }
+  before_validation :set_company, if: -> { new_record? && company.blank? && creator.user? }
+
+  validates :name, presence: true
+
   after_create :create_self_assessment
 
   def finish_self_assessment
@@ -54,8 +59,6 @@ class Submission < ApplicationRecord
   end
 
   def assessment_for(judge)
-    return self_assessment if Current.account == account
-
     assessments.find_by(judge:)
   end
 
@@ -71,5 +74,9 @@ class Submission < ApplicationRecord
 
   def create_self_assessment
     CreateSelfAssessmentJob.perform_now self
+  end
+
+  def set_company
+    self.company ||= creator.personable.company
   end
 end

@@ -14,8 +14,11 @@
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <%= link_to t(:home), root_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
                 <%= link_to t(:submissions), submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(submissions_path)}", "aria-current": ("page" if current_page?(submissions_path)) %>
+                <% if Current.person.judge? %>
+                  <%= link_to t(:menu_panel_submissions), panel_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(panel_submissions_path)}", "aria-current": ("page" if current_page?(panel_submissions_path)) %>
+                <% end %>
                 <% if Current.person.president? %>
-                  <%= link_to t(:final_submissions), final_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
+                  <%= link_to t(:menu_final_submissions), final_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
                 <% end %>
               </div>
             </div>

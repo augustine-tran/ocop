@@ -1,5 +1,7 @@
 <% accepted_files = %w[application/pdf image/jpeg image/jpg image/png image/gif] %>
-<%= form_with(model: [submission], class: "contents") do |form| %>
+<%= form_with model: [submission], class: "contents", data: { controller: 'dependent-select',
+                                                              dependent_select_options_url_value: criteria_groups_selector_path,
+                                                              dependent_select_param_name_value: 'council_id' } do |form| %>
   <% if submission.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(submission.errors.count, "error") %> prohibited this submission from being saved:</h2>
@@ -24,11 +26,22 @@
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
-          <%= form.label :product_group, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <%= form.label :council, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.select :product_group, Submission.product_groups.keys.map { |group| [t("activerecord.attributes.submission.product_groups.#{group}"), group] },
-                            autocomplete: "given-name",
-                            class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            <%= form.collection_select :council_id, Council.all, :id, :name, { prompt: t(:select_council) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
+                                                                                                             data: {
+                                                                                                               dependent_select_target: "primary",
+                                                                                                               action: "change->dependent-select#primaryChange"
+                                                                                                             } %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :criteria_group, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.collection_select :criteria_group_id, [], :id, :name, { include_blank: "Please select a dependent" }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6",
+                                                                                                                           data: {
+                                                                                                                             dependent_select_target: "dependent"
+                                                                                                                           } %>
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">

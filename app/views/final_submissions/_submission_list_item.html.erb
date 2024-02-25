@@ -6,7 +6,7 @@
           <%= submission.name %>
         <% end %>
       </h3>
-      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= t("activerecord.attributes.submission.product_groups.#{submission.product_group}") %></p>
+      <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= submission.criteria_group.name %></p>
     </div>
     <div class="border-t border-gray-100">
       <% if submission.account != Current.account %>

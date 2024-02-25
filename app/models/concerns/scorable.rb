@@ -23,7 +23,7 @@ module Scorable
     private
 
     def create_scores_according_to_criteria
-      Criterium.for_submission(self).node_roots.each do |root_criterium|
+      Criterium.for_submission(submission).node_roots.each do |root_criterium|
         create_scores(root_criterium, nil)
       end
     end

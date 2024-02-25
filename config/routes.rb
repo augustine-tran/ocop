@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resources :members, controller: 'councils/members'
   end
 
+  get :criteria_groups_selector, to: 'councils/criteria_groups_selector#index'
+
   resources :prompts
 
   get  'admin_home', to: 'admin_home#index'

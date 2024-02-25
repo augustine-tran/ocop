@@ -12,6 +12,8 @@ class SubmissionsController < ApplicationController
   def show; end
 
   def new
+    redirect_to new_company_path, notice: t(:create_company_first) if Current.person.personable.company.blank?
+
     @submission = Submission.build
   end
 
@@ -61,7 +63,9 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:name, :status, :description, :product_group, files: [], files_to_remove: [])
+    params.require(:submission).permit(:name, :status, :description,
+                                       :council_id, :criteria_group_id,
+                                       files: [], files_to_remove: [])
   end
 
   def remove_photos(files_to_remove)

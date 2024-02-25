@@ -1,0 +1,4 @@
+<option>Please select a dependent</option>
+<% groups.each do |dependent| %>
+  <option value="<%= dependent.id %>"><%= dependent.name %></option>
+<% end %>

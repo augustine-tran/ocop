@@ -31,6 +31,7 @@ class CreateAccounts < ActiveRecord::Migration[7.1]
     end
 
     create_table :companies do |t|
+      t.string :name, null: false
       t.references :account, null: false, foreign_key: true
       t.string :registration_name
       t.string :registration_no, index: { unique: true }

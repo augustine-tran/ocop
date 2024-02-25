@@ -3,4 +3,6 @@
 class User < ApplicationRecord
   include Personable
   include AccountsSharingIdentity
+
+  belongs_to :company, optional: true
 end

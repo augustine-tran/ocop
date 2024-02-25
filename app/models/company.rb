@@ -16,4 +16,13 @@ class Company < ApplicationRecord
   has_many :clients, dependent: :destroy
 
   validates :registration_no, uniqueness: true, if: :registration_no?
+
+  after_create :set_user_company, if: -> { Current.person&.user? }
+
+  private
+
+  def set_user_company
+    Current.person.personable.update company: self
+    Current.person.reload
+  end
 end

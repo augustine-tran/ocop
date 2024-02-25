@@ -100,6 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   end
 
   create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
     t.integer "account_id", null: false
     t.string "registration_name"
     t.string "registration_no"
@@ -337,15 +338,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
     t.string "name", null: false
     t.integer "council_id", null: false
     t.integer "criteria_group_id", null: false
+    t.integer "company_id", null: false
     t.string "description"
-    t.string "status", default: "active", null: false
-    t.string "round", default: "self", null: false
+    t.string "status", default: "drafted", null: false
     t.integer "creator_id"
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "scores_sum"
     t.index ["account_id"], name: "index_submissions_on_account_id"
+    t.index ["company_id"], name: "index_submissions_on_company_id"
     t.index ["council_id"], name: "index_submissions_on_council_id"
     t.index ["creator_id"], name: "index_submissions_on_creator_id"
     t.index ["criteria_group_id"], name: "index_submissions_on_criteria_group_id"
@@ -363,8 +365,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
 
   create_table "users", force: :cascade do |t|
     t.integer "identity_id", null: false
+    t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
@@ -406,10 +410,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   add_foreign_key "scores", "scores", column: "parent_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
+  add_foreign_key "submissions", "companies"
   add_foreign_key "submissions", "councils"
   add_foreign_key "submissions", "criteria_groups"
   add_foreign_key "submissions", "people", column: "creator_id"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
+  add_foreign_key "users", "companies"
   add_foreign_key "users", "identities"
 end

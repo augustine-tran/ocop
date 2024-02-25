@@ -8,36 +8,29 @@ class RegistrationsController < ApplicationController
   layout 'guest'
 
   def new
-    @account = Account.new
     @identity = Identity.new
   end
 
   def create
     ActiveRecord::Base.transaction do
+      # TODO: This is a temporary solution to create the first account
       @account = Account.first!
 
-      @identity = Identity.create!(identity_params)
-
-      user = User.create!(identity: @identity)
-      @account.people.create!(personable: user)
-
-      session_record = @identity.sessions.create!
-      cookies.signed.permanent[:session_token] = { value: session_record.id, httponly: true }
+      user = User.create! identity: Identity.new(identity_params)
+      @account.people.create! personable: user
 
       send_email_verification
+
+      start_new_session_for user.identity
+
       redirect_to root_path, notice: t(:signed_up)
     end
   rescue ActiveRecord::RecordInvalid
-    @account = Account.new(account_params)
-    @identity = Identity.new(identity_params)
+    @user = User.new(user_params)
     render :new, status: :unprocessable_entity
   end
 
   private
-
-  def account_params
-    params.require(:account).permit(:name, :administrator_id)
-  end
 
   def identity_params
     params.require(:identity).permit(:name, :email, :password, :password_confirmation)

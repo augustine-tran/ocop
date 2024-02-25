@@ -14,6 +14,8 @@ class CreatePeople < ActiveRecord::Migration[7.1]
 
     create_table :users do |t|
       t.references :identity, null: false, foreign_key: true
+      t.references :company, foreign_key: true
+
       t.timestamps
     end
 

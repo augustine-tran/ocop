@@ -1,4 +1,4 @@
-<% content_for :page_header do%>
+<% content_for :page_header do %>
   <%= t(:list_submissions) %>
 <% end %>
 <div class="w-full">
@@ -10,7 +10,7 @@
       <%= turbo_stream_from submission %>
     <% end %>
     <div class="min-w-full">
-      <%= render partial: 'submission_list_item', collection: @submissions, as: :submission %>
+      <%= render partial: 'final_submissions/submission_list_item', collection: @submissions, as: :submission %>
       <%= render 'empty_list' if @submissions.blank? %>
     </div>
   <% end %>

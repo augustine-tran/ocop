@@ -40,4 +40,8 @@ class Person < ApplicationRecord
   def president?
     council_members.president.count.positive?
   end
+
+  def judge?
+    council_members.judge.count.positive?
+  end
 end
