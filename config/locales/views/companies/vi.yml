@@ -1,8 +1,10 @@
 vi:
-  list_companies: "Danh sách doanh nghiệp"
-  create_company: "Thêm doanh nghiệp"
-  show_list_of_submissions: "Danh sách hồ sơ"
-  show_this_company: "Xem chi tiết"
-  edit_this_company: "Chỉnh sửa doanh nghiệp"
-  destroy_this_company: "Xóa doanh nghiệp"
-  back_to_companies: "Quay lại danh sách doanh nghiệp"
+  list_companies: Danh sách doanh nghiệp
+  create_company: Thêm doanh nghiệp
+  show_list_of_submissions: Danh sách hồ sơ
+  show_this_company: Xem chi tiết
+  new_company: Tạo mới doanh nghiệp
+  edit_this_company: Chỉnh sửa doanh nghiệp
+  destroy_this_company: Xóa doanh nghiệp
+  back_to_companies: Quay lại danh sách doanh nghiệp
+  create_company_first: Cần phải tạo đơn vị chủ thể trước khi tạo hồ sơ

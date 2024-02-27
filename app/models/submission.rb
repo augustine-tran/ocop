@@ -3,10 +3,6 @@
 class Submission < ApplicationRecord
   include AccountScoped, Status
 
-  attr_accessor :year
-
-  after_initialize :set_year
-
   belongs_to :creator, class_name: 'Person'
   belongs_to :company
 
@@ -34,7 +30,6 @@ class Submission < ApplicationRecord
   broadcasts_refreshes
 
   before_validation :set_creator, if: -> { new_record? && creator.blank? }
-  before_validation :set_company, if: -> { new_record? && company.blank? && creator.user? }
 
   validates :name, presence: true
 
@@ -59,7 +54,7 @@ class Submission < ApplicationRecord
   end
 
   def assessment_for(judge)
-    panel_assessments.find_by(judge:) || final_assessment.find_by(judge:)
+    panel_assessments.find_by(judge:) || final_assessment&.find_by(judge:)
   end
 
   private
@@ -68,15 +63,7 @@ class Submission < ApplicationRecord
     self.creator ||= Current.person
   end
 
-  def set_year
-    self.year ||= created_at&.year || Time.zone.today.year
-  end
-
   def create_self_assessment
     CreateSelfAssessmentJob.perform_now self
-  end
-
-  def set_company
-    self.company ||= creator.personable.company
   end
 end

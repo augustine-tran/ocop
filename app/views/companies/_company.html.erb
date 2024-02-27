@@ -18,7 +18,7 @@
           </div>
           <div class="flex items-center justify-between py-4">
             <dt class="text-gray-600"><%= Company.human_attribute_name(:registration_date) %></dt>
-            <dd class="font-medium text-gray-900"><%= company.registration_date %></dd>
+            <dd class="font-medium text-gray-900"><%= l company.registration_date, format: :long %></dd>
           </div>
         </dl>
       </div>

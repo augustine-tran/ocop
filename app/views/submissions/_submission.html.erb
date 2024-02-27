@@ -48,7 +48,7 @@
     </dl>
   </div>
   <div class="px-4 py-5 sm:px-6">
-    <%= link_to edit_assessment_path(submission.assessment_for(Current.person)), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500",
+    <%= link_to edit_assessment_path(submission.self_assessment), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500",
                                                                             data: {
                                                                               turbo_frame: '_top'
                                                                             } do %>

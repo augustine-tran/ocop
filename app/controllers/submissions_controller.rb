@@ -11,9 +11,12 @@ class SubmissionsController < ApplicationController
   def show; end
 
   def new
-    redirect_to new_company_path, notice: t(:create_company_first) if Current.person.companies.count.zero?
+    if Current.person.companies.count.zero?
+      redirect_to new_company_path(back_url: new_submission_url),
+                  notice: t(:create_company_first)
+    end
 
-    @submission = Submission.build
+    @submission = Submission.build company: Current.person.companies.first
   end
 
   def edit; end
