@@ -4,6 +4,9 @@ vi:
       identity:
     attributes:
       identity:
+        name: Họ và tên
+        email: Email
+        password: Mật khẩu
         password_confirmation: Mật khẩu xác nhận
     errors:
       models:

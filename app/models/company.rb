@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Company < ApplicationRecord
-  include Accountable
+  include AccountScoped
   include Addressable, Status
 
   enum legal_type: {
@@ -11,9 +11,16 @@ class Company < ApplicationRecord
     htx: 'htx'
   }
 
-  has_one :director, -> { where(manager: nil) }, class_name: 'Employee', dependent: :destroy
-  has_many :employees, dependent: :destroy
-  has_many :clients, dependent: :destroy
+  belongs_to :owner, class_name: 'Person'
+
+  before_validation :set_owner, if: :new_record?
 
   validates :registration_no, uniqueness: true, if: :registration_no?
+  validates :name, presence: true
+
+  private
+
+  def set_owner
+    self.owner = Current.person
+  end
 end

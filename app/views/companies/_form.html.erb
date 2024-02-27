@@ -1,4 +1,5 @@
-<%= form_with(model: company, class: "contents") do |form| %>
+<%= form_with model: company, class: 'contents' do |form| %>
+  <%= tag.input type: :hidden, name: :back_url, value: params[:back_url] %>
   <% if company.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(company.errors.count, "error") %> prohibited this company from being saved:</h2>
@@ -9,23 +10,37 @@
       </ul>
     </div>
   <% end %>
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  <div class="space-y-12 sm:space-y-16">
+    <div>
+      <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :name %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :registration_no %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :registration_no, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :registration_date %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.date_field :registration_date, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :legal_type %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.select :legal_type, Company.legal_types.keys.map { |type| [t("activerecord.attributes.company.legal_types.#{type}"), type] }, { }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="my-5">
-    <%= form.label :registration_no %>
-    <%= form.text_field :registration_no, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :registration_date %>
-    <%= form.date_field :registration_date, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="my-5">
-    <%= form.label :legal_type %>
-    <%= form.select :legal_type, Company.legal_types.keys.map { |type| [t("activerecord.attributes.company.legal_types.#{type}"), type] }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-  <div class="inline">
+  <div class="mt-6 flex items-center justify-center gap-x-6">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

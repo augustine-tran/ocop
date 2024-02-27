@@ -2,12 +2,6 @@
   <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <% if notice.present? %>
-          <p class="text-green-500 text-sm mb-4"><%= notice %></p>
-        <% end %>
-        <% if alert.present? %>
-          <p class="text-red-500 text-sm mb-4"><%= alert %></p>
-        <% end %>
         <h2 class="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900"><%= t(".sign_in_to_your_account", default: "Sign in to your account") %></h2>
         <p class="mt-2 text-sm leading-6 text-gray-500">
           <%= t(".not_a_member", default: "Not a member?") %>

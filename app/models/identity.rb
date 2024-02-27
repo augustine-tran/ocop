@@ -8,7 +8,7 @@ class Identity < ApplicationRecord
 
   has_many :sessions, dependent: :destroy
   has_many :users, dependent: :destroy
-  has_many :clients, dependent: :destroy
+  has_many :judges, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: false, length: { minimum: 6 }
@@ -22,6 +22,4 @@ class Identity < ApplicationRecord
   after_update if: :password_digest_previously_changed? do
     sessions.where.not(id: Current.session).delete_all
   end
-
-  accepts_nested_attributes_for :clients
 end

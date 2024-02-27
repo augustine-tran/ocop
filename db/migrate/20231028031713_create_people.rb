@@ -14,11 +14,14 @@ class CreatePeople < ActiveRecord::Migration[7.1]
 
     create_table :users do |t|
       t.references :identity, null: false, foreign_key: true
+
       t.timestamps
     end
 
-    create_table :clients do |t|
+    create_table :judges do |t|
       t.references :identity, null: false, foreign_key: true
+      t.string :department
+
       t.timestamps
     end
 
@@ -32,7 +35,6 @@ class CreatePeople < ActiveRecord::Migration[7.1]
     create_table :people do |t|
       t.references :account, null: false, foreign_key: true
       t.references :personable, polymorphic: true, null: false
-      t.string :role, :string, default: 'user', null: false
       t.timestamps
     end
 

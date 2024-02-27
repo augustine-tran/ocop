@@ -3,7 +3,7 @@
 class Council < ApplicationRecord
   include AccountScoped
 
-  delegated_type :councilable, types: Councilable::TYPES
+  belongs_to :criteria_bucket, optional: true
 
   has_many :members, dependent: :destroy, class_name: 'CouncilMember'
   has_many :people, through: :members, source: :person

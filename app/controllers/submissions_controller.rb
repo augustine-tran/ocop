@@ -2,21 +2,21 @@
 
 class SubmissionsController < ApplicationController
   before_action :set_submission, only: %i[show edit update destroy]
-  before_action :set_company, only: %i[index]
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = if Current.account.company?
-                     Current.account.submissions
-                   else
-                     Current.account.managed_submissions
-                   end
+    @submissions = Current.person.submissions
   end
 
   def show; end
 
   def new
-    @submission = Submission.build
+    if Current.person.companies.count.zero?
+      redirect_to new_company_path(back_url: new_submission_url),
+                  notice: t(:create_company_first)
+    end
+
+    @submission = Submission.build company: Current.person.companies.first
   end
 
   def edit; end
@@ -52,10 +52,6 @@ class SubmissionsController < ApplicationController
     @submission = Submission.find(params[:id])
   end
 
-  def set_company
-    @company = Company.find(request.query_parameters[:company_id]) if request.query_parameters[:company_id].present?
-  end
-
   def set_assessment
     @assessment = if Current.account == @submission.account
                     @submission.self_assessment
@@ -65,7 +61,9 @@ class SubmissionsController < ApplicationController
   end
 
   def submission_params
-    params.require(:submission).permit(:name, :status, :description, :product_group, files: [], files_to_remove: [])
+    params.require(:submission).permit(:name, :status, :description, :company_id,
+                                       :council_id, :criteria_group_id,
+                                       files: [], files_to_remove: [])
   end
 
   def remove_photos(files_to_remove)

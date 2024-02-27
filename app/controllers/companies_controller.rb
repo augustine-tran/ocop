@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class CompaniesController < ApplicationController
-  load_and_authorize_resource
+  before_action :set_company, only: %i[show edit update destroy]
 
   # GET /companies or /companies.json
   def index
-    @companies = Company.accessible_by(current_ability)
+    @companies = Current.person.companies
   end
 
   # GET /companies/1 or /companies/1.json
@@ -25,7 +25,7 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to company_url(@company), notice: 'Company was successfully created.' }
+        format.html { redirect_to redirect_url, notice: 'Company was successfully created.' }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to company_url(@company), notice: 'Company was successfully updated.' }
+        format.html { redirect_to companies_path, notice: 'Company was successfully updated.' }
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,5 +67,9 @@ class CompaniesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def company_params
     params.require(:company).permit(:name, :registration_no, :registration_date, :legal_type)
+  end
+
+  def redirect_url
+    params[:back_url] || companies_path
   end
 end

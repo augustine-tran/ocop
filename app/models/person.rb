@@ -15,7 +15,11 @@ class Person < ApplicationRecord
 
   has_many :council_members, dependent: :destroy
 
+  has_many :submissions, foreign_key: :creator_id, dependent: :destroy, inverse_of: :creator
+
   has_many :assessments, foreign_key: :judge_id, dependent: :destroy, inverse_of: :judge
+
+  has_many :companies, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
 
   has_many :panel_assessments, lambda {
                                  where assessable_type: 'PanelAssessment'
@@ -31,16 +35,15 @@ class Person < ApplicationRecord
 
   has_many :push_subscriptions, class_name: 'Push::Subscription', dependent: :delete_all
 
-  enum role: {
-    admin: 'admin',
-    user: 'user'
-  }
-
   def ability
     @ability ||= Ability.new(self)
   end
 
   def president?
     council_members.president.count.positive?
+  end
+
+  def judge?
+    council_members.judge.count.positive?
   end
 end

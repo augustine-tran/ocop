@@ -18,14 +18,18 @@
   </head>
   <body class="h-full">
     <div class="min-h-full">
-      <% if Current.account&.accountable&.is_a? DistrictDepartment %>
-        <%= render "admin_navigation" %>
-      <% else %>
-        <%= render "navigation" %>
-      <% end %>
+      <%= render "navigation" %>
       <main class="-mt-32">
         <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <div class="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+            <div class="mx-auto w-full text-center">
+              <% if notice.present? %>
+                <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+              <% end %>
+              <% if alert.present? %>
+                <p class="py-2 px-3 bg-yellow-50 mb-5 text-yellow-500 font-medium rounded-lg inline-block" id="notice"><%= alert %></p>
+              <% end %>
+            </div>
             <!-- Your content -->
             <%= yield %>
           </div>

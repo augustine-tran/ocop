@@ -28,48 +28,31 @@ AdministrativeUnit.create! [
   }
 ]
 
-account = Account.create! name: 'Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức',
-                          accountable: DistrictDepartment.create!,
-                          province: AdministrativeUnit.find_or_create_by!(name: 'Bà Rịa Vũng Tàu',
-                                                                          level: AdministrativeUnit.levels[:province]),
-                          district: AdministrativeUnit.find_or_create_by!(name: 'Châu Đức',
-                                                                          level: AdministrativeUnit.levels[:district])
-
-identity = Identity.create! email: 'donga.spirit@gmail.com', name: 'Demo Account', password: 'mypassword123',
-                            password_confirmation: 'mypassword123',
-                            verified: true
-
-person = Person.create! account:, personable: User.new(identity:), role: :admin
-
-Current.person = person
+account = Account.create! name: 'Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức'
 Current.account = account
 
-ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá năng lực nông nghiệp huyện Châu Đức',
-                                                councilable: OcopCouncil.new
+departments = ['Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức',
+               'Phòng Tài nguyên và Môi trường huyện Châu Đức', 'Phòng Giáo dục và Đào tạo huyện Châu Đức', 'Phòng Y tế huyện Châu Đức', 'Phòng Lao động - Thương binh và Xã hội huyện Châu Đức', 'Phòng Kế hoạch và Đầu tư huyện Châu Đức', 'Phòng Công thương huyện Châu Đức', 'Phòng Văn hóa và Thông tin huyện Châu Đức', 'Phòng Công an huyện Châu Đức', 'Phòng Quản lý xây dựng huyện Châu Đức', 'Phòng Tư pháp huyện Châu Đức', 'Phòng Nội vụ huyện Châu Đức', 'Phòng Tổ chức cán bộ huyện Châu Đức', 'Phòng Thanh tra huyện Châu Đức', 'Phòng Kế hoạch và Đầu tư huyện Châu Đức', 'Phòng Công thương huyện Châu Đức', 'Phòng Văn hóa và Thông tin huyện Châu Đức', 'Phòng Công an huyện Châu Đức', 'Phòng Quản lý xây dựng huyện Châu Đức', 'Phòng Tư pháp huyện Châu Đức', 'Phòng Nội vụ huyện Châu Đức', 'Phòng Tổ chức cán bộ huyện Châu Đức', 'Phòng Thanh tra huyện Châu Đức']
+
+bucket_ocop = Current.account.criteria_buckets.create! name: 'OCOP', year: 2024
+cg1 = bucket_ocop.criteria_groups.create! name: 'Nhóm thức uống'
+bucket_cultural_ward = Current.account.criteria_buckets.create!(name: 'Thôn văn hoá')
+ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá OCOP huyện Châu Đức',
+                                                criteria_bucket: bucket_ocop
+
 9.times do |i|
   idx = (i + 1)
-  identity = Identity.create! email: "giamkhao#{idx}@g.com", name: "Giám khảo #{idx}", password: 'mypassword123',
-                              password_confirmation: 'mypassword123',
+  identity = Identity.create! email: "giamkhao#{idx}@g.com", name: "Giám khảo #{idx}", password: 'Ocop@2024',
+                              password_confirmation: 'Ocop@2024',
                               verified: true
-  person = Person.create! account:, personable: User.new(identity:), role: Person.roles[:user]
+  person = Person.create! account:, personable: Judge.new(identity:, department: departments.sample)
   ocop_council.members.create! person:, role: CouncilMember.roles[(i.zero? ? :president : :judge)]
 end
 
-account = Account.create! name: 'Demo Company',
-                          accountable: Company.create!,
-                          administrator: Current.account,
-                          province: AdministrativeUnit.find_or_create_by!(name: 'Bà Rịa Vũng Tàu',
-                                                                          level: AdministrativeUnit.levels[:province]),
-                          district: AdministrativeUnit.find_or_create_by!(name: 'Châu Đức',
-                                                                          level: AdministrativeUnit.levels[:district])
-
-identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'mypassword123',
-                            password_confirmation: 'mypassword123',
+identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'Ocop@2024',
+                            password_confirmation: 'Ocop@2024',
                             verified: true
-person = Person.create! account:, personable: User.new(identity:), role: :admin
-
-Current.person = person
-Current.account = account
+Person.create! account:, personable: User.new(identity:)
 
 csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
 csv = CSV.parse csv_text, headers: true, col_sep: ';'
@@ -94,7 +77,7 @@ csv.each do |row|
   params['level'] = level_mapping[params['level']] || 'node_roots'
 
   item = Criterium.find_or_create_by!(params) do |criterium|
-    criterium.year = Time.zone.today.year
+    criterium.criteria_group = cg1
     criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
     criterium.status = Recording.statuses[:active]
   end

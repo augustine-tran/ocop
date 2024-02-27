@@ -10,20 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   create_table "accounts", force: :cascade do |t|
-    t.string "accountable_type", null: false
-    t.integer "accountable_id", null: false
-    t.integer "administrator_id"
     t.string "name", null: false
-    t.integer "district_id"
-    t.integer "province_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable"
-    t.index ["administrator_id"], name: "index_accounts_on_administrator_id"
-    t.index ["district_id"], name: "index_accounts_on_district_id"
-    t.index ["province_id"], name: "index_accounts_on_province_id"
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -94,15 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "administratorships", force: :cascade do |t|
-    t.integer "account_id", null: false
-    t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_administratorships_on_account_id"
-    t.index ["person_id"], name: "index_administratorships_on_person_id"
-  end
-
   create_table "assessments", force: :cascade do |t|
     t.integer "submission_id", null: false
     t.string "assessable_type", null: false
@@ -117,14 +99,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.index ["submission_id"], name: "index_assessments_on_submission_id"
   end
 
-  create_table "clients", force: :cascade do |t|
-    t.integer "identity_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["identity_id"], name: "index_clients_on_identity_id"
-  end
-
   create_table "companies", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "account_id", null: false
+    t.integer "owner_id", null: false
     t.string "registration_name"
     t.string "registration_no"
     t.date "registration_date"
@@ -132,6 +110,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_companies_on_account_id"
+    t.index ["owner_id"], name: "index_companies_on_owner_id"
     t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
   end
 
@@ -147,33 +127,48 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
 
   create_table "councils", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.string "councilable_type", null: false
-    t.integer "councilable_id", null: false
+    t.integer "criteria_bucket_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_councils_on_account_id"
-    t.index ["councilable_type", "councilable_id"], name: "index_councils_on_councilable"
+    t.index ["criteria_bucket_id"], name: "index_councils_on_criteria_bucket_id"
   end
 
   create_table "criteria", force: :cascade do |t|
     t.string "title"
-    t.string "description"
-    t.string "product_group", default: "group1", null: false
+    t.integer "criteria_group_id", null: false
     t.integer "parent_id"
-    t.integer "year", default: 2024, null: false
+    t.string "description"
     t.integer "level"
     t.integer "score"
     t.boolean "leaf", default: false, null: false
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["criteria_group_id"], name: "index_criteria_on_criteria_group_id"
     t.index ["parent_id"], name: "index_criteria_on_parent_id"
   end
 
-  create_table "district_departments", force: :cascade do |t|
+  create_table "criteria_buckets", force: :cascade do |t|
+    t.string "name"
+    t.integer "account_id", null: false
+    t.string "description"
+    t.integer "year", default: 2024, null: false
+    t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_criteria_buckets_on_account_id"
+  end
+
+  create_table "criteria_groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "criteria_bucket_id", null: false
+    t.string "description"
+    t.string "status", default: "active", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["criteria_bucket_id"], name: "index_criteria_groups_on_criteria_bucket_id"
   end
 
   create_table "event_details", force: :cascade do |t|
@@ -227,9 +222,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.index ["email"], name: "index_identities_on_email", unique: true
   end
 
-  create_table "ocop_councils", force: :cascade do |t|
+  create_table "judges", force: :cascade do |t|
+    t.integer "identity_id", null: false
+    t.string "department"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["identity_id"], name: "index_judges_on_identity_id"
   end
 
   create_table "ownerships", force: :cascade do |t|
@@ -251,8 +249,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.integer "account_id", null: false
     t.string "personable_type", null: false
     t.integer "personable_id", null: false
-    t.string "role", default: "user", null: false
-    t.string "string", default: "user", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_people_on_account_id"
@@ -330,8 +326,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
 
   create_table "sessions", force: :cascade do |t|
     t.integer "identity_id", null: false
-    t.string "user_agent"
     t.string "ip_address"
+    t.string "user_agent"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token", default: "", null: false
@@ -342,16 +338,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
 
   create_table "submissions", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "council_id", null: false
+    t.integer "criteria_group_id", null: false
+    t.integer "company_id", null: false
     t.string "description"
-    t.string "submission_type"
-    t.string "product_group", default: "group1", null: false
-    t.string "status", default: "active", null: false
-    t.string "round", default: "self", null: false
+    t.string "status", default: "drafted", null: false
+    t.integer "creator_id"
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "scores_sum"
     t.index ["account_id"], name: "index_submissions_on_account_id"
+    t.index ["company_id"], name: "index_submissions_on_company_id"
+    t.index ["council_id"], name: "index_submissions_on_council_id"
+    t.index ["creator_id"], name: "index_submissions_on_creator_id"
+    t.index ["criteria_group_id"], name: "index_submissions_on_criteria_group_id"
   end
 
   create_table "tombstones", force: :cascade do |t|
@@ -368,33 +369,33 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
     t.integer "identity_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "department"
     t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
-  add_foreign_key "accounts", "accounts", column: "administrator_id"
-  add_foreign_key "accounts", "administrative_units", column: "district_id"
-  add_foreign_key "accounts", "administrative_units", column: "province_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "accounts"
   add_foreign_key "addresses", "administrative_units", column: "district_id"
   add_foreign_key "addresses", "administrative_units", column: "province_id"
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
-  add_foreign_key "administratorships", "accounts"
-  add_foreign_key "administratorships", "people"
   add_foreign_key "assessments", "people", column: "judge_id"
   add_foreign_key "assessments", "submissions"
-  add_foreign_key "clients", "identities"
+  add_foreign_key "companies", "accounts"
+  add_foreign_key "companies", "people", column: "owner_id"
   add_foreign_key "council_members", "councils"
   add_foreign_key "council_members", "people"
   add_foreign_key "councils", "accounts"
+  add_foreign_key "councils", "criteria_buckets"
   add_foreign_key "criteria", "criteria", column: "parent_id"
+  add_foreign_key "criteria", "criteria_groups"
+  add_foreign_key "criteria_buckets", "accounts"
+  add_foreign_key "criteria_groups", "criteria_buckets"
   add_foreign_key "event_details", "events"
   add_foreign_key "events", "people", column: "creator_id"
   add_foreign_key "events", "recordings"
   add_foreign_key "evidences", "criteria"
   add_foreign_key "evidences", "scores"
+  add_foreign_key "judges", "identities"
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
@@ -410,6 +411,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_070110) do
   add_foreign_key "scores", "scores", column: "parent_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "submissions", "accounts"
+  add_foreign_key "submissions", "companies"
+  add_foreign_key "submissions", "councils"
+  add_foreign_key "submissions", "criteria_groups"
+  add_foreign_key "submissions", "people", column: "creator_id"
   add_foreign_key "tombstones", "clients"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"
