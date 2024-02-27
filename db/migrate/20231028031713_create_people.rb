@@ -27,7 +27,7 @@ class CreatePeople < ActiveRecord::Migration[7.1]
 
     create_table :tombstones do |t|
       t.references :user, foreign_key: true
-      t.references :client, foreign_key: true
+      t.references :judge, foreign_key: true
       t.json :details, default: {}
       t.timestamps
     end

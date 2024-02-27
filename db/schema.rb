@@ -357,11 +357,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
 
   create_table "tombstones", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "client_id"
+    t.integer "judge_id"
     t.json "details", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_tombstones_on_client_id"
+    t.index ["judge_id"], name: "index_tombstones_on_judge_id"
     t.index ["user_id"], name: "index_tombstones_on_user_id"
   end
 
@@ -415,7 +415,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   add_foreign_key "submissions", "councils"
   add_foreign_key "submissions", "criteria_groups"
   add_foreign_key "submissions", "people", column: "creator_id"
-  add_foreign_key "tombstones", "clients"
+  add_foreign_key "tombstones", "judges"
   add_foreign_key "tombstones", "users"
   add_foreign_key "users", "identities"
 end

@@ -8,7 +8,7 @@ image: ocop/ocop
 servers:
   web:
     hosts:
-      - 103.20.102.121
+      - 176.223.133.220
     options:
       user: "1001:1001" # UID:GID of the user to run the container as. To allow write access to the mounted volumes.
 
