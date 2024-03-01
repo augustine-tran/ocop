@@ -16,6 +16,7 @@ servers:
       traefik.http.routers.ocop-web.rule: Host(`app.ocop.site`)
       traefik.http.routers.ocop-web.tls: true
       traefik.http.routers.ocop-web.entrypoints: websecure
+      traefik.http.routers.ocop-web.middlewares: ocop-web-retry,cf-warp@file
 
 # Credentials for your image host.
 registry:
@@ -66,16 +67,16 @@ volumes:
 
 # Use accessory services (secrets come from .env).
 accessories:
-  whoami:
-    # A container that exposes an API to show its IP address
-    image: traefik/whoami
-    hosts:
-      - 103.20.102.121
-    labels:
-      traefik.enable: true
-      traefik.http.routers.whoami.rule: Host(`whoami.ocop.site`)
-      traefik.http.routers.whoami.tls: true
-      traefik.http.routers.whoami.entrypoints: websecure
+# whoami:
+#   # A container that exposes an API to show its IP address
+#   image: traefik/whoami
+#   hosts:
+#     - 103.20.102.121
+#   labels:
+#     traefik.enable: true
+#     traefik.http.routers.whoami.rule: Host(`whoami.ocop.site`)
+#     traefik.http.routers.whoami.tls: true
+#     traefik.http.routers.whoami.entrypoints: websecure
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
@@ -113,14 +114,17 @@ traefik:
     providers.docker.exposedByDefault: false
     providers.file.directory: /etc/traefik/config
     providers.file.watch: true
+    experimental.plugins.cloudflarewarp.modulename: github.com/BetterCorp/cloudflarewarp
+    experimental.plugins.cloudflarewarp.version: v1.3.3
   labels:
+    # https://traefik.ocop.site/dashboard/ The trailing slash / in /dashboard/ is mandatory
     traefik.enable: true
     traefik.http.routers.dashboard.rule: Host(`traefik.ocop.site`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
     traefik.http.routers.dashboard.tls: true
     traefik.http.routers.dashboard.entrypoints: websecure
     traefik.http.routers.dashboard.service: api@internal
-    traefik.http.routers.dashboard.middlewares: dashboard-auth
-    traefik.http.middlewares.auth.dashboard-auth.users: admin:$$2y$$05$$y/F07g7liexcS34QWduQuesThJ0dtCjGUSR5HaYTy1pIHJtImA6iS
+    traefik.http.routers.dashboard.middlewares: dashboard-auth,cf-warp@file
+    traefik.http.middlewares.dashboard-auth.basicauth.users: admin:$2y$05$6UzIBrJY82Yd8o/I0WxVEuiBKM49ZSz8ddjLmFlpUWtTa7F5PmNrO
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
