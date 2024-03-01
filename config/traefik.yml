@@ -1,0 +1,11 @@
+# path /root/traefik/traefik.yml
+tls:
+  certificates:
+    - certFile: /etc/traefik/certs/ocop.crt
+      keyFile: /etc/traefik/certs/ocop.key
+http:
+  middlewares:
+    cf-warp:
+      plugin:
+        cloudflarewarp:
+          disableDefault: false
