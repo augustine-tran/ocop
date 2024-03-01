@@ -1,0 +1,12 @@
+vi:
+  identity:
+    password_resets:
+      new:
+        reset_password: Đặt lại mật khẩu
+        email_address: Địa chỉ email
+        send_reset_password_instructions: Gửi hướng dẫn thay đổi mật khẩu
+      edit:
+        change_password: Thay đổi mật khẩu
+        new_password: Mật khẩu mới
+        confirm_new_password: Xác nhận mật khẩu mới
+        change_my_password: Thay đổi mật khẩu của tôi

@@ -1,16 +1,16 @@
 vi:
   sessions:
     create:
-      that_email_or_password_is_incorrect: "Thông tin đăng nhập không hợp lệ"
-      signed_in_successfully: "Đăng nhập thành công"
+      unauthorized: Thông tin đăng nhập không hợp lệ
+      signed_in_successfully: Đăng nhập thành công
     new:
-      sign_in_to_your_account: "Đăng nhập vào tài khoản của bạn"
-      not_a_member: "Không phải là thành viên?"
-      sign_up: "Đăng ký"
-      email_address: "Địa chỉ email"
-      password: "Mật khẩu"
-      remember_me: "Ghi nhớ tôi"
-      forgot_your_password: "Quên mật khẩu?"
-      sign_in: "Đăng nhập"
+      sign_in_to_your_account: Đăng nhập vào tài khoản của bạn
+      not_a_member: Không phải là thành viên?
+      sign_up: Đăng ký
+      email_address: Địa chỉ email
+      password: Mật khẩu
+      remember_me: Ghi nhớ tôi
+      forgot_your_password: Quên mật khẩu?
+      sign_in: Đăng nhập
     destroy:
-      that_session_has_been_logged_out: 'Bạn đã đăng xuất khỏi phiên làm việc'
+      that_session_has_been_logged_out: Bạn đã đăng xuất khỏi phiên làm việc

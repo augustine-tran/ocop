@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   private
 
   def render_rejection(status)
-    flash.now[:alert] = '⛔️' # rubocop:disable Rails/I18nLocaleTexts
+    flash.now[:alert] = I18n.t("sessions.create.#{status}")
     render :new, layout: 'guest', status:
   end
 
