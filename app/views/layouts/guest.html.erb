@@ -1,24 +1,32 @@
 <!DOCTYPE html>
-<html class="h-full bg-white">
+<html class="h-full bg-gray-50">
   <head>
-    <title>OCOP</title>
+    <%= page_title_tag %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", 'data-turbo-track': "reload" %>
     <%= stylesheet_link_tag "application", 'data-turbo-track': "reload" %>
     <%= javascript_importmap_tags %>
-    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
-    <%= tag.meta name: "vapid-public-key", content: Rails.configuration.x.vapid.public_key %>
-    <%= tag.link rel: "manifest", href: webmanifest_path(format: :json) %>
     <%= yield :head %>
   </head>
   <body class="h-full">
-    <main>
-      <div class="px-4 sm:px-6 lg:px-8">
-        <!-- Your content -->
-        <%= yield %>
+    <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <%= yield :page_header %>
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div class="mx-auto w-full text-center">
+          <% if notice.present? %>
+            <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+          <% end %>
+          <% if alert.present? %>
+            <p class="py-2 px-3 bg-yellow-50 mb-5 text-yellow-500 font-medium rounded-lg inline-block" id="notice"><%= alert %></p>
+          <% end %>
+        </div>
+        <main class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+          <%= yield %>
+        </main>
+        <%= yield :page_footer %>
       </div>
-    </main>
+    </div>
   </body>
 </html>

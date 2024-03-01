@@ -1,14 +1,15 @@
 vi:
   registrations:
     new:
-      prohibited_this_user_from_being_saved: "đã ngăn không cho lưu người dùng này"
-      sign_up: "Đăng ký tài khoản mới"
-      sign_in: "Đăng nhập"
-      email_address: "Địa chỉ email"
-      name: "Họ và tên"
-      company_name: "Tên công ty"
-      password: "Mật khẩu"
-      password_confirmation: "Xác nhận mật khẩu"
-      has_account: "Đã có tài khoản?"
+      prohibited_this_user_from_being_saved: đã ngăn không cho lưu người dùng này
+      sign_up: Đăng ký tài khoản mới
+      sign_in: Đăng nhập
+      email_address: Địa chỉ email
+      name: Họ và tên
+      company_name: Tên công ty
+      password: Mật khẩu
+      password_confirmation: Xác nhận mật khẩu
+      has_account: Đã có tài khoản?
     create:
-      signed_up: "Chuwcs mừng bạn đã đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản"
+      success: Chúc mừng bạn đã đăng ký thành công. Vui lòng kiểm tra email để xác thực tài khoản
+      invalid: Thông tin đăng ký không hợp lệ

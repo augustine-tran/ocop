@@ -16,24 +16,25 @@ class RegistrationsController < ApplicationController
       # TODO: This is a temporary solution to create the first account
       @account = Account.first!
 
-      user = User.create! identity: Identity.new(identity_params)
+      user = User.create! identity: Identity.create!(identity_params)
       @account.people.create! personable: user
 
       send_email_verification
 
       start_new_session_for user.identity
 
-      redirect_to root_path, notice: t(:signed_up)
+      redirect_to root_path, notice: I18n.t('registrations.create.success')
     end
   rescue ActiveRecord::RecordInvalid
-    @user = User.new(user_params)
+    @identity = Identity.new(identity_params)
+    flash.now[:alert] = I18n.t('registrations.create.invalid')
     render :new, status: :unprocessable_entity
   end
 
   private
 
   def identity_params
-    params.require(:identity).permit(:name, :email, :password, :password_confirmation)
+    params.require(:identity).permit(:name, :email, :password)
   end
 
   def send_email_verification
