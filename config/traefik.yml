@@ -9,24 +9,3 @@ http:
       plugin:
         cloudflarewarp:
           disableDefault: false
-http:
-  middlewares:
-    cf-warp:
-      plugin:
-        cloudflarewarp:
-          disableDefault: false
-  services:
-    sentry-service:
-      loadBalancer:
-        servers:
-          - url: 'http://51.79.229.168:9000'
-        healthCheck:
-          path: /_health/
-          scheme: http
-  routers:
-    sentry:
-      rule: Host(`sentry.convexify.org`)
-      service: sentry-service
-      tls: true
-      entrypoints: websecure
-      middlewares: cf-warp
