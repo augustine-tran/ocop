@@ -3,7 +3,7 @@ vi:
   activerecord:
     errors:
       messages:
-        record_invalid: 'Có các lỗi sau:'
+        record_invalid: "Có các lỗi sau:"
         restrict_dependent_destroy:
           has_one: Không thể xóa do tồn tại đối tượng phụ thuộc %{record}
           has_many: Không thể xóa do tồn tại một số đối tượng phụ thuộc %{record}
@@ -39,12 +39,12 @@ vi:
       - Thứ sáu
       - Thứ bảy
     formats:
-      default: '%d/%m/%Y'
-      long: '%d %B, %Y'
-      long_with_day: '%a, %d %b, %Y'
-      short: '%d %b'
-      day_date_month: '%a ngày %d/%m'
-      date_month: '%d/%m'
+      default: "%d/%m/%Y"
+      long: "%d %B, %Y"
+      long_with_day: "%a, %d %b, %Y"
+      short: "%d %b"
+      day_date_month: "%a ngày %d/%m"
+      date_month: "%d/%m"
     month_names:
       -
       - Tháng một
@@ -89,16 +89,16 @@ vi:
         other: hơn %{count} năm
       x_seconds:
         one: 1 giây
-        other: '%{count} giây'
+        other: "%{count} giây"
       x_minutes:
         one: 1 phút
-        other: '%{count} phút'
+        other: "%{count} phút"
       x_days:
         one: 1 ngày
-        other: '%{count} ngày'
+        other: "%{count} ngày"
       x_months:
         one: 1 tháng
-        other: '%{count} tháng'
+        other: "%{count} tháng"
     prompts:
       second: Giây
       minute: Phút
@@ -107,10 +107,10 @@ vi:
       month: Tháng
       year: Năm
   errors:
-    format: '%{attribute} %{message}'
+    format: "%{attribute} %{message}"
     messages:
       accepted: phải được đồng ý
-      blank: 'Vui lòng điền %{attribute}'
+      blank: "Vui lòng điền %{attribute}"
       confirmation: không khớp với xác nhận
       empty: không thể rỗng
       equal_to: phải bằng %{count}
@@ -119,7 +119,7 @@ vi:
       greater_than: phải lớn hơn %{count}
       greater_than_or_equal_to: phải lớn hơn hoặc bằng %{count}
       inclusion: không có trong danh sách
-      invalid: '%{attribute} không hợp lệ'
+      invalid: "%{attribute} không hợp lệ"
       less_than: phải nhỏ hơn %{count}
       less_than_or_equal_to: phải nhỏ hơn hoặc bằng %{count}
       not_a_number: không phải là số
@@ -127,16 +127,16 @@ vi:
       odd: phải là số lẻ
       other_than: cần phải khác %{count}
       present: cần phải để trắng
-      taken: '%{attribute} không hợp lệ'
+      taken: "%{attribute} không hợp lệ"
       too_long: quá dài (tối đa %{count} ký tự)
       too_short: quá ngắn (tối thiểu %{count} ký tự)
       wrong_length: độ dài không đúng (phải là %{count} ký tự)
-      required: 'phải có'
+      required: "phải có"
     template:
-      body: 'Có lỗi với các mục sau:'
+      body: "Có lỗi với các mục sau:"
       header:
         one: 1 lỗi ngăn không cho lưu %{model} này
-        other: '%{count} lỗi ngăn không cho lưu %{model} này'
+        other: "%{count} lỗi ngăn không cho lưu %{model} này"
   helpers:
     select:
       prompt: Vui lòng chọn
@@ -147,36 +147,36 @@ vi:
   number:
     currency:
       format:
-        delimiter: '.'
-        format: '%n %u'
+        delimiter: "."
+        format: "%n %u"
         precision: 0
-        separator: ','
+        separator: ","
         significant: false
         strip_insignificant_zeros: false
         unit: VNĐ
     format:
-      delimiter: '.'
+      delimiter: "."
       precision: 3
-      separator: ','
+      separator: ","
       significant: false
       strip_insignificant_zeros: false
     human:
       decimal_units:
-        format: '%n %u'
+        format: "%n %u"
         units:
           billion: Tỷ
           million: Triệu
           quadrillion: Triệu tỷ
           thousand: Nghìn
           trillion: Nghìn tỷ
-          unit: ''
+          unit: ""
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 1
         significant: true
         strip_insignificant_zeros: true
       storage_units:
-        format: '%n %u'
+        format: "%n %u"
         units:
           byte:
             one: Byte
@@ -187,44 +187,44 @@ vi:
           tb: TB
     percentage:
       format:
-        delimiter: ''
-        format: '%n%'
+        delimiter: ""
+        format: "%n%"
     precision:
       format:
-        delimiter: ''
+        delimiter: ""
   support:
     array:
-      last_word_connector: ', và '
-      two_words_connector: ' và '
-      words_connector: ', '
+      last_word_connector: ", và "
+      two_words_connector: " và "
+      words_connector: ", "
   time:
     am: sáng
     formats:
-      default: '%a, %d %b %Y %H:%M:%S %z'
-      long: '%d %B, %Y %H:%M'
-      comprehensive_long: '%a, %d %B, %Y vào lúc %H:%M'
-      short: '%d %b %H:%M'
-      time_and_date: '%H:%M ngày %d/%m'
-      time_only: '%H:%M'
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%d %B, %Y %H:%M"
+      comprehensive_long: "%a, %d %B, %Y vào lúc %H:%M"
+      short: "%d %b %H:%M"
+      time_and_date: "%H:%M ngày %d/%m"
+      time_only: "%H:%M"
     pm: chiều
   active_storage_validator:
-    content_type_invalid: 'has an invalid content type'
-    file_size_out_of_range: 'size %{file_size} is not between required range'
-    limit_out_of_range: 'total number is out of range'
-    image_metadata_missing: 'is not a valid image'
-    dimension_min_inclusion: 'must be greater than or equal to %{width} x %{height} pixel.'
-    dimension_max_inclusion: 'must be less than or equal to %{width} x %{height} pixel.'
-    dimension_width_inclusion: 'width is not included between %{min} and %{max} pixel.'
-    dimension_height_inclusion: 'height is not included between %{min} and %{max} pixel.'
-    dimension_width_greater_than_or_equal_to: 'width must be greater than or equal to %{length} pixel.'
-    dimension_height_greater_than_or_equal_to: 'height must be greater than or equal to %{length} pixel.'
-    dimension_width_less_than_or_equal_to: 'width must be less than or equal to %{length} pixel.'
-    dimension_height_less_than_or_equal_to: 'height must be less than or equal to %{length} pixel.'
-    dimension_width_equal_to: 'width must be equal to %{length} pixel.'
-    dimension_height_equal_to: 'height must be equal to %{length} pixel.'
-    aspect_ratio_not_square: 'must be a square image'
-    aspect_ratio_not_portrait: 'must be a portrait image'
-    aspect_ratio_not_landscape: 'must be a landscape image'
-    aspect_ratio_is_not: 'must have an aspect ratio of %{aspect_ratio}'
-    aspect_ratio_unknown: 'has an unknown aspect ratio'
-    image_not_processable: 'is not a valid image'
+    content_type_invalid: "has an invalid content type"
+    file_size_out_of_range: "size %{file_size} is not between required range"
+    limit_out_of_range: "total number is out of range"
+    image_metadata_missing: "is not a valid image"
+    dimension_min_inclusion: "must be greater than or equal to %{width} x %{height} pixel."
+    dimension_max_inclusion: "must be less than or equal to %{width} x %{height} pixel."
+    dimension_width_inclusion: "width is not included between %{min} and %{max} pixel."
+    dimension_height_inclusion: "height is not included between %{min} and %{max} pixel."
+    dimension_width_greater_than_or_equal_to: "width must be greater than or equal to %{length} pixel."
+    dimension_height_greater_than_or_equal_to: "height must be greater than or equal to %{length} pixel."
+    dimension_width_less_than_or_equal_to: "width must be less than or equal to %{length} pixel."
+    dimension_height_less_than_or_equal_to: "height must be less than or equal to %{length} pixel."
+    dimension_width_equal_to: "width must be equal to %{length} pixel."
+    dimension_height_equal_to: "height must be equal to %{length} pixel."
+    aspect_ratio_not_square: "must be a square image"
+    aspect_ratio_not_portrait: "must be a portrait image"
+    aspect_ratio_not_landscape: "must be a landscape image"
+    aspect_ratio_is_not: "must have an aspect ratio of %{aspect_ratio}"
+    aspect_ratio_unknown: "has an unknown aspect ratio"
+    image_not_processable: "is not a valid image"

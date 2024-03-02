@@ -1,11 +1,10 @@
+<% @page_title = t('.title') %>
 <% content_for :page_header do %>
-  <%= t(:list_companies) %>
-<% end %>
-<% content_for :quick_action do %>
-  <%= link_to t(:create_company), new_company_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <%= @page_title %>
 <% end %>
 <div class="w-full">
   <div id="companies" class="min-w-full">
     <%= render @companies %>
+    <%= render 'empty_list' if @companies.blank? %>
   </div>
 </div>

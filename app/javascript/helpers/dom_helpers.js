@@ -1,53 +1,59 @@
-
-
 export function scrollToBottom(container) {
-  container.scrollTop = container.scrollHeight
+  container.scrollTop = container.scrollHeight;
 }
 
 export function parseHTMLFragment(html) {
-  const template = document.createElement("template")
-  template.innerHTML = html
-  return template.content
+  const template = document.createElement('template');
+  template.innerHTML = html;
+  return template.content;
 }
 
 export function insertHTMLFragment(fragment, container, top) {
   if (top) {
-    container.prepend(fragment)
+    container.prepend(fragment);
   } else {
-    container.append(fragment)
+    container.append(fragment);
   }
 }
 
 export function trimChildren(count, container, top) {
-  const children = Array.from(container.children)
-  const elements = top ? children.slice(0, count) : children.slice(-count)
+  const children = Array.from(container.children);
+  const elements = top ? children.slice(0, count) : children.slice(-count);
 
-  keepScroll(container, top, function() {
+  keepScroll(container, top, function () {
     for (const element of elements) {
-      element.remove()
+      element.remove();
     }
-  })
+  });
 }
 
 export async function keepScroll(container, top, fn) {
-  pauseInertiaScroll(container)
+  pauseInertiaScroll(container);
 
-  const scrollTop = container.scrollTop
-  const scrollHeight = container.scrollHeight
+  const scrollTop = container.scrollTop;
+  const scrollHeight = container.scrollHeight;
 
-  await fn()
+  await fn();
 
   if (top) {
-    container.scrollTop = scrollTop + (container.scrollHeight - scrollHeight)
+    container.scrollTop = scrollTop + (container.scrollHeight - scrollHeight);
   } else {
-    container.scrollTop = scrollTop
+    container.scrollTop = scrollTop;
   }
 }
 
 function pauseInertiaScroll(container) {
-  container.style.overflow = "hidden"
+  container.style.overflow = 'hidden';
 
   requestAnimationFrame(() => {
-    container.style.overflow = ""
-  })
+    container.style.overflow = '';
+  });
+}
+
+export function isDevEnvironment() {
+  return document.head.querySelector('meta[name=current-env]').content === 'development';
+}
+
+export function isProdEnvironment() {
+  return document.head.querySelector('meta[name=current-env]').content === 'production';
 }

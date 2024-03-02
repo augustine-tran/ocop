@@ -37,7 +37,8 @@ class Submission < ApplicationRecord
 
   def finish_self_assessment
     Rails.logger.debug '--> finish_self_assessment'
-    CreatePanelAssessmentsJob.perform_later self
+    set_status_active
+    create_panel_assessments
   end
 
   def finish_panel_assessment(assessment)
@@ -65,5 +66,13 @@ class Submission < ApplicationRecord
 
   def create_self_assessment
     CreateSelfAssessmentJob.perform_now self
+  end
+
+  def set_status_active
+    update status: :active
+  end
+
+  def create_panel_assessments
+    CreatePanelAssessmentsJob.perform_later self
   end
 end

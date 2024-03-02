@@ -2,7 +2,20 @@
 
 module ApplicationHelper
   def page_title_tag
-    tag.title @page_title || "OCOP"
+    tag.title @page_title || 'OCOP'
+  end
+
+  def current_user_meta_tags
+    return if Current.person.nil?
+
+    safe_join [
+      tag.meta(name: 'current-person-id', content: Current.person.id),
+      tag.meta(name: 'current-person-name', content: Current.person.name)
+    ]
+  end
+
+  def current_env_meta_tags
+    tag.meta name: 'current-env', content: Rails.env
   end
 
   def active_menu_class(link_path)

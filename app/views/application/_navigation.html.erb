@@ -12,15 +12,16 @@
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <%= link_to t(:home), root_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
+                <%= link_to t('navigation.home'), root_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
                 <% if Current.person.judge? %>
-                  <%= link_to t(:menu_panel_submissions), panel_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(panel_submissions_path)}", "aria-current": ("page" if current_page?(panel_submissions_path)) %>
+                  <%= link_to t('navigation.panel_submissions'), panel_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(panel_submissions_path)}", "aria-current": ("page" if current_page?(panel_submissions_path)) %>
                 <% end %>
                 <% if Current.person.president? %>
-                  <%= link_to t(:menu_final_submissions), final_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
+                  <%= link_to t('navigation.final_submissions'), final_submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
                 <% end %>
-                <%= link_to t(:submissions), submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(submissions_path)}", "aria-current": ("page" if current_page?(submissions_path)) %>
-                <%= link_to t(:list_companies), companies_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(companies_path)}", "aria-current": ("page" if current_page?(companies_path)) %>
+                <%= link_to t('navigation.submissions'), submissions_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(submissions_path)}", "aria-current": ("page" if current_page?(submissions_path)) %>
+                <%= link_to t('navigation.companies'), companies_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(companies_path)}", "aria-current": ("page" if current_page?(companies_path)) %>
+                <%= link_to t('navigation.councils'), councils_path, class: "rounded-md px-3 py-2 text-sm font-medium #{active_menu_class(councils_path)}", "aria-current": ("page" if current_page?(councils_path)) %>
               </div>
             </div>
           </div>
@@ -95,8 +96,16 @@
     <div class="border-b border-gray-700 hidden" data-navigation-target="mobileMenu">
       <div class="space-y-1 px-2 py-3 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <%= link_to t(:home), root_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
-        <%= link_to t(:submissions), submissions_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(submissions_path)}", "aria-current": ("page" if current_page?(submissions_path)) %>
+        <%= link_to t('navigation.home'), root_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(root_path)}", "aria-current": ("page" if current_page?(root_path)) %>
+        <% if Current.person.judge? %>
+          <%= link_to t('navigation.panel_submissions'), panel_submissions_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(panel_submissions_path)}", "aria-current": ("page" if current_page?(panel_submissions_path)) %>
+        <% end %>
+        <% if Current.person.president? %>
+          <%= link_to t('navigation.final_submissions'), final_submissions_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(final_submissions_path)}", "aria-current": ("page" if current_page?(final_submissions_path)) %>
+        <% end %>
+        <%= link_to t('navigation.submissions'), submissions_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(submissions_path)}", "aria-current": ("page" if current_page?(submissions_path)) %>
+        <%= link_to t('navigation.companies'), companies_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(companies_path)}", "aria-current": ("page" if current_page?(companies_path)) %>
+        <%= link_to t('navigation.councils'), councils_path, class: "block rounded-md px-3 py-2 text-base font-medium #{active_menu_class(councils_path)}", "aria-current": ("page" if current_page?(councils_path)) %>
       </div>
       <div class="border-t border-gray-700 pb-3 pt-4">
         <div class="flex items-center px-5">

@@ -1,5 +1,6 @@
+<% @page_title = t('.title') %>
 <% content_for :page_header do %>
-  <%= t(:new_company) %>
+  <%= @page_title %>
 <% end %>
 <div class="mx-auto md:w-2/3 w-full">
   <%= render "form", company: @company %>
