@@ -12,9 +12,10 @@ class Ability
     can(:view, Submission) { |submission| included_in_submissions?(person, submission) }
     can(:judge, Submission) { |submission| included_in_panel_submissions?(person, submission) }
     can(:final, Submission) { |submission| included_in_final_submissions?(person, submission) }
+    can(:manage, Evidence) { |evidence| creator?(person, evidence.submission) || person.assistant? && evidence.submission.council.people.include?(person) }
     can :edit, Assessment, judge_id: person.id, assessable_type: :PanelAssessment
     can :edit, Assessment, judge_id: person.id, assessable_type: :FinalAssessment
-    can :edit, Evidence, account_id: person.account_id
+    can(:approve, Assessment) { |assessment| person.assistant? && assessment.submission.council.people.include?(person) }
 
     can :view, Submission do |submission|
       creator?(person, submission) || included_in_submissions?(person, submission)

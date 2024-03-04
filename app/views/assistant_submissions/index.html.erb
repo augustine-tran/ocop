@@ -7,7 +7,7 @@
       <%= turbo_stream_from submission %>
     <% end %>
     <div class="min-w-full">
-      <%= render partial: 'final_submissions/submission_list_item', collection: @submissions, as: :submission %>
+      <%= render partial: 'submission_list_item', collection: @submissions, as: :submission %>
       <%= render 'empty_list' if @submissions.blank? %>
     </div>
   <% end %>

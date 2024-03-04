@@ -36,17 +36,45 @@ departments = ['Phòng Nông nghiệp và Phát triển nông thôn huyện Châ
 
 bucket_ocop = Current.account.criteria_buckets.create! name: 'OCOP', year: 2024
 cg1 = bucket_ocop.criteria_groups.create! name: 'Nhóm thức uống'
-bucket_cultural_ward = Current.account.criteria_buckets.create!(name: 'Thôn văn hoá')
+
 ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá OCOP huyện Châu Đức',
                                                 criteria_bucket: bucket_ocop
-
-9.times do |i|
+2.times do |i|
   idx = (i + 1)
   identity = Identity.create! email: "giamkhao#{idx}@g.com", name: "Giám khảo #{idx}", password: 'Ocop@2024',
                               password_confirmation: 'Ocop@2024',
                               verified: true
   person = Person.create! account:, personable: Judge.new(identity:, department: departments.sample)
   ocop_council.members.create! person:, role: CouncilMember.roles[(i.zero? ? :president : :judge)]
+end
+
+2.times do |i|
+  idx = (i + 1)
+  identity = Identity.create! email: "chuyenvien#{idx}@g.com", name: "Chuyên viên #{idx}", password: 'Ocop@2024',
+                              password_confirmation: 'Ocop@2024',
+                              verified: true
+  person = Person.create! account:, personable: Assistant.new(identity:, department: departments.sample)
+  ocop_council.members.create! person:, role: :assistant
+end
+
+province_council = Current.account.councils.create! name: 'Hội đồng đánh giá OCOP tỉnh Bà Rịa Vũng Tàu',
+                                                    criteria_bucket: bucket_ocop
+2.times do |i|
+  idx = (i + 1)
+  identity = Identity.create! email: "judge#{idx}@t.com", name: "Giám khảo #{idx}", password: 'Ocop@2024',
+                              password_confirmation: 'Ocop@2024',
+                              verified: true
+  person = Person.create! account:, personable: Judge.new(identity:, department: departments.sample)
+  province_council.members.create! person:, role: CouncilMember.roles[(i.zero? ? :president : :judge)]
+end
+
+2.times do |i|
+  idx = (i + 1)
+  identity = Identity.create! email: "assistant#{idx}@t.com", name: "Chuyên viên #{idx}", password: 'Ocop@2024',
+                              password_confirmation: 'Ocop@2024',
+                              verified: true
+  person = Person.create! account:, personable: Assistant.new(identity:, department: departments.sample)
+  province_council.members.create! person:, role: :assistant
 end
 
 identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 'Ocop@2024',

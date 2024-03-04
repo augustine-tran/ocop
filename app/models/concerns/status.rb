@@ -6,6 +6,7 @@ module Status
   included do
     enum status: {
       drafted: 'drafted',
+      approval: 'approval',
       active: 'active',
       archived: 'archived',
       trashed: 'trashed'

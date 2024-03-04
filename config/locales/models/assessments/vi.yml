@@ -2,18 +2,19 @@ vi:
   activerecord:
     attributes:
       assessment:
-        name: "Tên sản phẩm"
-        product_group: "Nhóm sản phẩm"
-        status: "Trạng thái"
-        description: "Mô tả"
-        price: "Giá"
-        photos: "Hình minh hoạ"
-        scores_sum: "Tổng điểm"
+        name: Tên sản phẩm
+        product_group: Nhóm sản phẩm
+        status: Trạng thái
+        description: Mô tả
+        price: Giá
+        photos: Hình minh hoạ
+        scores_sum: Tổng điểm
         product_groups:
-          group1: "Nhóm 1"
-          group2: "Nhóm 2"
+          group1: Nhóm 1
+          group2: Nhóm 2
         statuses:
-          drafted: "Đang chấm điểm"
-          active: "Đã chấm điểm"
-          trashed: "Đã xóa"
-          archived: "Đã lưu trữ"
+          drafted: Đang chấm điểm
+          approval: Đang xét duyệt
+          active: Đã chấm điểm
+          trashed: Đã xóa
+          archived: Đã lưu trữ

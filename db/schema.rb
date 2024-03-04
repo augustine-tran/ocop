@@ -99,6 +99,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
     t.index ["submission_id"], name: "index_assessments_on_submission_id"
   end
 
+  create_table "assistants", force: :cascade do |t|
+    t.integer "identity_id", null: false
+    t.string "department"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identity_id"], name: "index_assistants_on_identity_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.integer "account_id", null: false
@@ -380,6 +388,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
   add_foreign_key "addresses", "administrative_units", column: "ward_id"
   add_foreign_key "assessments", "people", column: "judge_id"
   add_foreign_key "assessments", "submissions"
+  add_foreign_key "assistants", "identities"
   add_foreign_key "companies", "accounts"
   add_foreign_key "companies", "people", column: "owner_id"
   add_foreign_key "council_members", "councils"

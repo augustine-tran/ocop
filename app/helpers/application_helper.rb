@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApplicationHelper
+module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def page_title_tag
     tag.title @page_title || 'OCOP'
   end
@@ -84,7 +84,7 @@ module ApplicationHelper
     [text, url, { selected: current_page?(url) }]
   end
 
-  def submission_tab_options(submission, assessment = nil)
+  def submission_tab_options(submission, _assessment = nil)
     list_options = []
 
     if Current.person.can? :edit,
@@ -97,11 +97,15 @@ module ApplicationHelper
       list_options << create_option(t(:submission_name, name: submission.name),
                                     panel_submission_url(submission))
     end
-    if Current.person.can? :final,
-                           submission
+
+    if Current.person.can? :approve,
+                           submission.self_assessment
       list_options << create_option(t(:submission_name, name: submission.name),
-                                    final_submission_url(submission))
+                                    assistant_submission_url(submission))
+      list_options << create_option(t(:approve_self_assessment),
+                                    assistant_submission_assessment_url(submission, submission.self_assessment))
     end
+
     list_options << if submission.self_assessment.can_submit?
                       create_option(t(:self_assessment),
                                     edit_assessment_url(submission.self_assessment))
@@ -110,17 +114,38 @@ module ApplicationHelper
                                     assessment_url(submission.self_assessment))
                     end
 
-    if Current.person.can? :final, submission
-      list_options << create_option(t(:final_assessment),
-                                    final_submission_assessment_url(submission, submission.final_assessment))
-      if assessment.present? && assessment.panel_assessment?
-        list_options << create_option(t(assessment.judge.name),
-                                      assessment_url(assessment))
-      end
-    elsif Current.person.can? :judge, submission
+    if Current.person.can? :judge, submission
       list_options << create_option(t(:do_assessment), edit_assessment_url(submission.assessment_for(Current.person)))
+      list_options << create_option(t(:final_assessment),
+                                    final_assessment_url(submission.final_assessment))
+    end
+
+    if Current.person.can?(:approve, submission.self_assessment)
+      list_options << create_option(t(:final_assessment),
+                                    final_assessment_url(submission.final_assessment))
     end
 
     list_options
+  end
+
+  def main_menus
+    menus = []
+    menus << create_option(t('navigation.home'), root_url)
+
+    if Current.person.assistant?
+      menus << create_option(t('navigation.assistant_submissions'),
+                             assistant_submissions_url)
+    end
+
+    menus << create_option(t('navigation.panel_submissions'), panel_submissions_url) if Current.person.judge?
+    if Current.person.user? || Current.person.assistant?
+      menus << create_option(t('navigation.my_submissions'),
+                             submissions_url)
+      menus << create_option(t('navigation.companies'),
+                             companies_url)
+    end
+    menus << create_option(t('navigation.councils'), councils_url) unless Current.person.user?
+
+    menus
   end
 end

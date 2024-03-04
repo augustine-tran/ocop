@@ -27,6 +27,8 @@ class Submission < ApplicationRecord
   end
   has_rich_text :description
 
+  scope :except_drafted, -> { where.not status: :drafted }
+
   broadcasts_refreshes
 
   before_validation :set_creator, if: -> { new_record? && creator.blank? }
@@ -39,6 +41,7 @@ class Submission < ApplicationRecord
     Rails.logger.debug '--> finish_self_assessment'
     set_status_active
     create_panel_assessments
+    create_final_assessment
   end
 
   def finish_panel_assessment(assessment)
@@ -74,5 +77,9 @@ class Submission < ApplicationRecord
 
   def create_panel_assessments
     CreatePanelAssessmentsJob.perform_later self
+  end
+
+  def create_final_assessment
+    CreateFinalAssesmentJob.perform_later self
   end
 end

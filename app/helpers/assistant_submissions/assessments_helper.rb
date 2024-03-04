@@ -1,0 +1,2 @@
+module AssistantSubmissions::AssessmentsHelper
+end

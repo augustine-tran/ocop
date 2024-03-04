@@ -1,0 +1,2 @@
+module AssistantSubmissionsHelper
+end

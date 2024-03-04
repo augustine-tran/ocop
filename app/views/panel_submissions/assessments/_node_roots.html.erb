@@ -1,0 +1,7 @@
+<li class="flex flex-col space-y-4">
+  <div class="px-4 py-6 sm:px-6 flex flex-col sm:flex-row">
+    <h1 class="sm:w-3/4 text-xl font-bold leading-7 text-gray-800 mb-2 sm:mb-0 underline"><%= node.title.upcase %></h1>
+    <p class="sm:w-1/4 max-w-2xl text-sm leading-6 font-bold text-gray-500 sm:text-right sm:px-8"><%= t(:points, points: node.score) %></p>
+  </div>
+  <%= render partial: 'node_groups', collection: node.children, as: :node %>
+</li>

@@ -25,16 +25,28 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :final_submissions do
-    resources :assessments, controller: 'final_submissions/assessments' do
-      member do
-        post :submit, to: 'final_submissions/assessments#submit'
-      end
+  resources :final_assessments do
+    member do
+      post :submit, to: 'final_submissions/assessments#submit'
     end
-    get 'differences', to: 'final_submissions/differences#index'
   end
 
-  resources :panel_submissions
+  resources :panel_submissions do
+    resources :assessments, controller: 'panel_submissions/assessments' do
+      member do
+        post :submit, to: 'panel_submissions/assessments#submit'
+      end
+    end
+    get 'differences', to: 'panel_submissions/differences#index'
+  end
+
+  resources :assistant_submissions do
+    resources :assessments, controller: 'assistant_submissions/assessments' do
+      member do
+        post :approve, to: 'assistant_submissions/assessments#approve'
+      end
+    end
+  end
 
   resources :scores do
     resources :evidences, controller: 'scores/evidences' do

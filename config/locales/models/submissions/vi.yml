@@ -12,6 +12,7 @@ vi:
         scores_sum: Tổng điểm
         statuses:
           drafted: Mới
+          approval: Chờ phê duyệt
           active: Chờ hội đồng đánh giá
           trashed: Đã xóa
           archived: Hoàn thành

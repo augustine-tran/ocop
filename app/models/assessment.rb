@@ -12,17 +12,24 @@ class Assessment < ApplicationRecord
 
   after_save :notify_submission, if: :status_previously_changed_to_active?
 
-  def submit
-    update(status: Assessment.statuses[:active]) if can_submit?
+  delegate :submit, :notify_submission, to: :assessable
+
+  def can_approve?
+    assessable.is_a?(SelfAssessment) && approval?
+  end
+
+  def approve
+    return unless can_approve?
+
+    transaction do
+      update(status: :active)
+      submission.update(status: :active)
+    end
   end
 
   private
 
   def status_previously_changed_to_active?
     status_previously_changed? && active?
-  end
-
-  def notify_submission
-    assessable.notify_submission
   end
 end
