@@ -1,3 +1,7 @@
 vi:
-  change_password: Đổi mật khẩu
-  change_email: Đổi địa chỉ email
+  home:
+    index:
+      title: Trang chủ
+      submissions: Hồ sơ
+    user:
+      submissions: Hồ sơ

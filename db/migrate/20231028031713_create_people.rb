@@ -25,6 +25,13 @@ class CreatePeople < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
+    create_table :assistants do |t|
+      t.references :identity, null: false, foreign_key: true
+      t.string :department
+
+      t.timestamps
+    end
+
     create_table :tombstones do |t|
       t.references :user, foreign_key: true
       t.references :judge, foreign_key: true

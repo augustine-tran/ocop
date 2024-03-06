@@ -5,7 +5,7 @@ class SubmissionsController < ApplicationController
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = Current.person.submissions
+    @submissions = Current.person.my_submissions
   end
 
   def show; end

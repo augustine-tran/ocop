@@ -8,6 +8,7 @@ class CouncilMember < ApplicationRecord
 
   enum role: {
     president: 'president',
-    judge: 'judge'
+    judge: 'judge',
+    assistant: 'assistant'
   }
 end

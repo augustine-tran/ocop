@@ -7,8 +7,10 @@
         <%= render partial: 'submission', locals: { submission: @submission } %>
       <% end %>
     </div>
-    <div class="mx-auto w-full">
-      <%= turbo_frame_tag @submission, class: 'mx-auto w-full', src: final_submission_assessments_path(@submission) %>
-    </div>
+    <% unless @submission.approval? %>
+      <div class="mx-auto w-full">
+        <%= turbo_frame_tag @submission, class: 'mx-auto w-full', src: panel_submission_assessments_path(@submission) %>
+      </div>
+    <% end %>
   </div>
 </div>

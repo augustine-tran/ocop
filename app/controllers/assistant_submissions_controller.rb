@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class FinalSubmissionsController < ApplicationController
+class AssistantSubmissionsController < ApplicationController
   before_action :set_submission, only: %i[show]
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = Current.person.final_submissions
+    @submissions = Current.person.submissions.except_drafted
   end
 
   def show; end
@@ -17,6 +17,6 @@ class FinalSubmissionsController < ApplicationController
   end
 
   def set_assessment
-    @assessment = @submission.final_assessment
+    @assessment = @submission.self_assessment
   end
 end

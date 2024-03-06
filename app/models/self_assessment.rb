@@ -10,4 +10,13 @@ class SelfAssessment < ApplicationRecord
   def can_submit?
     assessment.drafted?
   end
+
+  def submit
+    return unless can_submit?
+
+    transaction do
+      assessment.update(status: :approval)
+      assessment.submission.update(status: :approval)
+    end
+  end
 end

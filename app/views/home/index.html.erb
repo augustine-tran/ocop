@@ -1,4 +1,11 @@
+<% @page_title = t('.title') %>
 <% content_for :page_header do %>
-  <%= t(:home) %>
+  <%= @page_title %>
 <% end %>
-<%= render 'home/left' %>
+<% if Current.person.user? %>
+  <%= render 'user' %>
+<% elsif Current.person.assistant? %>
+  <%= render 'assistant' %>
+<% elsif Current.person.judge? %>
+  <%= render 'judge' %>
+<% end %>

@@ -1,8 +1,11 @@
 vi:
   navigation:
     home: Trang chủ
-    panel_submissions: Hồ sơ cần chấm điểm
-    final_submissions: Hồ sơ chung khảo
+    profile: Tài khoản của tôi
+    sign_out: Đăng xuất
+    panel_submissions: Chấm điểm
+    assistant_submissions: Xét duyệt hồ sơ
+    my_submissions: Hồ sơ của tôi
     submissions: Hồ sơ
     companies: Công ty
     councils: Hội đồng

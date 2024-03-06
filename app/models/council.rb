@@ -12,4 +12,5 @@ class Council < ApplicationRecord
                               },
           class_name: 'CouncilMember', dependent: :nullify
   has_one :president, through: :council_president, source: :person
+  has_many :submissions, dependent: :destroy
 end

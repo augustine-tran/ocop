@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
 
   # GET /companies or /companies.json
   def index
-    @companies = Current.person.companies
+    @companies = Current.person.assistant? ? Current.account.companies : Current.person.companies
   end
 
   # GET /companies/1 or /companies/1.json

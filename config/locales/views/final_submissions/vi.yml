@@ -5,3 +5,11 @@ vi:
   judge: Giám khảo
   show_this_assessment: Xem
   not_finish: Đang chấm điểm
+  final_assessments:
+    edit:
+      title: Hoàn thành hồ sơ
+    form:
+      submit_final_assessment: Hoàn thành hồ sơ
+      guide: Vui lòng xác nhận số điểm cuối cùng và xếp hạng của hồ sơ
+    show:
+      submit_final_assessment: Hoàn thành hồ sơ
