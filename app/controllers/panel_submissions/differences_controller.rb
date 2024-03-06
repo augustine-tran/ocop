@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FinalSubmissions::DifferencesController < ApplicationController
+class PanelSubmissions::DifferencesController < ApplicationController
   before_action :set_submission
 
   def index
