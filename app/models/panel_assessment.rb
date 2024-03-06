@@ -10,4 +10,8 @@ class PanelAssessment < ApplicationRecord
   def can_submit?
     assessment.drafted? && assessment.scored_all?
   end
+
+  def submit
+    assessment.update status: :active
+  end
 end
