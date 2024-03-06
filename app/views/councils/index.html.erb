@@ -2,5 +2,5 @@
   <%= t(:list_concils) %>
 <% end %>
 <div class="w-full">
-  <%= render partial: 'council_list_item', collection: @councils, as: :council %>
+  <%= render partial: 'council_list_item', collection: @councils, as: :council, spacer_template: 'shared/spacer' %>
 </div>

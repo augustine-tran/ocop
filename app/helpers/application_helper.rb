@@ -132,18 +132,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     menus = []
     menus << create_option(t('navigation.home'), root_url)
 
-    if Current.person.assistant?
-      menus << create_option(t('navigation.assistant_submissions'),
-                             assistant_submissions_url)
-    end
-
+    menus << create_option(t('navigation.assistant_submissions'), assistant_submissions_url) if Current.person.assistant? # rubocop:disable Style/IfUnlessModifier
+    menus << create_option(t('navigation.companies'), companies_url) if Current.person.assistant?
     menus << create_option(t('navigation.panel_submissions'), panel_submissions_url) if Current.person.judge?
-    if Current.person.user? || Current.person.assistant?
-      menus << create_option(t('navigation.my_submissions'),
-                             submissions_url)
-      menus << create_option(t('navigation.companies'),
-                             companies_url)
-    end
+    menus << create_option(t('navigation.my_submissions'), submissions_url) if Current.person.user?
+    menus << create_option(t('navigation.companies'), companies_url) if Current.person.user?
     menus << create_option(t('navigation.councils'), councils_url) unless Current.person.user?
 
     menus

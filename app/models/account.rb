@@ -8,6 +8,7 @@ class Account < ApplicationRecord
   belongs_to :district, class_name: 'AdministrativeUnit', optional: true
   belongs_to :province, class_name: 'AdministrativeUnit', optional: true
 
+  has_many :companies, dependent: :destroy
   has_many :submissions, dependent: :destroy
   has_many :assessments, through: :submissions
 

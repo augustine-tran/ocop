@@ -27,10 +27,12 @@
         <%= render 'shared/icons/add_button' %>
         <%= t(:edit_this_company) %>
       <% end %>
-      <%= link_to t(:back_to_companies), companies_path, class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
-                                                         data: {
-                                                           turbo_frame: '_top'
-                                                         } %>
+      <% unless action_name == 'index' %>
+        <%= link_to t(:back_to_companies), companies_path, class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
+                                                           data: {
+                                                             turbo_frame: '_top'
+                                                           } %>
+      <% end %>
     </div>
   <% end %>
 <% end %>
