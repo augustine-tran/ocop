@@ -9,6 +9,18 @@ vi:
         price: Giá
         photos: Hình minh hoạ
         scores_sum: Tổng điểm
+        star: Xếp hạng
+        stars:
+          one: Một sao
+          two: Hai sao
+          three: Ba sao
+          four: Bốn sao
+          five: Năm sao
+          1: Một sao
+          2: Hai sao
+          3: Ba sao
+          4: Bốn sao
+          5: Năm sao
         product_groups:
           group1: Nhóm 1
           group2: Nhóm 2

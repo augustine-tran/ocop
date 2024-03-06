@@ -10,6 +10,13 @@ vi:
         criteria_group: Nhóm tiêu chí
         files: Tập tin đính kèm
         scores_sum: Tổng điểm
+        star: Xếp hạng
+        stars:
+          one: Một sao
+          two: Hai sao
+          three: Ba sao
+          four: Bốn sao
+          five: Năm sao
         statuses:
           drafted: Mới
           approval: Chờ phê duyệt

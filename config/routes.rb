@@ -25,11 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :final_assessments do
-    member do
-      post :submit, to: 'final_submissions/assessments#submit'
-    end
-  end
+  resources :final_assessments, only: %i[show edit update]
 
   resources :panel_submissions do
     resources :assessments, controller: 'panel_submissions/assessments' do

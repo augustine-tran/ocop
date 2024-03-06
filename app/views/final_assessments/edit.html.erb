@@ -1,0 +1,6 @@
+<% @page_title = t('.title') %>
+<%= turbo_stream_from @assessment %>
+<%= render 'tabs' %>
+<div class="mt-8">
+  <%= render partial: 'form', locals: { submission: @submission, assessment: @assessment } %>
+</div>

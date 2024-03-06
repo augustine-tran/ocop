@@ -1,6 +1,8 @@
 vi:
   navigation:
     home: Trang chủ
+    profile: Tài khoản của tôi
+    sign_out: Đăng xuất
     panel_submissions: Chấm điểm
     assistant_submissions: Xét duyệt hồ sơ
     my_submissions: Hồ sơ của tôi

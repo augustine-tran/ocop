@@ -2,6 +2,7 @@
 
 class Submission < ApplicationRecord
   include AccountScoped, Status
+  include Rankable
 
   belongs_to :creator, class_name: 'Person'
   belongs_to :company
@@ -50,7 +51,7 @@ class Submission < ApplicationRecord
   end
 
   def finish_final_assessment
-    update status: :archived
+    update status: :archived, star: final_assessment.star, scores_sum: final_assessment.scores_sum
   end
 
   def unfinish_panel_assessments_count

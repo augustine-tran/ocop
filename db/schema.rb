@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
     t.integer "judge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "star"
     t.index ["assessable_type", "assessable_id"], name: "index_assessments_on_assessable"
     t.index ["judge_id"], name: "index_assessments_on_judge_id"
     t.index ["submission_id"], name: "index_assessments_on_submission_id"
@@ -356,6 +357,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_22_035035) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "scores_sum"
+    t.integer "star", default: 0
     t.index ["account_id"], name: "index_submissions_on_account_id"
     t.index ["company_id"], name: "index_submissions_on_company_id"
     t.index ["council_id"], name: "index_submissions_on_council_id"

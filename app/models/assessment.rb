@@ -2,6 +2,7 @@
 
 class Assessment < ApplicationRecord
   include Scorable, Status
+  include Rankable
 
   belongs_to :submission
   delegated_type :assessable, types: Assessable::TYPES

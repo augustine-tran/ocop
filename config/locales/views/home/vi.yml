@@ -2,3 +2,6 @@ vi:
   home:
     index:
       title: Trang chủ
+      submissions: Hồ sơ
+    user:
+      submissions: Hồ sơ
