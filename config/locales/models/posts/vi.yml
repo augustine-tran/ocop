@@ -9,6 +9,7 @@ vi:
         category: Danh mục
         status: Trạng thái
         files: Hình ảnh
+        source: Nguồn bài viết
         statuses:
           drafted: Bản nháp
           approval: Chờ duyệt

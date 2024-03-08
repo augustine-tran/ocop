@@ -37,7 +37,9 @@ class CmsAdmin::PostsController < ApplicationController
   # PATCH/PUT /cms/posts/1 or /cms/posts/1.json
   def update
     respond_to do |format|
-      if @post.update(post_params)
+      if @post.update(post_params.except(:files_to_remove))
+        remove_photos(post_params[:files_to_remove]) if post_params[:files_to_remove].present?
+
         format.html { redirect_to cms_admin_post_url(@post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
@@ -66,6 +68,10 @@ class CmsAdmin::PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :category_id, :status, :body, files: [])
+    params.require(:post).permit(:title, :category_id, :status, :body, :source, files: [], files_to_remove: [])
+  end
+
+  def remove_photos(files_to_remove)
+    @post.files.where(id: files_to_remove).map(&:purge)
   end
 end

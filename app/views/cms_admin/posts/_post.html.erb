@@ -1,41 +1,45 @@
-<div id="<%= dom_id post %>">
+<article id="<%= dom_id post %>">
   <p class="my-5">
     <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:title) %></strong>
     <%= post.title %>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Category:</strong>
+    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:category) %></strong>
     <%= post.category.title %>
   </p>
-  <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 <%= 'hidden' if post.files.blank? %>">
-    <dt class="text-sm font-medium leading-6 text-gray-900"><%= Post.human_attribute_name(:files) %></dt>
-    <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-      <div data-controller="lightbox">
-        <% post.files.each do |file| %>
-          <% if file.representable? %>
-            <%= tag.a href: file.representation(:large).processed.url, data: { download_url: url_for(file) } do %>
-              <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
-                <%= image_tag file.representation(:thumb), class: "w-full h-full object-cover", alt: file.filename %>
-              </div>
-            <% end %>
-          <% else %>
-            <%= image_tag "placeholder.png", alt: "Download file" %>
-          <% end %>
-        <% end %>
-      </div>
-    </dd>
-  </div>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= post.status %>
+    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:files) %></strong>
+    <div data-controller="lightbox">
+      <% post.files.each do |file| %>
+        <% if file.representable? %>
+          <%= tag.a href: file.representation(:large).processed.url, data: { download_url: url_for(file) } do %>
+            <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
+              <%= image_tag file.representation(:thumb), class: "w-full h-full object-cover", alt: file.filename %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= image_tag "placeholder.png", alt: "Download file" %>
+        <% end %>
+      <% end %>
+    </div>
   </p>
   <p class="my-5">
-    <strong class="block font-medium mb-1">Slug:</strong>
-    <%= post.slug %>
+    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:status) %></strong>
+    <%= t("activerecord.attributes.post.statuses.#{post.status}") %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:body) %></strong>
+    <div class="contents">
+      <%= post.body %>
+    </div>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:source) %></strong>
+    <%= post.source %>
   </p>
   <% if action_name != "show" %>
-    <%= link_to "Show this post", cms_admin_post_path(post), class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this post", edit_cms_admin_post_path(post), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:show_this_post), cms_admin_post_path(post), class: "rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:edit_this_post), edit_cms_admin_post_path(post), class: "rounded-lg py-2 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
     <hr class="mt-6">
   <% end %>
-</div>
+</article>
