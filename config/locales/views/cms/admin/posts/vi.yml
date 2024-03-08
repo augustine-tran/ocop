@@ -1,0 +1,5 @@
+vi:
+  create_post: Tạo bài viết mới
+  edit_post: Chỉnh sửa bài viết
+  back_to_posts: Quay về danh sách bài viết
+  select_category: Chọn danh mục

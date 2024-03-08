@@ -1,0 +1,16 @@
+vi:
+  activerecord:
+    models:
+      post: Bài viết
+    attributes:
+      post:
+        title: Tiêu đề
+        body: Nội dung
+        category: Danh mục
+        status: Trạng thái
+        files: Hình ảnh
+        statuses:
+          drafted: Bản nháp
+          approval: Chờ duyệt
+          active: Đã xuất bản
+          archived: Đã lưu trữ

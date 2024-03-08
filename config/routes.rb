@@ -58,6 +58,12 @@ Rails.application.routes.draw do
 
   get :criteria_groups_selector, to: 'councils/criteria_groups_selector#index'
 
+  resources :posts, only: %i[show]
+
+  namespace :cms_admin do
+    resources :posts
+  end
+
   resources :prompts
 
   get  'admin_home', to: 'admin_home#index'
