@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'home#index'
+  get 'dashboard', to: 'home#index'
 
   resources :criteria
 
@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
   get :criteria_groups_selector, to: 'councils/criteria_groups_selector#index'
 
-  resources :posts, only: %i[show]
+  resources :posts, only: %i[index show]
 
   namespace :cms_admin do
     resources :posts
@@ -107,4 +107,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root 'posts#index'
 end

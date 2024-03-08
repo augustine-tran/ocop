@@ -1,0 +1,13 @@
+<% @page_title = @post.title %>
+<% content_for :page_header do %>
+  <%= Post.model_name.human %>
+<% end %>
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <%= render 'post', post: @post %>
+    <hr class="mt-4">
+    <div class="flex gap-x-4">
+      <%= link_to t(:back_to_posts), posts_path, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    </div>
+  </div>
+</div>

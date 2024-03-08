@@ -8,6 +8,10 @@ module Sluggable
     validates :slug, presence: true, uniqueness: true
   end
 
+  def to_param
+    slug
+  end
+
   private
 
   def generate_slug

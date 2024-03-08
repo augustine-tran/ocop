@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateCmsPosts < ActiveRecord::Migration[7.1]
+class CreatePosts < ActiveRecord::Migration[7.1]
   def change
     create_table :posts do |t|
       t.string :title, null: false
@@ -10,6 +10,8 @@ class CreateCmsPosts < ActiveRecord::Migration[7.1]
       t.references :account, null: false, foreign_key: true
 
       t.timestamps
+
+      t.index :slug, unique: true
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CmsAdmin::PostsController < ApplicationController
-  before_action :set_cms_post, only: %i[show edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy]
 
   # GET /cms/posts or /cms/posts.json
   def index
@@ -62,8 +62,8 @@ class CmsAdmin::PostsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_cms_post
-    @post = Post.find(params[:id])
+  def set_post
+    @post = Post.find_by(slug: params[:id])
   end
 
   # Only allow a list of trusted parameters through.

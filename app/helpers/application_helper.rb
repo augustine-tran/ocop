@@ -104,7 +104,7 @@ module ApplicationHelper
 
   def main_menus
     menus = []
-    menus << create_option(t('navigation.home'), root_url)
+    menus << create_option(t('navigation.home'), dashboard_url)
 
     menus << create_option(t('navigation.assistant_submissions'), assistant_submissions_url) if Current.person.assistant? # rubocop:disable Style/IfUnlessModifier
     menus << create_option(t('navigation.companies'), companies_url) if Current.person.assistant?
