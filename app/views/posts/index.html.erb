@@ -1,6 +1,6 @@
 <% @page_title = Post.model_name.human %>
-<div class="w-full">
-  <div id="cms_posts" class="min-w-full">
-    <%= render partial: 'post', collection: @posts, spacer_template: 'shared/spacer' %>
+<div class="mx-auto max-w-2xl lg:max-w-4xl">
+  <div id="posts" class="mt-16">
+    <%= render partial: 'list_item_post', collection: @posts, as: :post, spacer_template: 'shared/spacer' %>
   </div>
 </div>

@@ -1,44 +1,22 @@
-<article id="<%= dom_id post %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:title) %></strong>
-    <%= post.title %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:category) %></strong>
-    <%= post.category.title %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:files) %></strong>
-    <div data-controller="lightbox">
-      <% post.files.each do |file| %>
-        <% if file.representable? %>
-          <%= tag.a href: file.representation(:large).processed.url, data: { download_url: url_for(file) } do %>
-            <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
-              <%= image_tag file.representation(:thumb), class: "w-full h-full object-cover", alt: file.filename %>
-            </div>
-          <% end %>
-        <% else %>
-          <%= image_tag "placeholder.png", alt: "Download file" %>
-        <% end %>
+<div>
+  <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700 mt-4">
+    <div class="flex items-center gap-x-4 text-xs">
+      <%= tag.time datatime: l(post.updated_at, format: :short) do %>
+        <%= l post.updated_at, format: :short %>
       <% end %>
+      <%= link_to post.category.title, post_path(post), class: 'relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100' %>
     </div>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:status) %></strong>
-    <%= t("activerecord.attributes.post.statuses.#{post.status}") %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:body) %></strong>
-    <div class="contents">
+    <h1 class="mt-2 mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-justify"><%= post.title %></h1>
+    <div class="relative h-full xl:ml-0">
+      <%= image_tag cover_photo(post.files, [720, nil]), class: 'h-full w-full rounded-2xl bg-gray-50 object-cover' %>
+    </div>
+    <div class="mt-8 text-justify">
       <%= post.body %>
     </div>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1"><%= Post.human_attribute_name(:source) %></strong>
-    <%= post.source %>
-  </p>
-  <% if action_name != "show" %>
-    <%= link_to t(:show_this_post), post_path(post), class: "rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</article>
+    <div class="mt-16">
+      <% if post.source.present? %>
+        <p class="text-sm leading-6 text-gray-500 italic text-right">(<%= t(:source, default: 'Nguồn') %>: <%= post.source %>)</p>
+      <% end %>
+    </div>
+  </div>
+</div>
