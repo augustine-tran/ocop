@@ -6,8 +6,6 @@
   <div class="mx-auto">
     <%= render 'post', post: @post %>
     <hr class="mt-4">
-    <div class="flex gap-x-4">
-      <%= link_to t(:back_to_posts), posts_path, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    </div>
+    <%= turbo_frame_tag :related_posts, src: related_posts_path %>
   </div>
 </div>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'related_posts', to: 'related_posts#index'
   get 'dashboard', to: 'home#index'
 
   resources :criteria
