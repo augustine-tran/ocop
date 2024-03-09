@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show]
 
   def index
-    @posts = Post.all.active
+    @posts = Current.account.posts.ordered_active.limit 10
   end
 
   def show; end
@@ -13,6 +13,6 @@ class PostsController < ApplicationController
   private
 
   def set_post
-    @post = Post.find_by(slug: params[:id])
+    @post = Current.account.posts.find_by(slug: params[:id])
   end
 end

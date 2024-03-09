@@ -2,6 +2,12 @@
 <% content_for :page_header do %>
   <%= @page_title %>
 <% end %>
+<% content_for :quick_action do %>
+  <%= link_to new_company_path, class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+    <%= render 'shared/icons/add_button' %>
+    <%= t(:create_company) %>
+  <% end %>
+<% end %>
 <div class="w-full">
   <div id="companies" class="min-w-full">
     <%= render @companies %>

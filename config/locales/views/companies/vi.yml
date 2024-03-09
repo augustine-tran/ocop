@@ -1,4 +1,7 @@
 vi:
+  create_company: Tạo doanh nghiệp
+  edit_company: Sửa doanh nghiệp
+  back_to_companies: Quay lại danh sách doanh nghiệp
   companies:
     index:
       title: Danh sách doanh nghiệp

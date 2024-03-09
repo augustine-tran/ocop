@@ -1,5 +1,7 @@
 vi:
   activerecord:
+    model:
+      company: Doanh nghiệp
     attributes:
       company:
         name: Tên công ty

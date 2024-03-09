@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -112,9 +112,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
     t.string "title", null: false
     t.string "slug", null: false
     t.integer "parent_id"
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "index_cms_categories_on_parent_id"
+    t.index ["account_id"], name: "index_categories_on_account_id"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -278,21 +280,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
     t.string "slug", null: false
     t.string "status", default: "drafted", null: false
     t.integer "category_id", null: false
+    t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "source"
-    t.index ["category_id"], name: "index_cms_posts_on_category_id"
+    t.index ["account_id"], name: "index_posts_on_account_id"
+    t.index ["category_id"], name: "index_posts_on_category_id"
+    t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.string "status"
+    t.string "title", null: false
+    t.string "status", default: "drafted"
+    t.string "slug", null: false
+    t.integer "stars", default: 0
     t.integer "company_id", null: false
+    t.integer "category_id", null: false
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_products_on_account_id"
+    t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["company_id"], name: "index_products_on_company_id"
+    t.index ["slug"], name: "index_products_on_slug", unique: true
+    t.index ["stars"], name: "index_products_on_stars"
     t.index ["status"], name: "index_products_on_status"
   end
 
@@ -411,6 +422,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
   add_foreign_key "assessments", "people", column: "judge_id"
   add_foreign_key "assessments", "submissions"
   add_foreign_key "assistants", "identities"
+  add_foreign_key "categories", "accounts"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "companies", "accounts"
   add_foreign_key "companies", "people", column: "owner_id"
@@ -431,8 +443,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
+  add_foreign_key "posts", "accounts"
   add_foreign_key "posts", "categories"
   add_foreign_key "products", "accounts"
+  add_foreign_key "products", "categories"
   add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"
   add_foreign_key "push_subscriptions", "people"

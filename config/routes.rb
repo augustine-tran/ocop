@@ -60,9 +60,11 @@ Rails.application.routes.draw do
   get :criteria_groups_selector, to: 'councils/criteria_groups_selector#index'
 
   resources :posts, only: %i[index show]
+  resources :products, only: %i[index show]
 
   namespace :cms_admin do
     resources :posts
+    resources :products
   end
 
   resources :prompts

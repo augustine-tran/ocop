@@ -112,6 +112,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     menus << create_option(t('navigation.my_submissions'), submissions_url) if Current.person.user?
     menus << create_option(t('navigation.companies'), companies_url) if Current.person.user?
     menus << create_option(t('navigation.councils'), councils_url) unless Current.person.user?
+    menus << create_option(t('navigation.posts', default: 'Tin tức'), cms_admin_posts_url) if Current.person.assistant?
+    if Current.person.assistant?
+      menus << create_option(t('navigation.products', default: 'Sản phẩm'),
+                             cms_admin_products_url)
+    end
 
     menus
   end
@@ -119,6 +124,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def frontend_menus
     menus = []
     menus << create_option(t('navigation.home'), root_url)
+    menus << create_option(t('navigation.products_list', default: 'Tra cứu sản phẩm'), products_url)
 
     menus
   end

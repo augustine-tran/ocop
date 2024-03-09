@@ -18,6 +18,8 @@ class Account < ApplicationRecord
 
   has_many :criteria_buckets, dependent: :destroy
   has_many :councils, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   def province
     province || administrator&.province

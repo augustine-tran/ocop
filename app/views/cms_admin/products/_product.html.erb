@@ -1,0 +1,45 @@
+<article id="<%= dom_id product %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:title) %></strong>
+    <%= product.title %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:category) %></strong>
+    <%= product.category.title %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:stars) %></strong>
+    <%= product.stars %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:files) %></strong>
+    <div data-controller="lightbox">
+      <% product.files.each do |file| %>
+        <% if file.representable? %>
+          <%= tag.a href: file.representation(:large).processed.url, data: { download_url: url_for(file) } do %>
+            <div class="inline-block mr-2 w-32 h-32 overflow-hidden">
+              <%= image_tag file.representation(:thumb), class: "w-full h-full object-cover", alt: file.filename %>
+            </div>
+          <% end %>
+        <% else %>
+          <%= image_tag "placeholder.png", alt: "Download file" %>
+        <% end %>
+      <% end %>
+    </div>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:status) %></strong>
+    <%= t("activerecord.attributes.product.statuses.#{product.status}") %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1"><%= Product.human_attribute_name(:body) %></strong>
+    <div class="contents">
+      <%= product.body %>
+    </div>
+  </p>
+  <% if action_name != "show" %>
+    <%= link_to t(:show_this_product), cms_admin_product_path(product), class: "rounded-lg py-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to t(:edit_this_product), edit_cms_admin_product_path(product), class: "rounded-lg py-2 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</article>

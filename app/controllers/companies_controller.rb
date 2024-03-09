@@ -70,6 +70,8 @@ class CompaniesController < ApplicationController
   end
 
   def redirect_url
-    params[:back_url] || companies_path
+    return params[:back_url] if params[:back_url].present?
+
+    companies_path
   end
 end
