@@ -13,7 +13,8 @@
     <%= yield :head %>
   </head>
   <body class="h-full">
-    <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <%= render 'index_navigation' %>
+    <div class="bg-emerald-800 flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <%= yield :page_header %>
       <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div class="mx-auto w-full text-center">
@@ -27,8 +28,8 @@
         <main class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
           <%= yield %>
         </main>
-        <%= yield :page_footer %>
       </div>
+      <%= yield :page_footer %>
     </div>
   </body>
 </html>

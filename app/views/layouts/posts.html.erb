@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+  <head>
+    <%= page_title_tag %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= current_env_meta_tags %>
+    <%= current_user_meta_tags %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", 'data-turbo-track': "reload" %>
+    <%= stylesheet_link_tag "application", 'data-turbo-track': "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= yield :head %>
+  </head>
+  <body class="h-full">
+    <%= render "index_navigation" %>
+    <div class="bg-emerald-800 py-4 sm:py-4">
+      <div class="mx-auto max-w-6xl px-6 lg:px-8">
+        <main class="bg-white px-6 py-12 shadow sm:rounded-md sm:px-12">
+          <%= yield %>
+        </main>
+        <%= yield :page_footer %>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[new create]
+  require_unauthenticated_access only: %i[new create]
 
   def index
     @sessions = Current.identity.sessions.order(created_at: :desc)

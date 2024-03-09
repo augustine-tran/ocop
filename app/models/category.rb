@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Category < ApplicationRecord
-  include AccountScoped
   include Sluggable
 
   normalizes :title, with: -> { _1.strip }

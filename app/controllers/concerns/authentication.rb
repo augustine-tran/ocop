@@ -38,7 +38,7 @@ module Authentication
   end
 
   def redirect_signed_in_user_to_root
-    redirect_to root_url if signed_in?
+    redirect_to dashboard_url if signed_in?
   end
 
   def signed_in?
@@ -65,7 +65,10 @@ module Authentication
   end
 
   def post_authenticating_url
-    session.delete(:return_to_after_authenticating) || root_url
+    url = session.delete(:return_to_after_authenticating)
+
+    Rails.logger.debug { "post_authenticating_url: #{url}" }
+    url || dashboard_url
   end
 
   def reset_authentication

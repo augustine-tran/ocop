@@ -1,7 +1,4 @@
 <% @page_title = Post.model_name.human %>
-<% content_for :page_header do %>
-  <%= @page_title %>
-<% end %>
 <div class="w-full">
   <div id="cms_posts" class="min-w-full">
     <%= render partial: 'post', collection: @posts, spacer_template: 'shared/spacer' %>

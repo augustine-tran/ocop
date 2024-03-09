@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
-  include AccountScoped, Status
+  include Status
   include Sluggable
 
   normalizes :title, with: -> { _1.strip }
