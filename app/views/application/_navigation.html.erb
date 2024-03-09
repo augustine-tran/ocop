@@ -1,4 +1,4 @@
-<% main_navigation_options = main_menus %>
+<% main_navigation_options = app_menus %>
 <div class="bg-gray-800 pb-32">
   <nav class="bg-gray-800" data-controller="navigation">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -6,7 +6,7 @@
         <div class="flex h-16 items-center justify-between px-4 sm:px-0">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <%= link_to root_path, class: "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm" do %>
+              <%= link_to dashboard_path, class: "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-white shadow-sm" do %>
                 <%= tag.img src: Current.account.avatar_url(200), class: 'h-10 w-10 rounded-full', alt: Current.account.name %>
               <% end %>
             </div>

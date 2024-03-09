@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApplicationHelper
+module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def page_title_tag
     tag.title @page_title || 'OCOP'
   end
@@ -102,9 +102,9 @@ module ApplicationHelper
     list_options
   end
 
-  def main_menus
+  def app_menus
     menus = []
-    menus << create_option(t('navigation.home'), root_url)
+    menus << create_option(t('navigation.home'), dashboard_url)
 
     menus << create_option(t('navigation.assistant_submissions'), assistant_submissions_url) if Current.person.assistant? # rubocop:disable Style/IfUnlessModifier
     menus << create_option(t('navigation.companies'), companies_url) if Current.person.assistant?
@@ -112,6 +112,13 @@ module ApplicationHelper
     menus << create_option(t('navigation.my_submissions'), submissions_url) if Current.person.user?
     menus << create_option(t('navigation.companies'), companies_url) if Current.person.user?
     menus << create_option(t('navigation.councils'), councils_url) unless Current.person.user?
+
+    menus
+  end
+
+  def frontend_menus
+    menus = []
+    menus << create_option(t('navigation.home'), root_url)
 
     menus
   end

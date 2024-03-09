@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_09_022858) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -106,6 +106,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["identity_id"], name: "index_assistants_on_identity_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_cms_categories_on_parent_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -264,6 +273,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
     t.index ["personable_type", "personable_id"], name: "index_people_on_personable"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "slug", null: false
+    t.string "status", default: "drafted", null: false
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "source"
+    t.index ["category_id"], name: "index_cms_posts_on_category_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "status"
@@ -391,6 +411,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
   add_foreign_key "assessments", "people", column: "judge_id"
   add_foreign_key "assessments", "submissions"
   add_foreign_key "assistants", "identities"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "companies", "accounts"
   add_foreign_key "companies", "people", column: "owner_id"
   add_foreign_key "council_members", "councils"
@@ -410,6 +431,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_042250) do
   add_foreign_key "ownerships", "accounts"
   add_foreign_key "ownerships", "people"
   add_foreign_key "people", "accounts"
+  add_foreign_key "posts", "categories"
   add_foreign_key "products", "accounts"
   add_foreign_key "products", "companies"
   add_foreign_key "prompts", "accounts"

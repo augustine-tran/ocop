@@ -1,0 +1,11 @@
+<% @page_title = @post.title %>
+<% content_for :page_header do %>
+  <%= Post.model_name.human %>
+<% end %>
+<div class="mx-auto max-w-2xl lg:max-w-4xl">
+  <div class="mx-auto">
+    <%= render 'post', post: @post %>
+    <hr class="mt-4">
+    <%= turbo_frame_tag :related_posts, src: related_posts_path %>
+  </div>
+</div>
