@@ -6,6 +6,6 @@ class RelatedPostsController < ApplicationController
   layout 'posts'
 
   def index
-    @posts = Current.account.posts.ordered_active.limit 3
+    @posts = Post.ordered_active.limit 3
   end
 end

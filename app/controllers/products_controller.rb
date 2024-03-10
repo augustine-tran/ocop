@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   layout 'posts'
 
   def index
-    @products = Current.account.products.ordered_active.limit 10
+    @products = Product.ordered_active.limit 10
   end
 
   def show; end
@@ -15,6 +15,6 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Current.account.products.find_by(slug: params[:id])
+    @product = Product.find_by(slug: params[:id])
   end
 end

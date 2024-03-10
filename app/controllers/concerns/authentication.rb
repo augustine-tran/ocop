@@ -57,10 +57,10 @@ module Authentication
   end
 
   def authenticated_as(session)
-    Current.session = session
-    Current.person = (Current.session.identity.users.first || Current.session.identity.judges.first || Current.session.identity.assistants.first)&.person
-    Current.account = Current.person.account
+    Current.person = (session.identity.users.first || session.identity.judges.first || session.identity.assistants.first)&.person
+    throw :warden, scope: :user if Current.person.blank?
 
+    Current.session = session
     cookies.signed.permanent[:session_token] = { value: session.token, httponly: true, same_site: :lax }
   end
 

@@ -10,6 +10,6 @@ class Current < ActiveSupport::CurrentAttributes
   delegate :ability, to: :person
 
   def account
-    Account.first
+    person&.account || Account.first!
   end
 end
