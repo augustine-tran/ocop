@@ -5,7 +5,8 @@ class CmsAdmin::ProductsController < ApplicationController
 
   # GET /cms/products or /cms/products.json
   def index
-    @products = Product.all
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true).order(title: :asc).page(params[:page]).per(10).includes(:company, :category)
   end
 
   # GET /cms/products/1 or /cms/products/1.json
@@ -25,7 +26,7 @@ class CmsAdmin::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to cms_admin_product_url(@product), notice: 'Product was successfully created.' }
+        format.html { redirect_to cms_admin_products_url, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +41,7 @@ class CmsAdmin::ProductsController < ApplicationController
       if @product.update(product_params.except(:files_to_remove))
         remove_photos(product_params[:files_to_remove]) if product_params[:files_to_remove].present?
 
-        format.html { redirect_to cms_admin_product_url(@product), notice: 'Product was successfully updated.' }
+        format.html { redirect_to cms_admin_products_url, notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }

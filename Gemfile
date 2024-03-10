@@ -36,9 +36,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'cancancan', '~> 3.5'
 gem 'jbuilder'
+gem 'kaminari'
 gem 'letter_avatar'
 gem 'litestack', '~> 0.4.2'
 gem 'net-http-persistent'
+gem 'ransack'
 gem 'requestjs-rails', '~> 0.0.11'
 gem 'tailwindcss-rails', '~> 2.0.33'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -70,6 +72,8 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
+
+  gem 'faker', '>= 3.2.3'
 end
 
 group :test do

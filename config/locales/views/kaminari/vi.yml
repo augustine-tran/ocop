@@ -1,0 +1,7 @@
+vi:
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries: "<div data-entry-name='%{entry_name}'><p class='text-sm text-gray-700'>Hiển thị %{count} %{entry_name}</span></p></div>"
+      more_pages:
+        display_entries: "<div data-entry-name='%{entry_name}'><p class='text-sm text-gray-700'>Hiển thị %{entry_name} thứ <span class='font-medium'>%{first}</span> đến <span class='font-medium'>%{last}</span> trên tổng <span class='font-medium'>%{total}</span></p></div>"

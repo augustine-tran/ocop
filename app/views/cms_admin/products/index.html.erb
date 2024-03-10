@@ -2,11 +2,45 @@
 <% content_for :page_header do %>
   <%= @page_title %>
 <% end %>
-<% content_for :quick_action do %>
-  <%= link_to t(:create_product), new_cms_admin_product_path, class: "rounded-lg py-2 px-5 bg-indigo-500 text-white block font-medium" %>
-<% end %>
 <div class="w-full">
-  <div id="cms_products" class="min-w-full">
-    <%= render partial: 'product', collection: @products, spacer_template: 'shared/spacer' %>
+  <%= search_form_for @q, url: cms_admin_products_path do |f| %>
+    <%= f.label :title_cont %>
+    <%= f.search_field :title_cont %>
+    <%= f.label :stars_eq %>
+    <%= f.search_field :stars_eq %>
+    <%= f.submit %>
+  <% end %>
+</div>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-base font-semibold leading-6 text-gray-900"><%= Product.model_name.human %></h1>
+    </div>
+    <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+      <%= link_to t(:create_product), new_cms_admin_product_path, class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    </div>
+  </div>
+  <div class="mt-8 flow-root">
+    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"><%= Product.model_name.human %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Product.human_attribute_name(:company) %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Product.human_attribute_name(:category) %></th>
+              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Product.human_attribute_name(:status) %></th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white">
+            <%= render partial: 'product', collection: @products %>
+          </tbody>
+        </table>
+        <%= pagiantion_bar @products %>
+      </div>
+    </div>
   </div>
 </div>
