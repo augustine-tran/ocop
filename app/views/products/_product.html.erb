@@ -1,17 +1,41 @@
-<div>
-  <div class="mx-auto max-w-3xl text-base leading-7 text-gray-700 mt-4">
-    <div class="flex items-center gap-x-4 text-xs">
-      <%= tag.time datatime: l(product.updated_at, format: :short) do %>
-        <%= l product.updated_at, format: :short %>
+<div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
+  <div class="lg:col-span-5 lg:col-start-8">
+    <div class="flex justify-between">
+      <h1 class="text-xl font-medium text-gray-900"><%= product.title %></h1>
+    </div>
+    <!-- Reviews -->
+    <div class="mt-4">
+      <h2 class="sr-only">Reviews</h2>
+      <div class="flex items-center">
+        <p class="text-sm text-gray-700">
+          <%= product.stars %>
+        </p>
+        <div class="ml-1 flex items-center">
+          <%= render_ranks(product.stars) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Image gallery -->
+  <div class="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
+    <h2 class="sr-only">Hình ảnh</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
+      <% product.files.each_with_index do |file, idx| %>
+        <% if file.representable? %>
+          <%= image_tag file.representation(idx.zero? ? :large : :thumb), class: "#{idx.zero? ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block'} rounded-lg", alt: file.filename %>
+        <% else %>
+          <%= image_tag "placeholder.png", alt: "placeholder", class: "#{idx.zero? ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block'} rounded-lg" %>
+        <% end %>
       <% end %>
-      <%= link_to product.category.title, product_path(product), class: 'relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100' %>
     </div>
-    <h1 class="mt-2 mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-justify"><%= product.title %></h1>
-    <div class="relative h-full xl:ml-0">
-      <%= image_tag cover_photo(product.files, [720, nil]), class: 'h-full w-full rounded-2xl bg-gray-50 object-cover' %>
-    </div>
-    <div class="mt-8 text-justify">
-      <%= product.body %>
+  </div>
+  <div class="mt-8 lg:col-span-5">
+    <!-- Product details -->
+    <div class="mt-10">
+      <h2 class="text-sm font-medium text-gray-900"><%= Product.human_attribute_name(:body) %></h2>
+      <div class="prose prose-sm mt-4 text-gray-500">
+        <%= product.body %>
+      </div>
     </div>
   </div>
 </div>

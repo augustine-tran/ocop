@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   validates :title, presence: true
 
   has_many_attached :files do |attachable|
-    attachable.variant :thumb, resize_to_limit: [150, nil]
+    attachable.variant :thumb, resize_and_pad: [267, 267]
     attachable.variant :large, resize_to_limit: [720, nil]
   end
 
