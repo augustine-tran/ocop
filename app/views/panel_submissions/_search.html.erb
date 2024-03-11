@@ -1,4 +1,4 @@
-<%= search_form_for q do |f| %>
+<%= search_form_for q, url: panel_submissions_path do |f| %>
   <div class="sm:flex gap-x-4 mt-8">
     <div class="relative">
       <%= f.label :name_cont, class: "absolute -top-2 left-2 inline-block bg-white px-1 text-xs font-medium text-gray-900" %>

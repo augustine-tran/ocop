@@ -16,6 +16,7 @@ vi:
         scores_sum: Tổng điểm
         star: Xếp hạng
         stars:
+          0: (Chờ kết quả đánh giá)
           one: Một sao
           two: Hai sao
           three: Ba sao

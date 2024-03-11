@@ -6,7 +6,7 @@ class Assessments::ScoresController < ApplicationController
 
   def update
     if @score.update(score_params)
-      redirect_to edit_assessment_path(@assessment), notice: 'Score was successfully updated.'
+      redirect_to edit_assessment_path(@assessment), notice: t(:update_success, name: Score.model_name.human)
     else
       render :edit
     end

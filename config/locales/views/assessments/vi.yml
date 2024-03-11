@@ -3,6 +3,8 @@ vi:
   judge_info: "Người chấm điểm: %{judge}"
   self_assessment: Tự đánh giá
   final_assessment: Điểm chung khảo
+  approve_assessment: Phê duyệt và gởi hồ sơ lên hội đồng chấm điểm
+  submission_approved: Hồ sơ đã được phê duyệt và gởi hồ sơ lên hội đồng chấm điểm
   assessments:
     edit:
       submit_assessment: Nộp hồ sơ lên hội đồng chấm điểm

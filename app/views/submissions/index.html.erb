@@ -8,30 +8,32 @@
       <%= link_to t(:create_submission), new_submission_path, class: "block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
     </div>
   </div>
-  <%= render 'search', q: @q %>
-  <div class="mt-4 flow-root">
-    <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-          <table class="min-w-full divide-y divide-gray-300">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= Submission.model_name.human %></th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:council) %></th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:criteria_group) %></th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:status) %></th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                  <span class="sr-only">Edit</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 bg-white">
-              <%= render partial: 'list_item', collection: @submissions, as: :submission %>
-            </tbody>
-          </table>
-          <%= pagiantion_bar @submissions %>
+  <%= turbo_frame_tag :submissions do %>
+    <%= render 'search', q: @q %>
+    <div class="mt-4 flow-root">
+      <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= Submission.model_name.human %></th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:council) %></th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:star) %></th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Submission.human_attribute_name(:status) %></th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <%= render partial: 'list_item', collection: @submissions, as: :submission %>
+              </tbody>
+            </table>
+            <%= pagiantion_bar @submissions %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>

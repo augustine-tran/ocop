@@ -4,6 +4,8 @@ class CreateSelfAssessmentJob < ApplicationJob
   queue_as :default
 
   def perform(submission)
-    submission.assessments.create! assessable: SelfAssessment.new, judge: submission.creator
+    Current.set person: submission.account.people.first! do
+      submission.assessments.create! assessable: SelfAssessment.new, judge: submission.creator
+    end
   end
 end

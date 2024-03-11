@@ -5,7 +5,8 @@ class PanelSubmissionsController < ApplicationController
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = Current.person.panel_submissions
+    @q = Current.person.panel_submissions.ransack(params[:q])
+    @submissions = @q.result.order(updated_at: :desc).page(params[:page]).per(10)
   end
 
   def show; end

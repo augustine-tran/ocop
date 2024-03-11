@@ -10,10 +10,14 @@ class AssessmentsController < ApplicationController
 
   def submit
     if @assessment.submit
-      redirect_to submission_path(@assessment.submission), notice: t(:submitted_successfully)
+      if Current.person.user?
+        redirect_to submission_path(@assessment.submission), notice: t(:submitted_successfully)
+      else
+        redirect_to panel_submission_path(@assessment.submission), notice: t(:submitted_successfully)
+      end
 
     else
-      redirect_to edit_assessment_path(@assessment)
+      redirect_to assessment_path(@assessment)
     end
   end
 

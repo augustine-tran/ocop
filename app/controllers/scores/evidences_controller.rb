@@ -21,7 +21,7 @@ class Scores::EvidencesController < ApplicationController
     @evidence.criterium_id = @score.criterium_id
 
     if @evidence.save
-      redirect_to score_evidence_path(@score, @evidence), notice: 'Score was successfully created.'
+      redirect_to score_evidence_path(@score, @evidence), notice: t(:create_success, name: Evidence.model_name.human)
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class Scores::EvidencesController < ApplicationController
     if @evidence.update(evidence_params.except(:files_to_remove))
       remove_files(evidence_params[:files_to_remove]) if evidence_params[:files_to_remove].present?
 
-      redirect_to score_evidence_path(@score, @evidence), notice: 'Score was successfully updated.'
+      redirect_to score_evidence_path(@score, @evidence), notice: t(:update_success, name: Evidence.model_name.human)
     else
       render :edit, status: :unprocessable_entity
     end

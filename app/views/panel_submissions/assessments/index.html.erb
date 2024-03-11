@@ -19,7 +19,6 @@
               </thead>
               <tbody class="divide-y divide-gray-200 bg-white">
                 <%= render partial: 'assessment_list_item', collection: @assessments, as: :assessment %>
-                <%= render 'empty_list' if @assessments.blank? %>
               </tbody>
             </table>
           </div>

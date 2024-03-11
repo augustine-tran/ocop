@@ -10,10 +10,10 @@ class AssistantSubmissions::AssessmentsController < ApplicationController
 
   def approve
     if @assessment.approve
-      redirect_to submission_path(@assessment.submission), notice: 'Assessment was successfully submitted.'
+      redirect_to assistant_submission_path(@assessment.submission), notice: t(:submission_approved)
 
     else
-      redirect_to edit_assessment_path(@assessment)
+      redirect_to edit_assistant_submission_assessment_path(@submission, @assessment)
     end
   end
 
