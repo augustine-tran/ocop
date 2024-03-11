@@ -7,6 +7,7 @@ vi:
         title: Tên sản phẩm
         body: Nội dung
         category: Danh mục
+        category_id: Danh mục
         company: Công ty
         status: Trạng thái
         files: Hình ảnh

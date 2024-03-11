@@ -28,21 +28,8 @@ module RankingHelper
   end
 
   def render_ranks(rank)
-    filled_star = <<~SVG
-          <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2l2.39 7.37h7.76l-6.28 4.56 2.39 7.37L12 16.77l-6.26 4.53 2.39-7.37-6.28-4.56h7.76L12 2z" fill="gold" stroke="transparent" stroke-width="2"/>
-      </svg>
-
-    SVG
-
-    unfilled_star = <<~SVG
-      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2l2.39 7.37h7.76l-6.28 4.56 2.39 7.37L12 16.77l-6.26 4.53 2.39-7.37-6.28-4.56h7.76L12 2z" fill="none" stroke="gray" stroke-width="1"/>
-      </svg>
-    SVG
-
-    (1..rank).map do |_i|
-      filled_star.html_safe # SVG for filled star # rubocop:disable Rails/OutputSafety
-    end.join.html_safe # rubocop:disable Rails/OutputSafety
+    (1..rank).map do
+      '⭐️'
+    end.join
   end
 end

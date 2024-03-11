@@ -18,10 +18,10 @@ class Product < ApplicationRecord
   scope :ordered_active, -> { where(status: :active).order(updated_at: :desc) }
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[slug stars status title]
+    %w[slug stars status title category_id]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     %w[category company]
   end
 end

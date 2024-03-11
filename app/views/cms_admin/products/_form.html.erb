@@ -15,25 +15,25 @@
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :category, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.collection_select :category_id, Category.find_by!(slug: 'san-pham').children, :id, :title, prompt: t(:select_category), class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            <%= form.collection_select :category_id, Category.find_by!(slug: 'san-pham').children, :id, :title, { prompt: t(:select_category) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :company, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.collection_select :company_id, Company.all, :id, :name, prompt: t(:select_company), class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            <%= form.collection_select :company_id, Company.all, :id, :name, { prompt: t(:select_company) }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :status, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.select :status, Product.statuses.keys.map { |status| [t("activerecord.attributes.product.statuses.#{status}"), status] }, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            <%= form.select :status, Product.statuses.keys.map { |status| [t("activerecord.attributes.product.statuses.#{status}"), status] }, {}, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
           <%= form.label :stars, class: "block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5" %>
           <div class="mt-2 sm:col-span-3 sm:mt-0">
-            <%= form.select :stars, [1, 2, 3, 4, 5], class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+            <%= form.select :stars, [1, 2, 3, 4, 5].map { |i| [render_ranks(i), i] }, {}, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
