@@ -17,4 +17,8 @@ class Post < ApplicationRecord
   end
 
   scope :ordered_active, -> { where(status: :active).order(updated_at: :desc) }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title body category_id status]
+  end
 end

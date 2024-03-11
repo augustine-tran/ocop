@@ -5,7 +5,8 @@ class CmsAdmin::PostsController < ApplicationController
 
   # GET /cms/posts or /cms/posts.json
   def index
-    @posts = Post.all
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true).page(params[:page]).order(updated_at: :desc).per(10)
   end
 
   # GET /cms/posts/1 or /cms/posts/1.json
@@ -25,7 +26,7 @@ class CmsAdmin::PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to cms_admin_post_url(@post), notice: 'Post was successfully created.' }
+        format.html { redirect_to cms_admin_posts_path, notice: t(:create_success, name: Post.model_name.human) }
         format.json { render :show, status: :created, location: @post }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +41,7 @@ class CmsAdmin::PostsController < ApplicationController
       if @post.update(post_params.except(:files_to_remove))
         remove_photos(post_params[:files_to_remove]) if post_params[:files_to_remove].present?
 
-        format.html { redirect_to cms_admin_post_url(@post), notice: 'Post was successfully updated.' }
+        format.html { redirect_to cms_admin_posts_path, notice: t(:update_success, name: Post.model_name.human) }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +55,7 @@ class CmsAdmin::PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to cms_posts_url, notice: 'Post was successfully destroyed.' }
+      format.html { redirect_to cms_admin_posts_url, notice: t(:destroy_success, name: Post.model_name.human) }
       format.json { head :no_content }
     end
   end

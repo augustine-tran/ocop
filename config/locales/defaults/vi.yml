@@ -1,5 +1,8 @@
 ---
 vi:
+  create_success: "Đã tạo %{name} mới"
+  update_success: "Hoàn thành cập nhật %{name}"
+  destroy_success: "Đã xoá %{name}"
   activerecord:
     errors:
       messages:

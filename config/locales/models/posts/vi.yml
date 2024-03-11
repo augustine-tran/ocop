@@ -7,6 +7,7 @@ vi:
         title: Tiêu đề
         body: Nội dung
         category: Danh mục
+        category_id: Danh mục
         status: Trạng thái
         files: Hình ảnh
         source: Nguồn bài viết
