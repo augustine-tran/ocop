@@ -15,7 +15,7 @@
         </div>
         <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-900"><%= Company.human_attribute_name(:registration_date) %></dt>
-          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= l company.registration_date, format: :long %></dd>
+          <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= l company.registration_date, format: :long if company.registration_date.present? %></dd>
         </div>
       </dl>
     </div>
