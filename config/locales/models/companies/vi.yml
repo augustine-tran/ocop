@@ -1,6 +1,6 @@
 vi:
   activerecord:
-    model:
+    models:
       company: Doanh nghiệp
     attributes:
       company:

@@ -1,0 +1,26 @@
+<%= tag.tr id: dom_id(company) do %>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <div class="flex items-center">
+      <div>
+        <div class="font-medium text-indigo-500"><%= link_to company.name, company_path(company) %></div>
+        <div class="mt-1 text-gray-500 flex"><%= t("activerecord.attributes.company.legal_types.#{company.legal_type}") %></div>
+      </div>
+    </div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <div class="text-gray-900 flex"><%= l company.registration_date, format: :long if company.registration_date.present? %></div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <div class="text-gray-900 flex"><%= company.registration_no %></div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <%= company.registration_name %>
+  </td>
+  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+    <div class="flex gap-x-1 justify-between">
+      <%= link_to edit_company_path(company), class: "text-indigo-600 hover:text-indigo-900" do %>
+        <%= t(:edit) %><span class="sr-only">, <%= company.name %></span>
+      <% end %>
+    </div>
+  </td>
+<% end %>

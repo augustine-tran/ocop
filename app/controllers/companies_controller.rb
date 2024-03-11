@@ -5,7 +5,8 @@ class CompaniesController < ApplicationController
 
   # GET /companies or /companies.json
   def index
-    @companies = Current.person.assistant? ? Current.account.companies : Current.person.companies
+    @q = (Current.person.assistant? ? Current.account.companies : Current.person.companies).ransack(params[:q])
+    @companies = @q.result(distinct: true).page(params[:page]).order(:name).per(10)
   end
 
   # GET /companies/1 or /companies/1.json
@@ -66,7 +67,7 @@ class CompaniesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def company_params
-    params.require(:company).permit(:name, :registration_no, :registration_date, :legal_type)
+    params.require(:company).permit(:name, :registration_no, :registration_name, :registration_date, :legal_type)
   end
 
   def redirect_url
