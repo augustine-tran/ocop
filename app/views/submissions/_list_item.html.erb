@@ -1,0 +1,29 @@
+<%= tag.tr submission do %>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <div class="flex items-center">
+      <div class="h-11 w-11 flex-shrink-0">
+        <%= image_tag cover_photo(submission.files, [248, 248]), class: 'h-11 w-11 rounded-lg' %>
+      </div>
+      <div class="ml-4">
+        <div class="font-medium text-indigo-500"><%= link_to submission.name, submission_path(submission) %></div>
+        <div class="mt-1 text-gray-500 flex"><%= render_ranks submission.star %></div>
+      </div>
+    </div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <div class="text-gray-900 flex"><%= submission.council.name %></div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <div class="text-gray-900 flex"><%= submission.criteria_group.name %></div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <%= status_tag(submission.status, t("activerecord.attributes.submission.statuses.#{submission.status}")) %>
+  </td>
+  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+    <div class="flex gap-x-1 justify-between">
+      <%= link_to submission_path(submission), class: "text-indigo-600 hover:text-indigo-900" do %>
+        <%= t(:show_this_submission) %><span class="sr-only">, <%= submission.name %></span>
+      <% end %>
+    </div>
+  </td>
+<% end %>

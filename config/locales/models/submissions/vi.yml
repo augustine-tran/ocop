@@ -1,5 +1,7 @@
 vi:
   activerecord:
+    models:
+      submission: Hồ sơ
     attributes:
       submission:
         name: Tên sản phẩm
@@ -7,7 +9,9 @@ vi:
         status: Trạng thái
         description: Mô tả
         council: Hội đồng
+        council_id: Hội đồng
         criteria_group: Nhóm tiêu chí
+        criteria_group_id: Nhóm tiêu chí
         files: Tập tin đính kèm
         scores_sum: Tổng điểm
         star: Xếp hạng

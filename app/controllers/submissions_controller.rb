@@ -5,7 +5,8 @@ class SubmissionsController < ApplicationController
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = Current.person.my_submissions
+    @q = Current.person.my_submissions.ransack(params[:q])
+    @submissions = @q.result.page(params[:page]).order(updated_at: :desc).per(10)
   end
 
   def show; end
@@ -26,7 +27,7 @@ class SubmissionsController < ApplicationController
     @submission.account = Current.account
 
     if @submission.save
-      redirect_to submission_path(@submission), notice: t(:created_successfully)
+      redirect_to submission_path(@submission), notice: t(:create_success, name: Submission.model_name.human)
     else
       render :new, status: :unprocessable_entity
     end
@@ -35,7 +36,7 @@ class SubmissionsController < ApplicationController
   def update
     if @submission.update(submission_params.except(:files_to_remove))
       remove_photos(submission_params[:files_to_remove]) if submission_params[:files_to_remove].present?
-      redirect_to submission_path(@submission), notice: t(:updated_successfully)
+      redirect_to submission_path(@submission), notice: t(:update_success, name: Submission.model_name.human)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -43,7 +44,7 @@ class SubmissionsController < ApplicationController
 
   def destroy
     @submission.destroy
-    redirect_to submissions_path, notice: t(:destroyed_successfully)
+    redirect_to submissions_path, notice: t(:destroy_success, name: Submission.model_name.human)
   end
 
   private

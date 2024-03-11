@@ -10,7 +10,7 @@ class AssessmentsController < ApplicationController
 
   def submit
     if @assessment.submit
-      redirect_to submission_path(@assessment.submission), notice: 'Assessment was successfully submitted.'
+      redirect_to submission_path(@assessment.submission), notice: t(:submitted_successfully)
 
     else
       redirect_to edit_assessment_path(@assessment)

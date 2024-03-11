@@ -2,7 +2,7 @@ vi:
   list_submissions: Danh sách hồ sơ
   create_submission: Thêm hồ sơ
   show_list_of_submissions: Danh sách hồ sơ
-  show_this_submission: Xem chi tiết
+  show_this_submission: Chi tiết
   edit_submission: Chỉnh sửa hồ sơ
   editing_submission: Chỉnh sửa hồ sơ
   creating_submission: Thêm hồ sơ mới
@@ -16,3 +16,4 @@ vi:
   submission_name: "Hồ sơ: %{name}"
   do_assessment: Chấm điểm
   submission: Hồ sơ
+  submitted_successfully: Đã nộp hồ sơ

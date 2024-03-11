@@ -62,6 +62,10 @@ class Submission < ApplicationRecord
     panel_assessments.find_by(judge:) || final_assessment&.find_by(judge:)
   end
 
+  def self.ransackable_attributes(_auth_object)
+    %w[name status star]
+  end
+
   private
 
   def set_creator
