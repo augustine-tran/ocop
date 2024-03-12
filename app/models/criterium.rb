@@ -20,4 +20,6 @@ class Criterium < ApplicationRecord
     node_subs: 2,
     node_leaves: 3
   }
+
+  scope :of_stars, ->(stars) { where("star_#{stars} > ?", 0).order(:id) }
 end

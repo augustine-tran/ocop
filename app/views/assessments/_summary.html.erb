@@ -56,11 +56,11 @@
     </div>
     <!-- Second Column with Nested 3-row Grid -->
     <div class="col-span-1 grid grid-rows-3 gap-2 rounded-lg">
-      <% @assessment.scores.node_roots.each do |root| %>
+      <% [3, 4, 5].each do |rank| %>
         <div class="bg-gray-900 px-2 py-2  rounded  text-center md:text-right">
-          <p class="text-sm leading-6 text-gray-400"><%= root.title %></p>
+          <p class="text-sm leading-6 text-gray-400"><%= render_ranks rank %></p>
           <p class="mt-2 flex items-baseline gap-x-2 justify-center md:justify-end">
-            <span class="text-md font-semibold tracking-tight text-white"><%= t(:points, points: root.score) %></span>
+            <span class="text-md font-semibold tracking-tight text-white"><%= @assessment.pass_rank? rank %></span>
           </p>
         </div>
       <% end %>
