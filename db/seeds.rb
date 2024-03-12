@@ -45,7 +45,6 @@ Category.create!([
                  ])
 
 bucket_ocop = Current.account.criteria_buckets.create! name: 'OCOP', year: 2024
-cg1 = bucket_ocop.criteria_groups.create! name: 'Nhóm thức uống'
 
 ocop_council = Current.account.councils.create! name: 'Hội đồng đánh giá OCOP huyện Châu Đức',
                                                 criteria_bucket: bucket_ocop
@@ -92,35 +91,117 @@ identity = Identity.create! email: 'demo@acme.vn', name: 'Demo User', password: 
                             verified: true
 Person.create! account:, personable: User.new(identity:)
 
-csv_text = Rails.root.join('db', 'ocop-bo-tieu-chi-03.csv').read
-csv = CSV.parse csv_text, headers: true, col_sep: ';'
+[ # rubocop:disable Metrics/BlockLength
+  { file: 'OCOP - 1. Bộ sản phẩm_ Rau, củ, quả, hạt tươi.csv', name: '1. Bộ sản phẩm_ Rau, củ, quả, hạt tươi' },
+  { file: 'OCOP - 2. Bộ sản phẩm_ Thịt, thủy sản, trứng, sữa tươi.csv',
+    name: '2. Bộ sản phẩm_ Thịt, thủy sản, trứng, sữa tươi' },
+  { file: 'OCOP - 3. Bộ sản phẩm_ Gạo, ngũ cốc, hạt sơ chế khác.csv',
+    name: '3. Bộ sản phẩm_ Gạo, ngũ cốc, hạt sơ chế khác' },
+  { file: 'OCOP - 4. Bộ sản phẩm_ Mật ong, mật khác và nông sản thực phẩm khác.csv',
+    name: '4. Bộ sản phẩm_ Mật ong, mật khác và nông sản thực phẩm khác' },
+  { file: 'OCOP - 5. Bộ sản phẩm_ Đồ ăn nhanh.csv', name: '5. Bộ sản phẩm_ Đồ ăn nhanh' },
+  { file: 'OCOP - 6. Bộ sản phẩm_ Chế biến từ gạo, ngũ cốc.csv', name: '6. Bộ sản phẩm_ Chế biến từ gạo, ngũ cốc' },
+  { file: 'OCOP - 7. Bộ sản phẩm_ Chế biến từ rau, củ, quả, hạt.csv',
+    name: '7. Bộ sản phẩm_ Chế biến từ rau, củ, quả, hạt' },
+  { file: 'OCOP - 8. Chế biến từ thịt, thủy sản, trứng, sữa, các sản phẩm từ mật ong.csv',
+    name: '8. Chế biến từ thịt, thủy sản, trứng, sữa, các sản phẩm từ mật ong' },
+  { file: 'OCOP - 9. Bộ sản phẩm_ Tương, nước mắm, gia vị dạng lỏng khác.csv',
+    name: '9. Bộ sản phẩm_ Tương, nước mắm, gia vị dạng lỏng khác' },
+  { file: 'OCOP - 10. Bộ sản phẩm_ Gia vị khác (muối, hành, tỏi, tiêu,...).csv',
+    name: '10. Bộ sản phẩm_ Gia vị khác (muối, hành, tỏi, tiêu,...).' },
+  { file: 'OCOP - 11. Bộ sản phẩm_ Chè tươi, chè chế biến.csv', name: '11. Bộ sản phẩm_ Chè tươi, chè chế biến' },
+  { file: 'OCOP - 12. Sản phẩm trà từ thực vật khác.csv', name: '12. Sản phẩm trà từ thực vật khác' },
+  { file: 'OCOP - 13. Sản phẩm cà phê, ca cao.csv', name: '13. Sản phẩm cà phê, ca cao' },
+  { file: 'OCOP - 14. Bộ sản phẩm_ Rượu trắng.csv', name: '14. Bộ sản phẩm_ Rượu trắng' },
+  { file: 'OCOP - 15. Bộ sản phẩm_ Đồ uống có cồn khác.csv', name: '15. Bộ sản phẩm_ Đồ uống có cồn khác' },
+  { file: 'OCOP - 16. Bộ sản phẩm; Nước khoáng thiên nhiên, nước uống tinh khiết đóng chai.csv',
+    name: '16. Bộ sản phẩm; Nước khoáng thiên nhiên, nước uống tinh khiết đóng chai' },
+  { file: 'OCOP - 17. Bộ sản phẩm_ Đồ uống không cồn khác.csv', name: '17. Bộ sản phẩm_ Đồ uống không cồn khác' },
+  { file: 'OCOP - 18. Bộ sản phẩm_ Thực phẩm chức năng, thuốc dược liệu, thuốc y học cổ truyền.csv',
+    name: '18. Bộ sản phẩm_ Thực phẩm chức năng, thuốc dược liệu, thuốc y học cổ truyền' },
+  { file: 'OCOP - 19. Bộ sản phẩm_ Mỹ phẩm có thành phần từ Thảo dược.csv',
+    name: '19. Bộ sản phẩm_ Mỹ phẩm có thành phần từ Thảo dược' },
+  { file: 'OCOP - 20. Bộ sản phẩm_ Tinh dầu và thảo dược khác.csv',
+    name: '20. Bộ sản phẩm_ Tinh dầu và thảo dược khác' },
+  { file: 'OCOP - 21. Bộ sản phẩm_ Thủ công mỹ nghệ gia dụng, trang trí.csv',
+    name: '21. Bộ sản phẩm_ Thủ công mỹ nghệ gia dụng, trang trí' },
+  { file: 'OCOP - 22. Bộ sản phẩm_ Vải, may mặc.csv', name: '22. Bộ sản phẩm_ Vải, may mặc' },
+  { file: 'OCOP - 23. Bộ sản phẩm_ Hoa.csv', name: '23. Bộ sản phẩm_ Hoa' },
+  { file: 'OCOP - 24. Bộ sản phẩm_ Cây cảnh.csv', name: '24. Bộ sản phẩm_ Cây cảnh' },
+  { file: 'OCOP - 25. Bộ sản phẩm_ Động vật cảnh.csv', name: '25. Bộ sản phẩm_ Động vật cảnh' },
+  { file: 'OCOP - 26. Bộ sản phẩm_ Dịch vụ du lịch cộng đồng, du lịch sinh thái và điểm du lịch.csv',
+    name: '26. Bộ sản phẩm_ Dịch vụ du lịch cộng đồng, du lịch sinh thái và điểm du lịch' }
+].each do |group|
+  cg = bucket_ocop.criteria_groups.create! group
 
-last_levels = {
-  -1 => nil,
-  0 => nil,
-  1 => nil,
-  2 => nil
-}
+  next if group[:file].blank?
 
-level_mapping = {
-  '1' => 'node_groups',
-  '2' => 'node_subs',
-  '3' => 'node_leaves'
-}
+  puts "Processing file: #{cg.name} -> #{group[:file]}"
 
-csv.each do |row|
-  params = row.to_hash
+  csv_text = Rails.root.join('db', 'ocop', group[:file]).read
+  csv = CSV.parse csv_text, headers: true, col_sep: ','
 
-  # convert level from number to enum of Criterium using hash mapping
-  params['level'] = level_mapping[params['level']] || 'node_roots'
+  last_levels = {
+    -1 => nil,
+    0 => nil,
+    1 => nil,
+    2 => nil
+  }
 
-  item = Criterium.find_or_create_by!(params) do |criterium|
-    criterium.criteria_group = cg1
-    criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
-    criterium.status = Recording.statuses[:active]
+  level_mapping = {
+    '1' => 'node_groups',
+    '2' => 'node_subs',
+    '3' => 'node_leaves'
+  }
+
+  last_item = nil
+
+  csv.each do |row|
+    params = row.to_hash
+
+    # convert level from number to enum of Criterium using hash mapping
+    level = params['level'].to_i
+    params['level'] = level_mapping[params['level']] || 'node_roots'
+    params['title'] = params['title'].gsub(/^□\s/, '')
+
+    # puts "#{last_item&.id} -> #{last_item&.level} == 'node_groups' && #{params['level']} == 'node_leaves'"
+    if last_item&.level == 'node_groups' && params['level'] == 'node_leaves'
+      node_sub = Criterium.create! title: last_item.title.gsub(/^[\d]+\./, 'a)'), level: 'node_subs',
+                                   criteria_group: cg, parent: last_item
+      last_levels[2] = node_sub
+      last_item = node_sub
+      puts "\t\t #{node_sub.title}"
+    end
+
+    case params['level']
+    when 'node_roots'
+      puts "#{params['title']}"
+    when 'node_groups'
+      puts "\t #{params['title']}"
+    when 'node_subs'
+      puts "\t\t #{params['title']}"
+    when 'node_leaves'
+      puts "\t\t\t #{params['title']}"
+    end
+
+    item = Criterium.create!(params) do |criterium|
+      criterium.criteria_group = cg
+
+      criterium.parent = last_levels[Criterium.levels[criterium.level] - 1]
+
+      criterium.status = Recording.statuses[:active]
+      if criterium.stars.to_i.positive?
+        if criterium.level == 'node_leaves'
+          criterium.parent.update "star_#{criterium.stars}": criterium.score
+        else # node_groups, node_subs
+          criterium["star_#{criterium.stars}"] = criterium.score
+        end
+      end
+    end
+
+    last_levels[Criterium.levels[item.level]] = item
+    last_item = item
+  rescue ActiveRecord::RecordInvalid => e
+    puts "Failed to create record: #{e.message}"
   end
-
-  last_levels[Criterium.levels[item.level]] = item
-rescue ActiveRecord::RecordInvalid => e
-  puts "Failed to create record: #{e.message}"
 end

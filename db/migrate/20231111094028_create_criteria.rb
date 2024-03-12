@@ -16,6 +16,7 @@ class CreateCriteria < ActiveRecord::Migration[7.1]
       t.string :name
       t.references :criteria_bucket, null: false, foreign_key: true
       t.string :description
+      t.string :file
       t.string :status, null: false, default: 'active'
 
       t.timestamps
@@ -28,6 +29,10 @@ class CreateCriteria < ActiveRecord::Migration[7.1]
       t.string :description
       t.integer :level
       t.integer :score
+      t.integer :stars
+      t.integer :star_3
+      t.integer :star_4
+      t.integer :star_5
       t.boolean :leaf, null: false, default: 0
       t.string :status, null: false, default: 'active'
 
