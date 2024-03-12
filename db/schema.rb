@@ -162,6 +162,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
     t.string "description"
     t.integer "level"
     t.integer "score"
+    t.integer "stars"
+    t.integer "star_3"
+    t.integer "star_4"
+    t.integer "star_5"
     t.boolean "leaf", default: false, null: false
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
@@ -185,6 +189,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
     t.string "name"
     t.integer "criteria_bucket_id", null: false
     t.string "description"
+    t.string "file"
     t.string "status", default: "active", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
