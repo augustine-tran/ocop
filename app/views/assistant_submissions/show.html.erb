@@ -1,7 +1,7 @@
 <%= turbo_stream_from @submission %>
 <div class="mx-auto ">
   <div class="mx-auto w-full">
-    <%= render 'submissions/tabs' %>
+    <%= render 'assistant_submissions/tabs' %>
     <div class="mx-auto w-full">
       <%= turbo_frame_tag @submission, class: 'mx-auto w-full' do %>
         <%= render partial: 'submission', locals: { submission: @submission } %>

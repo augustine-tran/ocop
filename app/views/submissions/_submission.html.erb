@@ -1,7 +1,7 @@
 <div id="<%= dom_id(submission) %>" class="overflow-hidden w-full bg-white shadow sm:rounded-lg mb-4">
   <div class="px-4 py-6 sm:px-6">
     <h3 class="text-base font-semibold leading-7 text-gray-900"><%= submission.name %></h3>
-    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= submission.criteria_group.name %></p>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= render_ranks(submission.star) %></p>
   </div>
   <div class="border-t border-gray-100">
     <% if submission.account != Current.account %>
@@ -12,20 +12,24 @@
     <% end %>
     <dl class="divide-y divide-gray-100">
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:status) %></dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= status_tag submission.status, t("activerecord.attributes.submission.statuses.#{submission.status}") %></dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:star) %></dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= t("activerecord.attributes.submission.stars.#{submission.star}") %></dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:scores_sum) %></dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex flex-nowrap"><%= render_stars(submission.scores_sum, 100, 5) %> (<%= submission.scores_sum || 0 %>)</dd>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex flex-nowrap"><%= submission.scores_sum || 0 %></dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:council) %></dt>
         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= submission.council.name %></dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:status) %></dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= t("activerecord.attributes.submission.statuses.#{submission.status}") %></dd>
-      </div>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:star) %></dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= t("activerecord.attributes.submission.stars.#{submission.star}") %></dd>
+        <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:criteria_group) %></dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= submission.criteria_group.name %></dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 <%= 'hidden' if submission.files.blank? %>">
         <dt class="text-sm font-medium leading-6 text-gray-900"><%= Submission.human_attribute_name(:files) %></dt>

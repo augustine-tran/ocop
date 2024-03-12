@@ -1,4 +1,8 @@
 vi:
+  create_company: Tạo mới
+  edit_this_company: Sửa
+  destroy_this_company: Xoá
+  back_to_companies: Quay lại danh sách
   companies:
     index:
       title: Danh sách doanh nghiệp

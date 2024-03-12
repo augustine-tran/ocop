@@ -5,7 +5,8 @@ class AssistantSubmissionsController < ApplicationController
   before_action :set_assessment, only: %i[show]
 
   def index
-    @submissions = Current.person.submissions.except_drafted
+    @q = Current.person.submissions.ransack(params[:q])
+    @submissions = @q.result.except_drafted.page(params[:page]).order(updated_at: :desc).per(10)
   end
 
   def show; end

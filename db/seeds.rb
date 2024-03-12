@@ -29,10 +29,20 @@ AdministrativeUnit.create! [
 ]
 
 account = Account.create! name: 'Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức'
-Current.account = account
 
 departments = ['Phòng Nông nghiệp và Phát triển nông thôn huyện Châu Đức',
                'Phòng Tài nguyên và Môi trường huyện Châu Đức', 'Phòng Giáo dục và Đào tạo huyện Châu Đức', 'Phòng Y tế huyện Châu Đức', 'Phòng Lao động - Thương binh và Xã hội huyện Châu Đức', 'Phòng Kế hoạch và Đầu tư huyện Châu Đức', 'Phòng Công thương huyện Châu Đức', 'Phòng Văn hóa và Thông tin huyện Châu Đức', 'Phòng Công an huyện Châu Đức', 'Phòng Quản lý xây dựng huyện Châu Đức', 'Phòng Tư pháp huyện Châu Đức', 'Phòng Nội vụ huyện Châu Đức', 'Phòng Tổ chức cán bộ huyện Châu Đức', 'Phòng Thanh tra huyện Châu Đức', 'Phòng Kế hoạch và Đầu tư huyện Châu Đức', 'Phòng Công thương huyện Châu Đức', 'Phòng Văn hóa và Thông tin huyện Châu Đức', 'Phòng Công an huyện Châu Đức', 'Phòng Quản lý xây dựng huyện Châu Đức', 'Phòng Tư pháp huyện Châu Đức', 'Phòng Nội vụ huyện Châu Đức', 'Phòng Tổ chức cán bộ huyện Châu Đức', 'Phòng Thanh tra huyện Châu Đức']
+
+Category.create!([
+                   { title: 'Tin tức' },
+                   { title: 'Sản phẩm' }
+                 ])
+Category.create!([
+                   { title: 'Tin tức', parent: Category.find_by(slug: 'tin-tuc') },
+                   { title: 'Văn bản pháp luật', parent: Category.find_by(slug: 'tin-tuc') },
+                   { title: 'Ngành đồ uống', parent: Category.find_by(slug: 'san-pham') },
+                   { title: 'Ngành thịt trứng sữa', parent: Category.find_by(slug: 'san-pham') }
+                 ])
 
 bucket_ocop = Current.account.criteria_buckets.create! name: 'OCOP', year: 2024
 cg1 = bucket_ocop.criteria_groups.create! name: 'Nhóm thức uống'

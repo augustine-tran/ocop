@@ -1,5 +1,7 @@
 vi:
   activerecord:
+    models:
+      evidence: Minh chứng
     attributes:
       evidence:
         photos: Minh chứng

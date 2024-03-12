@@ -18,6 +18,10 @@ class Company < ApplicationRecord
   validates :registration_no, uniqueness: true, if: :registration_no?
   validates :name, presence: true
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name]
+  end
+
   private
 
   def set_owner

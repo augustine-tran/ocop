@@ -1,0 +1,8 @@
+vi:
+  create_product: Tạo sản phẩm mới
+  edit_product: Chỉnh sửa sản phẩm
+  back_to_products: Quay về danh sách sản phẩm
+  show_this_product: Chi tiết
+  edit_this_product: Chỉnh sửa
+  destroy_this_product: Xoá sản phẩm
+  select_category: Chọn danh mục

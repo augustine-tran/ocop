@@ -14,3 +14,9 @@
  *= require_self
  *= require lightgallery
  */
+
+.translation_missing {
+  padding: 4px;
+  border: #c0e675 1px dashed;
+  background: yellow;
+}

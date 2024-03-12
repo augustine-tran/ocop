@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ApplicationHelper # rubocop:disable Metrics/ModuleLength
+module ApplicationHelper
   def page_title_tag
     tag.title @page_title || 'OCOP'
   end
@@ -58,50 +58,6 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     [text, url, { selected: current_page?(url) }]
   end
 
-  def submission_tab_options(submission, _assessment = nil)
-    list_options = []
-
-    if Current.person.can? :edit,
-                           submission
-      list_options << create_option(t(:submission), submission_url(submission))
-    end
-
-    if Current.person.can? :judge,
-                           submission
-      list_options << create_option(t(:submission_name, name: submission.name),
-                                    panel_submission_url(submission))
-    end
-
-    if Current.person.can? :approve,
-                           submission.self_assessment
-      list_options << create_option(t(:submission_name, name: submission.name),
-                                    assistant_submission_url(submission))
-      list_options << create_option(t(:approve_self_assessment),
-                                    assistant_submission_assessment_url(submission, submission.self_assessment))
-    end
-
-    list_options << if submission.self_assessment.can_submit?
-                      create_option(t(:self_assessment),
-                                    edit_assessment_url(submission.self_assessment))
-                    else
-                      create_option(t(:self_assessment),
-                                    assessment_url(submission.self_assessment))
-                    end
-
-    if Current.person.can? :judge, submission
-      list_options << create_option(t(:do_assessment), edit_assessment_url(submission.assessment_for(Current.person)))
-      list_options << create_option(t(:final_assessment),
-                                    final_assessment_url(submission.final_assessment))
-    end
-
-    if Current.person.can?(:approve, submission.self_assessment)
-      list_options << create_option(t(:final_assessment),
-                                    final_assessment_url(submission.final_assessment))
-    end
-
-    list_options
-  end
-
   def app_menus
     menus = []
     menus << create_option(t('navigation.home'), dashboard_url)
@@ -112,6 +68,11 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
     menus << create_option(t('navigation.my_submissions'), submissions_url) if Current.person.user?
     menus << create_option(t('navigation.companies'), companies_url) if Current.person.user?
     menus << create_option(t('navigation.councils'), councils_url) unless Current.person.user?
+    menus << create_option(t('navigation.posts', default: 'Tin tức'), cms_admin_posts_url) if Current.person.assistant?
+    if Current.person.assistant?
+      menus << create_option(t('navigation.products', default: 'Sản phẩm'),
+                             cms_admin_products_url)
+    end
 
     menus
   end
@@ -119,6 +80,7 @@ module ApplicationHelper # rubocop:disable Metrics/ModuleLength
   def frontend_menus
     menus = []
     menus << create_option(t('navigation.home'), root_url)
+    menus << create_option(t('navigation.products_list', default: 'Tra cứu sản phẩm'), products_url)
 
     menus
   end

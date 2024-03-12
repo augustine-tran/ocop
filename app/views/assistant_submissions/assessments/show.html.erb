@@ -1,14 +1,16 @@
 <% @page_title = t(:approve_self_assessment) %>
 <%= turbo_stream_from @assessment %>
 <%= render 'summary' %>
-<% if @assessment.can_approve? %>
-  <% content_for :quick_action do %>
-    <%= button_to approve_assistant_submission_assessment_path(@submission, @assessment), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-      <%= render 'shared/icons/add_button' %>
-      <%= t(:approve_assessment) %>
-    <% end %>
-  <% end %>
-<% end %>
 <ul class="flex flex-col space-y-8 divide-dashed divide-y-2 border-t-2 border-t-gray-500 mt-4">
   <%= render partial: 'node_roots', collection: @assessment.scores.node_roots, as: :node %>
 </ul>
+<% if @assessment.can_approve? %>
+  <footer class="fixed inset-x-0 bottom-0 bg-gray-200 py-4 border-t-2 border-gray-100">
+    <div class="container mx-auto flex justify-center items-center">
+      <%= button_to approve_assistant_submission_assessment_path(@submission, @assessment), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
+        <%= render 'shared/icons/submit_button' %>
+        <%= t(:approve_assessment) %>
+      <% end %>
+    </div>
+  </footer>
+<% end %>

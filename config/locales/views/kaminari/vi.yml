@@ -1,0 +1,14 @@
+vi:
+  views:
+    pagination:
+      first: "Trang đầu"
+      last: "Trang cuối"
+      previous: "Trang trước"
+      next: "Trang sau"
+      truncate: "..."
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries: "<div><p class='text-sm text-gray-700'>Hiển thị <span class='font-medium'>%{count}</span> %{entry_name}</span></p></div>"
+      more_pages:
+        display_entries: "<div><p class='text-sm text-gray-700'>Hiển thị %{entry_name} thứ <span class='font-medium'>%{first}</span> đến <span class='font-medium'>%{last}</span> trên tổng <span class='font-medium'>%{total}</span></p></div>"

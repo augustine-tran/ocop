@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Post < ApplicationRecord
-  include Status
+  include AccountScoped, Status
   include Sluggable
 
   normalizes :title, with: -> { _1.strip }
@@ -14,5 +14,11 @@ class Post < ApplicationRecord
   has_many_attached :files do |attachable|
     attachable.variant :thumb, resize_to_limit: [100, nil]
     attachable.variant :large, resize_to_limit: [720, nil]
+  end
+
+  scope :ordered_active, -> { where(status: :active).order(updated_at: :desc) }
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title body category_id status]
   end
 end

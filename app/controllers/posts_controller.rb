@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show]
 
   def index
-    @posts = Post.all.active
+    @posts = Post.ordered_active.limit 10
   end
 
   def show; end

@@ -8,9 +8,7 @@ Rails.application.routes.draw do
 
   resources :administrative_units
 
-  resources :companies do
-    resources :products, controller: 'companies/products'
-  end
+  resources :companies
 
   resources :submissions do
     member do
@@ -60,9 +58,11 @@ Rails.application.routes.draw do
   get :criteria_groups_selector, to: 'councils/criteria_groups_selector#index'
 
   resources :posts, only: %i[index show]
+  resources :products, only: %i[index show]
 
   namespace :cms_admin do
     resources :posts
+    resources :products
   end
 
   resources :prompts

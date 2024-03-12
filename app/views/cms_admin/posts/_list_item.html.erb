@@ -1,0 +1,28 @@
+<%= tag.tr post do %>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <div class="flex items-center">
+      <div class="h-11 w-11 flex-shrink-0">
+        <%= image_tag cover_photo(post.files, [248, 248]), class: 'h-11 w-11 rounded-lg' %>
+      </div>
+      <div class="ml-4">
+        <div class="font-medium text-indigo-500"><%= link_to post.title, cms_admin_post_path(post) %></div>
+      </div>
+    </div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <div class="text-gray-900 flex"><%= post.category.title %></div>
+  </td>
+  <td class="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+    <%= status_tag(post.status, t("activerecord.attributes.post.statuses.#{post.status}")) %>
+  </td>
+  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+    <div class="flex gap-x-1 justify-between">
+      <%= link_to cms_admin_post_path(post), class: "text-indigo-600 hover:text-indigo-900" do %>
+        <%= t(:show_this_post) %><span class="sr-only">, <%= post.title %></span>
+      <% end %>
+      <%= link_to edit_cms_admin_post_path(post), class: "text-indigo-600 hover:text-indigo-900" do %>
+        <%= t(:edit_this_post) %><span class="sr-only">, <%= post.title %></span>
+      <% end %>
+    </div>
+  </td>
+<% end %>

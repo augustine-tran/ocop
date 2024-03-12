@@ -1,0 +1,19 @@
+vi:
+  activerecord:
+    models:
+      product: Sản phẩm
+    attributes:
+      product:
+        title: Tên sản phẩm
+        body: Nội dung
+        category: Danh mục
+        category_id: Danh mục
+        company: Công ty
+        status: Trạng thái
+        files: Hình ảnh
+        stars: Hạng sao
+        statuses:
+          drafted: Bản nháp
+          approval: Chờ duyệt
+          active: Đã xuất bản
+          archived: Đã lưu trữ

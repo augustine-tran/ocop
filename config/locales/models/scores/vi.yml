@@ -1,5 +1,7 @@
 vi:
   activerecord:
+    models:
+      score: Điểm
     attributes:
       score:
         criterion: Tiêu chí
