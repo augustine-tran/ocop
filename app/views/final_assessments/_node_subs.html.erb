@@ -1,4 +1,4 @@
-<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
+<%= tag.dt id: dom_id(node.criterium), class: "#{node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100'} px-4 py-4 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6" do %>
   <dt class="grid grid-cols-1 sm:col-span-3">
     <div class="flex-shrink-0 flex flex-wrap md:block">
       <!-- First Column -->
@@ -48,4 +48,4 @@
       </div>
     </fieldset>
   </dd>
-</div>
+<% end %>
