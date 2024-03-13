@@ -1,4 +1,8 @@
-<div class="mx-auto w-full rounded-lg shadow bg-gray-50">
+<div class="mx-auto w-full rounded-lg shadow bg-gray-50 px-4 py-2">
+  <div class="grid grid-cols-1 md:flex md:justify-between mb-2">
+    <h2 class="text-2xl font-semibold tracking-tight text-gray-900">Tổng điểm: <%= @assessment.scores_sum %> </h2>
+    <p class="text-sm leading-6 text-gray-500">Xếp hạng: <%= render_ranks(@assessment.star || @assessment.max_rank) %></p>
+  </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-2 "> <!-- Updated to two columns -->
     <% [3, 4, 5].each do |rank| %>
       <div class="bg-gray-900 rounded-md px-4 py-2">
@@ -8,13 +12,17 @@
         </div>
         <ol class="mt-2 grid grid-cols-1 gap-y-1">
           <% @assessment.rank_requires(rank).each do |item| %>
-            <li class="text-sm leading-6 text-gray-300 grid grid-cols-4">
-              <div class="col-span-3 flex gap-x-1">
-                <p><%= item[:check] ? '✅' : '❌' %></p>
-                <p><%= item[:title] %> </p>
-              </div>
-              <span class="text-right"><%= item[:score] || 0 %> / <%= item[:min_score] %></span>
-            </li>
+            <%= link_to "#criterium_#{item[:id]}" do %>
+              <li class="text-sm leading-6 text-gray-300 grid grid-cols-4">
+                <div class="col-span-3 flex gap-x-1">
+                  <p><%= item[:check] ? '✅' : '❌' %></p>
+                  <%= item[:title] %>
+                </div>
+                <% if item[:min_score].present? %>
+                  <span class="text-right"><%= item[:score] || 0 %> / <%= item[:min_score] %></span>
+                <% end %>
+              </li>
+            <% end %>
           <% end %>
         </ol>
       </div>

@@ -15,7 +15,7 @@ class SelfAssessment < ApplicationRecord
     return unless can_submit?
 
     transaction do
-      assessment.update(status: :approval)
+      assessment.update(status: :approval, star: assessment.max_rank)
       assessment.submission.update(status: :approval)
     end
   end

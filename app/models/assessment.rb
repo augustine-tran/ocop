@@ -29,15 +29,28 @@ class Assessment < ApplicationRecord
   end
 
   def rank_requires(rank)
-    criteria = criteria_requires_for rank
-    list = compare_scores(criteria, current_scores(criteria))
+    list = []
+    list << { title: 'Đủ điều kiện 4 sao', check: pass_rank?(4) } if rank == 5
+    list << { title: 'Đủ điều kiện 3 sao', check: pass_rank?(3) } if rank == 4
     list << compare_scores_sum(rank)
+
+    criteria = criteria_requires_for rank
+    list.concat compare_scores(criteria, current_scores(criteria))
+
     list
   end
 
   def pass_rank?(rank)
     check_list = rank_requires(rank)
     check_list.any? && check_list.all? { |criterium| criterium[:check] }
+  end
+
+  def max_rank
+    return 5 if pass_rank? 5
+    return 4 if pass_rank? 4
+    return 3 if pass_rank? 3
+
+    0
   end
 
   private
@@ -62,20 +75,18 @@ class Assessment < ApplicationRecord
   end
 
   def compare_scores_sum(rank)
-    criteria = { title: 'Tổng điểm', min_score: 0, check: false, score: scores_sum }
+    min_score = case rank
+                when 3
+                  50
+                when 4
+                  70
+                when 5
+                  90
+                else
+                  0
+                end
 
-    criteria[:min_score] = case rank
-                           when 3
-                             50
-                           when 4
-                             70
-                           when 5
-                             90
-                           else
-                             0
-                           end
-
-    criteria[:check] = scores_sum >= criteria[:min_score]
-    criteria
+    { title: "(Hạng #{rank} sao) Yêu cầu tổng điểm phải lớn hơn #{min_score}", min_score:,
+      check: scores_sum >= min_score, score: scores_sum }
   end
 end
