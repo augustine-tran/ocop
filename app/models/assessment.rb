@@ -29,8 +29,10 @@ class Assessment < ApplicationRecord
   end
 
   def rank_requires(rank)
-    criteria = criteria_requires_for(rank)
-    compare_scores criteria, current_scores(criteria)
+    criteria = criteria_requires_for rank
+    list = compare_scores(criteria, current_scores(criteria))
+    list << compare_scores_sum(rank)
+    list
   end
 
   def pass_rank?(rank)
@@ -55,7 +57,25 @@ class Assessment < ApplicationRecord
 
   def compare_scores(criteria, scores_hash)
     criteria.map do |id, title, score|
-      { id:, title:, required_score: score, check: scores_hash[id] >= score, score: scores_hash[id] }
+      { id:, title:, min_score: score, check: scores_hash[id] >= score, score: scores_hash[id] }
     end
+  end
+
+  def compare_scores_sum(rank)
+    criteria = { title: 'Tổng điểm', min_score: 0, check: false, score: scores_sum }
+
+    criteria[:min_score] = case rank
+                           when 3
+                             50
+                           when 4
+                             70
+                           when 5
+                             90
+                           else
+                             0
+                           end
+
+    criteria[:check] = scores_sum >= criteria[:min_score]
+    criteria
   end
 end
