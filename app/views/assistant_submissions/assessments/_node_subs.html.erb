@@ -27,8 +27,14 @@
             <tbody class="divide-y divide-gray-200 bg-white">
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"><%= t(:self_assessment) %></td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  <%= node.score %>
+                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                  <% if node.criterion.present? %>
+                    <%= tag.span title: node.criterion.title do %>
+                      <%= node.score %> (🛟)
+                    <% end %>
+                  <% else %>
+                    <span class="italic">(chưa đánh giá)</span>
+                  <% end %>
                 </td>
               </tr>
               <% if @submission.panel_assessments.any? %>
@@ -38,8 +44,14 @@
                      node_scores << score if score.present? %>
                   <tr>
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"><%= assessment.judge.name %></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <%= score %>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                      <% if node.criterion.present? %>
+                        <%= tag.span title: node.criterion.title do %>
+                          <%= node.score %> (🛟)
+                        <% end %>
+                      <% else %>
+                        <span class="italic">(chưa đánh giá)</span>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>

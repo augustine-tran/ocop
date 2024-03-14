@@ -7,14 +7,24 @@
       </span>
       <!-- Second Column -->
       <span class="w-1/5 md:w-full justify-end md:justify-start flex">
-        <span class="flex flex-nowrap">
-          <%= render_stars(node.score, node.criterium.children.last.score) %>
-        </span>
+        <% if node.criterion.present? %>
+          <span class="flex flex-nowrap">
+            <%= render_stars(node.score, node.criterium.children.last.score) %>
+          </span>
+        <% else %>
+          <span class="italic text-sm text-gray-500">(chưa đánh giá)</span>
+        <% end %>
       </span>
       <!-- Third Column -->
-      <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
-        <%= node.description %>
-      </p>
+      <% if @assessment.drafted? && action_name == 'edit' %>
+        <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
+          <%= node.description %>
+        </p>
+      <% else %>
+        <p class="w-full text-sm text-gray-500 py-2 md:mt-0">
+          <%= node.criterion&.title %>
+        </p>
+      <% end %>
     </div>
     <%= turbo_frame_tag node, src: score_evidences_path(node), loading: 'lazy', class: 'mt-2' %>
   <% end %>
