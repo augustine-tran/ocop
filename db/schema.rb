@@ -89,12 +89,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
     t.integer "submission_id", null: false
     t.string "assessable_type", null: false
     t.integer "assessable_id", null: false
-    t.integer "scores_sum", default: 0, null: false
+    t.decimal "scores_sum", default: "0.0", null: false
+    t.integer "star"
     t.string "status", default: "drafted", null: false
     t.integer "judge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "star"
     t.index ["assessable_type", "assessable_id"], name: "index_assessments_on_assessable"
     t.index ["judge_id"], name: "index_assessments_on_judge_id"
     t.index ["submission_id"], name: "index_assessments_on_submission_id"
@@ -350,12 +350,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
   end
 
   create_table "scores", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description"
     t.integer "assessment_id", null: false
-    t.string "level", default: "node_roots", null: false
+    t.integer "level", default: 0, null: false
+    t.integer "stars"
+    t.integer "star_3"
+    t.integer "star_4"
+    t.integer "star_5"
     t.integer "parent_id"
     t.integer "criterium_id", null: false
     t.integer "criterion_id"
-    t.integer "score", default: 0, null: false
+    t.decimal "score", default: "0.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["assessment_id"], name: "index_scores_on_assessment_id"
@@ -388,12 +394,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
     t.integer "company_id", null: false
     t.string "description"
     t.string "status", default: "drafted", null: false
+    t.decimal "scores_sum", default: "0.0", null: false
+    t.integer "star", default: 0, null: false
     t.integer "creator_id"
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "scores_sum"
-    t.integer "star", default: 0
     t.index ["account_id"], name: "index_submissions_on_account_id"
     t.index ["company_id"], name: "index_submissions_on_company_id"
     t.index ["council_id"], name: "index_submissions_on_council_id"

@@ -1,10 +1,4 @@
 <%= turbo_stream_from @submission %>
-<% content_for :quick_action do %>
-  <%= link_to edit_assessment_path(@assessment), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-    <%= render 'shared/icons/add_button' %>
-    <%= t(:do_assessment) %>
-  <% end %>
-<% end %>
 <div class="mx-auto ">
   <%= render 'submissions/tabs' %>
   <div class="mx-auto w-full flex">

@@ -8,8 +8,6 @@ class Score < ApplicationRecord
   has_many :children, class_name: 'Score', foreign_key: :parent_id, dependent: :destroy
   has_one :evidence, dependent: :destroy
 
-  delegate :level, :title, :description, to: :criterium
-
   before_validation :set_score
   after_save :recalibrate_score, if: -> { saved_change_to_score? }
 
@@ -19,6 +17,25 @@ class Score < ApplicationRecord
     node_subs: 2,
     node_leaves: 3
   }
+
+  scope :of_stars, ->(stars) { where("star_#{stars} > ?", 0).order(:id) }
+
+  def pass_rank?(rank)
+    min_score_of_rank(rank) <= (score || 0)
+  end
+
+  def min_score_of_rank(rank)
+    min_score = case rank
+                when 5
+                  star_5
+                when 4
+                  star_4
+                when 3
+                  star_3
+                end
+
+    min_score || 0
+  end
 
   def recalibrate_score
     if children.present?

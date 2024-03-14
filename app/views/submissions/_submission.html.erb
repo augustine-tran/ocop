@@ -4,12 +4,6 @@
     <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500"><%= render_ranks(submission.star) %></p>
   </div>
   <div class="border-t border-gray-100">
-    <% if submission.account != Current.account %>
-      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-900"><%= Account.human_attribute_name(:name) %></dt>
-        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= t("activerecord.attributes.submission.statuses.#{submission.account.name}") %></dd>
-      </div>
-    <% end %>
     <dl class="divide-y divide-gray-100">
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:status) %></dt>
@@ -30,6 +24,10 @@
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-900"><%= Submission.human_attribute_name(:criteria_group) %></dt>
         <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= submission.criteria_group.name %></dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-900">Điểm tự đánh giá</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"><%= render_ranks(submission.self_assessment.star || 0) %> / <%= submission.self_assessment.scores_sum %> điểm</dd>
       </div>
       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 <%= 'hidden' if submission.files.blank? %>">
         <dt class="text-sm font-medium leading-6 text-gray-900"><%= Submission.human_attribute_name(:files) %></dt>

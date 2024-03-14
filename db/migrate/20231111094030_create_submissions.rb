@@ -22,6 +22,8 @@ class CreateSubmissions < ActiveRecord::Migration[7.1]
       t.references :company, null: false, foreign_key: true
       t.string :description
       t.string :status, null: false, default: :drafted
+      t.numeric :scores_sum, null: false, default: 0
+      t.integer :star, null: false, default: 0
       t.references :creator, foreign_key: { to_table: :people }
       t.references :account, null: false, foreign_key: true
 

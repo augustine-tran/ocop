@@ -10,3 +10,7 @@ vi:
       submit_assessment: Nộp hồ sơ lên hội đồng chấm điểm
       submit_panel_assessment: Hoàn thành chấm điểm
       submit_final_assessment: Hoàn thành hồ sơ
+    show:
+      submit_assessment: Nộp hồ sơ lên hội đồng chấm điểm
+      submit_panel_assessment: Hoàn thành chấm điểm
+      submit_final_assessment: Hoàn thành hồ sơ

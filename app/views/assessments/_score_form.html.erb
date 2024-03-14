@@ -1,6 +1,6 @@
 <%= form_with model: [@assessment, sub], local: true, html: { disabled: action_name == 'show' } do |form| %>
   <%= form.hidden_field :criterion_id, value: criterium.id %>
-  <label class="<%= 'rounded-tl-md rounded-tr-md' if criterium_counter.zero? %> <%= 'rounded-bl-md rounded-br-md' if criterium_counter == sub.criterium.children.length - 1 %> relative flex cursor-pointer border p-4 focus:outline-none <%= criterium.id == sub.criterion&.id ? "z-10 border-indigo-200 bg-indigo-50" : "border-gray-200" %> flex flex-nowrap items-center justify-arround">
+  <label class="<%= 'rounded-tl-md rounded-tr-md' if criterium_counter.zero? %> <%= 'rounded-bl-md rounded-br-md' if criterium_counter == sub.criterium.children.length - 1 %> relative flex cursor-pointer border p-4 focus:outline-none <%= criterium.id == sub.criterion&.id ? "border-indigo-200 bg-indigo-50" : "border-gray-200" %> flex flex-nowrap items-center justify-arround">
     <svg class="h-5 w-5 text-indigo-600 flex-grow-0 flex-shrink-0 <%= "invisible" unless criterium.id == sub.criterion&.id %>" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
     </svg>

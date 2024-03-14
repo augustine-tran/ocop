@@ -32,7 +32,11 @@ module Scorable
       # Skip if criterium is leaf (level 3)
       return if criterium.children.blank?
 
-      new_score = scores.create(criterium:, parent: parent_score, level: criterium.level)
+      new_score = scores.create(criterium:, parent: parent_score,
+                                title: criterium.title, description: criterium.description,
+                                level: criterium.level, stars: criterium.stars,
+                                star_3: criterium.star_3, star_4: criterium.star_4, star_5: criterium.star_5)
+
       criterium.children.each do |child_criterium|
         create_scores(child_criterium, new_score)
       end
