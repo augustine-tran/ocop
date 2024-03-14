@@ -28,14 +28,14 @@
               <% if @submission.panel_assessments.any? %>
                 <% node_scores = [] %>
                 <% @submission.panel_assessments.each do |assessment| %>
-                  <% score = judge_selected_for(node.criterium_id, assessment)&.score
-                     node_scores << score if score.present? %>
+                  <% criterion = judge_selected_for(node.criterium_id, assessment)
+                     node_scores << criterion&.score %>
                   <tr>
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"><%= assessment.judge.name %></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
-                      <% if node.criterion.present? %>
-                        <%= tag.span title: node.criterion.title do %>
-                          <%= node.score %> (🛟)
+                      <% if criterion&.present? %>
+                        <%= tag.span title: criterion.title do %>
+                          <%= criterion.score %> (🛟)
                         <% end %>
                       <% else %>
                         <span class="italic">(chưa đánh giá)</span>
@@ -46,7 +46,7 @@
                 <tr class="bg-neutral-300">
                   <th class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-white-900 sm:pl-6 lg:pl-8">Trung bình</th>
                   <th class="whitespace-nowrap px-3 py-4 text-sm text-white-500 font-bold">
-                    <%= (node_scores.sum.to_f / node_scores.size)&.round(2) || 0 %>
+                    <%= node.score || '--' %>
                   </th>
                 </tr>
               <% end %>

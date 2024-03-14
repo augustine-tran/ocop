@@ -14,7 +14,7 @@ class CreateScores < ActiveRecord::Migration[7.1]
       t.references :parent, foreign_key: { to_table: :scores }
       t.references :criterium, null: false, foreign_key: true
       t.references :criterion, foreign_key: { to_table: :criteria }
-      t.integer :score, null: false, default: 0
+      t.numeric :score, null: false, default: 0
 
       t.timestamps
     end

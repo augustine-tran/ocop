@@ -16,6 +16,15 @@ class FinalAssessment < ApplicationRecord
   def submit
     return unless can_submit?
 
-    assessment.update status: :active, star: assessment.suggested_stars
+    assessment.update status: :active, star: assessment.max_rank
+  end
+
+  def update_scores_from_panel_assessments
+    ids = assessment.submission.panel_assessments.pluck(:id)
+    transaction do
+      assessment.scores.node_subs.each do |s|
+        s.update score: Score.where(assessment_id: ids, criterium_id: s.criterium_id).average(:score)
+      end
+    end
   end
 end

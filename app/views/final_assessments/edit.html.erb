@@ -4,3 +4,6 @@
 <div class="mt-8">
   <%= render partial: 'form', locals: { submission: @submission, assessment: @assessment } %>
 </div>
+<footer class="md:fixed md:inset-x-0 md:bottom-0 bg-gray-200 md:px-12 py-2 md:py-4 border-t-2 border-gray-100">
+  <%= render 'summary' %>
+</footer>
