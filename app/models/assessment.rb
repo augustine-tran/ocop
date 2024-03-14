@@ -34,10 +34,17 @@ class Assessment < ApplicationRecord
     list << { title: 'Đủ điều kiện 3 sao', check: pass_rank?(3) } if rank == 4
     list << compare_scores_sum(rank)
 
-    criteria = criteria_requires_for rank
-    list.concat compare_scores(criteria, current_scores(criteria))
+    scores.of_stars(rank).each do |s|
+      list << { id: s.criterium_id, title: s.title, min_score: s.min_score_of_rank(rank), check: s.pass_rank?(rank),
+                score: s.score }
+    end
 
-    list
+    list.sort_by { |criterium| criterium[:check] ? 1 : 0 }
+  end
+
+  def rank_require_stats(rank)
+    list = rank_requires(rank)
+    { total: list.size, passed: list.count { |criterium| criterium[:check] } }
   end
 
   def pass_rank?(rank)
@@ -59,18 +66,9 @@ class Assessment < ApplicationRecord
     status_previously_changed? && active?
   end
 
-  def criteria_requires_for(rank)
-    criteria_group.criteria.of_stars(rank).pluck(:id, :title, :score)
-  end
-
-  def current_scores(criteria)
-    list = scores.where(criterium_id: criteria.map(&:first)).pluck(:id, :criterium_id, :score)
-    list.each_with_object({}) { |(_id, criterium_id, score), hash| hash[criterium_id] = score || 0 }
-  end
-
   def compare_scores(criteria, scores_hash)
     criteria.map do |id, title, score|
-      { id:, title:, min_score: score, check: scores_hash[id] >= score, score: scores_hash[id] }
+      { id:, title:, min_score: score, check: scores_hash[id] >= (score || 0), score: scores_hash[id] }
     end
   end
 

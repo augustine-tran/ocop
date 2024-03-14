@@ -350,8 +350,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
   end
 
   create_table "scores", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description"
     t.integer "assessment_id", null: false
-    t.string "level", default: "node_roots", null: false
+    t.integer "level", default: 0, null: false
+    t.integer "stars"
+    t.integer "star_3"
+    t.integer "star_4"
+    t.integer "star_5"
     t.integer "parent_id"
     t.integer "criterium_id", null: false
     t.integer "criterion_id"

@@ -30,6 +30,8 @@ module RankingHelper
   def render_ranks(rank = 0)
     raise ArgumentError, 'Rank must be a number' unless rank.is_a? Numeric
 
+    return '(chưa xếp hạng)' if rank.zero?
+
     (1..rank).map do
       '⭐️'
     end.join
