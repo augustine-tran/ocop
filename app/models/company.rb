@@ -11,9 +11,10 @@ class Company < ApplicationRecord
     htx: 'htx'
   }
 
-  belongs_to :owner, class_name: 'Person'
+  belongs_to :administrator, class_name: 'Person'
+  has_many :owners, class_name: 'Company::Owner', dependent: :destroy, inverse_of: :company
 
-  before_validation :set_owner, if: :new_record?
+  before_validation :set_administrator, if: :new_record?
 
   validates :registration_no, uniqueness: true, if: :registration_no?
   validates :name, presence: true
@@ -24,7 +25,7 @@ class Company < ApplicationRecord
 
   private
 
-  def set_owner
-    self.owner = Current.person
+  def set_administrator
+    self.administrator = Current.person
   end
 end

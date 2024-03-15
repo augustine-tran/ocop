@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :administrative_units
 
-  resources :companies
+  resources :companies do
+    resources :owners, controller: 'company/owners'
+  end
 
   resources :submissions do
     member do

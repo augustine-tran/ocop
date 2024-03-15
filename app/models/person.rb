@@ -17,7 +17,7 @@ class Person < ApplicationRecord
   has_many :councils, through: :council_members, source: :council
   has_many :submissions, through: :councils, source: :submissions, dependent: :destroy
 
-  has_many :companies, foreign_key: :owner_id, dependent: :destroy, inverse_of: :owner
+  has_many :companies, foreign_key: :administrator_id, dependent: :destroy, inverse_of: :administrator
 
   has_many :my_submissions, class_name: 'Submission', foreign_key: :creator_id, dependent: :destroy,
                             inverse_of: :creator

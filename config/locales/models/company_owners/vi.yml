@@ -1,0 +1,11 @@
+vi:
+  activerecord:
+    models:
+      company/owner: Chủ sở hữu
+    attributes:
+      company/owner:
+        name: Họ và tên
+        email: Địa email
+        phone: Số điện thoại
+        address: Địa chỉ
+        job_title: Chức vụ

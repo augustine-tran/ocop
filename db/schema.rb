@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
   create_table "companies", force: :cascade do |t|
     t.string "name", null: false
     t.integer "account_id", null: false
-    t.integer "owner_id", null: false
+    t.integer "administrator_id", null: false
     t.string "registration_name"
     t.string "registration_no"
     t.date "registration_date"
@@ -131,8 +131,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_companies_on_account_id"
-    t.index ["owner_id"], name: "index_companies_on_owner_id"
+    t.index ["administrator_id"], name: "index_companies_on_administrator_id"
     t.index ["registration_no"], name: "index_companies_on_registration_no", unique: true
+  end
+
+  create_table "company_owners", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.string "address"
+    t.string "job_title"
+    t.integer "company_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_company_owners_on_company_id"
   end
 
   create_table "council_members", force: :cascade do |t|
@@ -436,7 +448,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_08_113043) do
   add_foreign_key "categories", "accounts"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "companies", "accounts"
-  add_foreign_key "companies", "people", column: "owner_id"
+  add_foreign_key "companies", "people", column: "administrator_id"
+  add_foreign_key "company_owners", "companies"
   add_foreign_key "council_members", "councils"
   add_foreign_key "council_members", "people"
   add_foreign_key "councils", "accounts"
