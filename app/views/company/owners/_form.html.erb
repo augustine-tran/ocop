@@ -1,0 +1,51 @@
+<%= form_with(model: company_owner, class: "contents") do |form| %>
+  <% if company_owner.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(company_owner.errors.count, "error") %> prohibited this company_owner from being saved:</h2>
+      <ul>
+        <% company_owner.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="space-y-12 sm:space-y-16">
+    <div>
+      <div class="mt-10 space-y-8 border-b border-gray-900/10 pb-12 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :name %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :address %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :address, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :email %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :email, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :phone %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :phone, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+        <div class="sm:grid sm:grid-cols-4 sm:items-start sm:gap-4 sm:py-6">
+          <%= form.label :job_title %>
+          <div class="mt-2 sm:col-span-3 sm:mt-0">
+            <%= form.text_field :job_title, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-6 flex items-center justify-center gap-x-6">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

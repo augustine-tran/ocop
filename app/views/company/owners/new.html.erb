@@ -1,0 +1,8 @@
+<% @page_title = Company::Owner.model_name.human %>
+<% content_for :page_header do %>
+  <%= @page_title %>
+<% end %>
+<div class="mx-auto md:w-2/3 w-full">
+  <%= render "form", company_owner: @company_owner %>
+</div>
+<%= link_to t(:back_to_company_owners), company_owners_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

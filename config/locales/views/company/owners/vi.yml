@@ -1,0 +1,16 @@
+vi:
+  create_company_owner: Tạo mới
+  edit_this_company_owner: Sửa
+  destroy_this_company_owner: Xoá
+  back_to_company_owners: Quay lại danh sách
+  show_this_company_owner: Chi tiết
+  companies:
+    index:
+      title: Danh sách doanh nghiệp
+      new_company_owner: Tạo mới doanh nghiệp
+    empty_list:
+      no_companies: Không có doanh nghiệp nào
+      guide_to_create_company_owner: Bạn cần có ít nhất một doanh nghiệp để có thể tạo hồ sơ
+      new_company_owner: Tạo mới doanh nghiệp
+    new:
+      title: Tạo mới doanh nghiệp

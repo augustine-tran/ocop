@@ -8,11 +8,15 @@ Rails.application.routes.draw do
 
   resources :administrative_units
 
-  resources :companies
+  resources :companies do
+    resources :owners, controller: 'company/owners'
+  end
 
   resources :submissions do
     member do
       patch :move_image, controller: 'submissions/attachment_positions'
+      get 'forms/register/new', to: 'submission/register_form#new'
+      post 'forms/register', to: 'submission/register_form#create'
     end
   end
 
