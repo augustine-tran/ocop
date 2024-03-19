@@ -1,0 +1,14 @@
+vi:
+  activemodel:
+    models:
+      register_form: Phiếu đăng ký tham gia chương trình OCOP
+    attributes:
+      register_form:
+        owner_name: Tên người đại diện
+        owner_email: Email người đại diện
+        owner_phone: Số điện thoại người đại diện
+        owner_address: Địa chỉ người đại diện
+        owner_job_title: Chức vụ người đại diện
+        company_name: Tên đơn vị
+        product_name: Tên sản phẩm
+        sample_quantities: Số lượng mẫu

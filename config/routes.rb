@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :submissions do
     member do
       patch :move_image, controller: 'submissions/attachment_positions'
+      get 'forms/register/new', to: 'submission/register_form#new'
+      post 'forms/register', to: 'submission/register_form#create'
     end
   end
 

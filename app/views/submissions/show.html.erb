@@ -1,8 +1,6 @@
 <%= turbo_stream_from @submission %>
 <div class="mx-auto ">
   <%= render 'submissions/tabs' %>
-  <div class="mx-auto w-full flex">
-  </div>
   <%= turbo_frame_tag @submission, class: 'w-full' do %>
     <%= render @submission %>
   <% end %>

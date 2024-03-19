@@ -72,5 +72,10 @@
       <%= link_to t(:destroy_this_submission), submission_path(submission), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
                                                                             class: "rounded-lg px-3 py-2 bg-red-100 font-medium" %>
     <% end %>
+    <%= link_to 'In phiếu đăng ký', forms_register_new_submission_path(submission),
+                class: "rounded-lg px-3 py-2 bg-gray-100 inline-block font-medium",
+                data: {
+                  turbo_frame: '_top'
+                } %>
   </div>
 </div>
