@@ -60,6 +60,11 @@ class Assessment < ApplicationRecord
     0
   end
 
+  # return absolute difference between scores
+  def scores_diff(assessment)
+    (scores_sum - assessment.scores_sum).abs
+  end
+
   private
 
   def status_previously_changed_to_active?

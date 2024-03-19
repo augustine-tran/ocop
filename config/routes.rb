@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       end
     end
     get 'differences', to: 'panel_submissions/differences#index'
+    delete 'differences', to: 'panel_submissions/differences#destroy'
   end
 
   resources :assistant_submissions do
