@@ -8,8 +8,11 @@
       <% end %>
     </div>
     <% unless @submission.approval? %>
-      <div class="mx-auto w-full">
+      <div class="mx-auto w-full mt-8 p-4 shadow rounded">
         <%= turbo_frame_tag @submission, class: 'mx-auto w-full', src: panel_submission_assessments_path(@submission) %>
+      </div>
+      <div class="mx-auto w-full mt-8 p-4 shadow rounded">
+        <%= turbo_frame_tag "#{dom_id(@submission)}_differences", class: 'mx-auto w-full', src: panel_submission_differences_path(@submission) %>
       </div>
     <% end %>
   </div>

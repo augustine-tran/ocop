@@ -66,6 +66,16 @@ class Submission < ApplicationRecord
     %w[name status star]
   end
 
+  # compare the scores of each pannel assessments to find out which pairs are too different from each other in a threshold
+  def paired_assessments_too_different(threshold = 10)
+    assessments = panel_assessments.to_a
+    return [] if assessments.empty?
+
+    assessments.combination(2).select do |a, b|
+      a.scores_diff(b) >= threshold
+    end
+  end
+
   private
 
   def set_creator

@@ -1,12 +1,51 @@
-<ul class="flex flex-col space-y-8 divide-dashed divide-y-2">
-  <%= render partial: 'node_roots', collection: @final_assessment.scores.node_roots, as: :node %>
-</ul>
-<% content_for :page_header do %>
-  <%= t('.show_differences', name: @final_assessment.name) %>
-<% end %>
-<% content_for :quick_action do %>
-  <%= link_to final_submission_path(@final_assessment.submission), class: "relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" do %>
-    <%= render 'shared/icons/add_button' %>
-    <%= t('.back') %>
-  <% end %>
-<% end %>
+<div class="w-full">
+  <%= turbo_frame_tag "#{dom_id(@submission)}_differences" do %>
+    <div class="px-4 sm:px-6 lg:px-8 overflow-hidden w-full bg-white">
+      <h2 class="text-base font-semibold leading-6 text-gray-900">Danh sách kết quả chấm có sự khác biệt lớn hơn 10 điểm</h2>
+      <div class="mt-8 flow-root">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="inline-block min-w-full py-2 align-middle">
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Giám khảo 1</th>
+                  <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">Điểm GK1</th>
+                  <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">Điểm GK2</th>
+                  <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">Chênh lệch điểm</th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Giám khảo 2</th>
+                  <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
+                    <span class="sr-only">Edit</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 bg-white">
+                <% @assessments.each do |pair| %>
+                  <tr>
+                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6 lg:pl-8 hover:text-indigo-500 hover:underline">
+                      <%= link_to pair[0].judge.name, assessment_path(pair[0]), data: { turbo_frame: :_top } %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right"><%= pair[0].scores_sum %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-right"><%= pair[1].scores_sum %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm font-semibold text-orange-500 text-right"><%= pair[0].scores_diff(pair[1]) %></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hover:text-indigo-500 hover:underline">
+                      <%= link_to pair[1].judge.name, assessment_path(pair[1]), data: { turbo_frame: :_top } %>
+                    </td>
+                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8 flex flex-row justify-between items-center">
+                      <% if can? :final, @submission %>
+                        <%= link_to 'Yêu cầu chấm lại', panel_submission_differences_path(@submission, assessment_ids: pair.pluck(:id)), data: { turbo_method: :delete, turbo_confirm: "Xác nhận bạn muốn yêu cầu giám khảo [#{pair[0].judge.name}] và [#{pair[1].judge.name}] chấm lại hồ sơ này?" }, class: 'text-orange-600 hover:text-orange-900 hover:cursor-pointer hover:text-orange-900' %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td colspan="100%" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                    <%= 'Không có khác biệt trên 10 điểm giữa các giám khảo' if @assessments.empty? %>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
