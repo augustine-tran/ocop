@@ -21,4 +21,12 @@ class Post < ApplicationRecord
   def self.ransackable_attributes(_auth_object = nil)
     %w[title body category_id status]
   end
+
+  def cleaned_content
+    body.to_plain_text
+  end
+
+  def excerpt(length = 100, more_text = '...')
+    cleaned_content.split.first(length).join(' ') + more_text
+  end
 end

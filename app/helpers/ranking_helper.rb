@@ -3,7 +3,7 @@
 module RankingHelper
   def render_stars(score, max, total_stars = nil)
     total_stars = max if total_stars.nil?
-    filled_stars = (total_stars * (score.to_f / max)).round
+    filled_stars = (total_stars * (score.to_f / [max, 1].max)).round
 
     filled_star = <<~SVG
           <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -25,6 +25,17 @@ module RankingHelper
         unfilled_star.html_safe # SVG for empty star # rubocop:disable Rails/OutputSafety
       end
     end.join.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
+  def render_scores(score, max)
+    score = 0 if score.nil?
+
+    formatted_number = if score == score.to_i
+                         score.to_i.to_s
+                       else
+                         format('%.1f', score)
+                       end
+    "#{formatted_number} / #{max} điểm"
   end
 
   def render_ranks(rank = 0)

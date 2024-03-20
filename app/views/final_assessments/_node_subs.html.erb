@@ -2,8 +2,16 @@
   <dt class="grid grid-cols-1 sm:col-span-3">
     <div class="flex-shrink-0 flex flex-wrap md:block">
       <!-- First Column -->
-      <span class="w-4/5 md:w-full font-bold">
+      <span class="w-full font-bold">
         <%= node.title %>
+      </span>
+      <!-- Second Column -->
+      <span class="text-sm text-gray-500 italic">
+        <% if node.criterion.present? %>
+          (<%= render_scores(node.score, node.criterium.children.maximum(:score)) %>)
+        <% else %>
+          (chưa đánh giá)
+        <% end %>
       </span>
       <!-- Third Column -->
       <p class="w-full text-sm text-gray-500 mt-2 md:mt-0">
@@ -20,19 +28,20 @@
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8"><%= Person.human_attribute_name(:name) %></th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= Assessment.human_attribute_name(:scores_sum) %></th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Giám khảo</th>
+                <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900"><%= Assessment.human_attribute_name(:scores_sum) %></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
               <% if @submission.panel_assessments.any? %>
                 <% node_scores = [] %>
+                <% has_one_not_judge = false %>
                 <% @submission.panel_assessments.each do |assessment| %>
                   <% criterion = judge_selected_for(node.criterium_id, assessment)
                      node_scores << criterion&.score %>
                   <tr>
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8"><%= assessment.judge.name %></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-700 text-right">
                       <% if criterion&.present? %>
                         <%= tag.span title: criterion.title do %>
                           <%= criterion.score %> (🛟)
@@ -45,8 +54,10 @@
                 <% end %>
                 <tr class="bg-neutral-300">
                   <th class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-semibold text-white-900 sm:pl-6 lg:pl-8">Trung bình</th>
-                  <th class="whitespace-nowrap px-3 py-4 text-sm text-white-500 font-bold">
-                    <%= node.score || '--' %>
+                  <th class="whitespace-nowrap px-3 py-4 text-sm text-white-500 font-semibold text-right">
+                    <% node_scores = node_scores.compact
+                       average_score = node_scores.sum.to_f / node_scores.size if node_scores.any? %>
+                    <%= render_scores(node.score&.zero? ? average_score : node.score, node.criterium.children.maximum(:score)) %>
                   </th>
                 </tr>
               <% end %>

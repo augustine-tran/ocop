@@ -1,18 +1,16 @@
-<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 grid grid-cols-1 gap-2 sm:grid sm:grid-cols-6 sm:gap-4 sm:px-6">
-  <%= tag.dt id: dom_id(node.criterium), class: "grid grid-cols-1 #{@assessment.drafted? && action_name == 'edit' ? 'sm:col-span-3' : 'sm:col-span-6'} " do %>
-    <div class="flex-shrink-0 flex flex-wrap md:block">
+<div class="<%= node_counter.odd? ? 'bg-gray-50' : 'bg-gray-100' %> px-4 py-4 grid grid-cols-1 gap-2 md:grid md:grid-cols-6 md:gap-4 md:px-6">
+  <%= tag.dt id: dom_id(node.criterium), class: "grid grid-cols-1 #{@assessment.drafted? && action_name == 'edit' ? 'md:col-span-3' : 'md:col-span-6'} " do %>
+    <div class="sm:block">
       <!-- First Column -->
-      <span class="w-4/5 md:w-full font-bold">
+      <span class="w-full font-bold">
         <%= node.title %>
       </span>
       <!-- Second Column -->
-      <span class="w-1/5 md:w-full justify-end md:justify-start flex">
+      <span class="text-sm text-gray-500 italic">
         <% if node.criterion.present? %>
-          <span class="flex flex-nowrap">
-            <%= render_stars(node.score, node.criterium.children.last.score) %>
-          </span>
+          (<%= render_scores(node.score, node.criterium.children.maximum(:score)) %>)
         <% else %>
-          <span class="italic text-sm text-gray-500">(chưa đánh giá)</span>
+          (chưa đánh giá)
         <% end %>
       </span>
       <!-- Third Column -->
